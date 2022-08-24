@@ -1,0 +1,116 @@
+<%- include("./header.ejs") %> 
+
+<body>
+    <%- include("./sidebar.ejs") %> 
+
+    <div class="p-2 flex-grow-1 bd-highlight" >
+    <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Create Loom Information</h5>
+        <div id='state' style="margin: 0px;background-color: white;padding: 5px;" >
+
+        <form action="/createLoom/create1" method="post">
+            <input type="hidden" name="name" value="<%=name%>">
+            <div class='row'>
+                <div class='col-sm'>
+                <label>Loom Number</label>
+                <input  class="form-control" type="text" name='loomNo' /> 
+                <label>Model</label>
+                <input  class="form-control" type="text" name='model' /> 
+                <label>Staubli Model No</label>
+                <input  class="form-control" type="text" name='staubliModelNo' /> 
+                <label>Loom Width</label>
+                <select class="form-select" aria-label="Default select example"  name='loomWidth'>
+                    <option value="1">India</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>Frames</label>
+                <select class="form-select" aria-label="Default select example"  name='frames'>
+                    <option value="1">India</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>Avg Effcienct</label>
+                <input  class="form-control" type="text" name='avgEffcienct' /> 
+            </div>
+            <div class='col-sm'>
+                <label>Loom Type</label>
+                <select class="form-select" aria-label="Default select example"  name='loomType'>
+                    <option value="1">India</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>Serial No</label>
+                <input  class="form-control" type="text" name='serialNo' /> 
+                <label>Staubli Serial No</label>
+                <input  class="form-control" type="text" name='staubliSerialNo' /> 
+                <label>Max RPM</label>
+                <input  class="form-control" type="text" name='maxRPM' /> 
+                <div class='d-flex justify-content-start'>
+                <label >Batching </label>
+                <div  style="margin-left:20px">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="batching"/>
+                    <label class="form-check-label" >
+                        yes
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="batching"/>
+                    <label class="form-check-label" >
+                        no
+                    </label>
+                </div>
+                </div>
+                </div>
+            </div>
+            <div class='col-sm'>
+                <label>Supplier</label>
+                <select class="form-select" aria-label="Default select example" name='supplier'>
+                    <option value="1">Raj</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>Cam/Dobby</label>
+                <select class="form-select" aria-label="Default select example" name='camDobby'>
+                    <option value="1">Raj</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>Beam Diameter</label>
+                <select class="form-select" aria-label="Default select example" name='beamDiameter'>
+                    <option value="1">Raj</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>Colors</label>
+                <select class="form-select" aria-label="Default select example" name='colors'>
+                    <option value="1">Raj</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>Loom Shed</label>
+                <select class="form-select" aria-label="Default select example" name='loomShed'>
+                    <option value="1">Raj</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <button class='btn btn-primary' style="float:right ;margin-top: 3%;" >Create Loom</button>
+            </div>
+          </div>
+        </form>
+
+        <% if(popup===true){ %> 
+        <h4 style="text-align: center;color: green;">Information Saved Successfully</h4>
+        <% } %> 
+        <form action="/createLoom" method="post">
+            <input type="hidden" name="name" value="<%=name%>">
+            <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Loom Information</button>
+            <div style="clear:both"></div>
+        </form>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <%- include("./footer.ejs") %> 

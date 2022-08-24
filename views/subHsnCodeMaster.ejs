@@ -1,0 +1,41 @@
+<%- include("./header.ejs") %> 
+
+<body>
+    <%- include("./sidebar.ejs") %> 
+
+    <div class="p-2 flex-grow-1 bd-highlight" >
+    <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Create HSN Code Information</h5>
+        <div id='state' style="margin: 0px;background-color: white;padding: 5px;" >
+    <form method="post" action="/createHsnCode/create1">
+        <input type="hidden" name="name" value="<%=name%>">
+          <div class='row'>
+            <div class='col-sm'>
+                <label>HSN Code</label>
+                <input  class="form-control" type="text" name='hsnCode' required/> 
+            </div>
+            <div class='col-sm'>
+                <label>Description</label>
+                <input  class="form-control" type="text" name='description' required/> 
+            </div>
+            <div class='col-sm'>
+                <label>GST Rate</label>
+                <input  class="form-control" type="text" name='gstRate' required/> 
+                 <button type='submit' class='btn btn-primary'  style="float: right;margin-top:3%" >Create State</button>
+            </div>
+          </div>
+    </form>
+            <% if(popup===true){ %> 
+            <h4 style="text-align: center;color: green;">Information Saved Successfully</h4>
+            <% } %> 
+            <form action="/createHsnCode" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> HSN Code Information</button>
+                <div style="clear:both"></div>
+            </form>
+        </div>
+        </div>
+        </div>
+
+    <%- include("./footer.ejs") %> 
+

@@ -1,0 +1,14 @@
+<%- include("./header.ejs") %> 
+<body>
+
+<div class="container" id="container" style="width: 40%;">
+    <h5>Company List</h5>
+    <a href="/createCompany" id="cButton">Create Company</a>
+    <hr>
+    <% for(let x=0; x<user.length;x++){ %> 
+        <a href="/login/<%=user[x].name%> " id="cButton"><%=user[x].name%></a>
+    <% } %> 
+</div>
+
+</body>
+<%- include("./footer.ejs") %> 

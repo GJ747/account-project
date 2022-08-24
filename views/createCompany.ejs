@@ -1,0 +1,104 @@
+<%- include("./header.ejs") %> 
+
+<body>
+    
+    <div class='container'  style="background-color:white;padding: 1%;margin-top: 20px;">
+        <a  style="text-decoration: none;"><h2  style="text-align:center;margin:8px;">Create Company</h2></a>    
+        <h5>Company Information</h5>
+        <form method="post" action="/createCompany">
+            <div class='row p-0' style="font-size: 15px;">
+                <div class='col-sm'>
+                    <label>Company Name</label>
+                    <input  class="form-control form-control-sm " type="text" name='name' placeholder='Name of company'/>
+                    <label>Print Name</label>
+                    <input  class="form-control form-control-sm " type="text" name='printName' placeholder='Print name of company'/>
+                    <label>Conutry</label>
+                    <input  class="form-control form-control-sm" type="text" name='conutry' placeholder='conutry name'/>
+                    <label>State</label>
+                    <input  class="form-control form-control-sm" type="text" name='state' placeholder='state name'/>
+                    <label>F.Y. Beginning from</label>
+                    <input  class="form-control form-control-sm" type="date" name='BeginningFrom'/>
+                    <label>Books Commencing from</label>
+                    <input  class="form-control form-control-sm" type="date" name='CommencingFrom'/>
+                </div>
+                <div class='col-sm'>
+                    <label>Address</label>
+                    <input  class="form-control form-control-sm" type="text" name='address' placeholder='address of company'/>
+                    <label>CIN</label>
+                    <input  class="form-control form-control-sm" type="text" name='cin' placeholder='CIN'/>
+                    <div class='row'>
+                        <div class='col-sm'>
+                            <label>IT PAN</label>
+                            <input  class="form-control form-control-sm" type="text" name='pan' placeholder='Enter PAN'/>
+                            <label>Tel. No.</label>
+                            <input  class="form-control form-control-sm" type="tel" name='telNo' placeholder='Tel No.'/>
+                        </div>
+                        <div class='col-sm'>
+                            <label>Ward</label>
+                            <input  class="form-control form-control-sm" type="text" name='ward' placeholder='Enter Ward'/>
+                            <label>Fax. No.</label>
+                            <input  class="form-control form-control-sm" type="tel" name='faxNo' placeholder='Fax No.'/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class='row'>
+                <h5 class='mt-3 ml-2 mr-2'>Addtional Information</h5>
+                <div  class='col-sm p-1'>
+                    <h5>Currency Information</h5>
+                    <label>Currency Symbol</label>
+                    <input  class="form-control form-control-sm" type="text" name='currencyInfo' placeholder='Rs, $ etc.'/>
+                    <label>Currency String</label>
+                    <input  class="form-control form-control-sm" type="text" name='currencyString' placeholder='Rupees, Doller etc.'/>
+                    <label>Currency Font</label>
+                    <input  class="form-control form-control-sm" type="text" name='currencyFont' placeholder='Rupees Foradian'/>
+                    <label>Currency Character</label>
+                    <select  class="form-select form-select-sm" name='currencyCharcter' aria-label="Default select example">
+                        <option selected value="₹">₹</option>
+                        <option value="$">$</option>
+                        <option value="€">€</option>
+                    </select>
+                </div>
+                <div  class='col-sm' style="margin-top: 5px;">
+                    <div class='row'>
+                        <h5>GST/VAT Information</h5>
+                        <div class='col-sm'>
+                            <label>Enable GST/VAT</label>
+                            <select  class="form-select" name='enableG/V' aria-label="Default select example">
+                            <option selected value="yes">Yes</option>
+                            <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class='col-sm'>
+                            <label>Type</label>
+                            <input  class="form-control form-control-sm" type="text" name='type' placeholder='GST/VAT'/>
+                        </div>
+                    </div>
+                    <label>Enable Cess</label>
+                    <select  class="form-select" name='enableCess' aria-label="Default select example">
+                        <option  selected value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                    <label>GSTIN</label>
+                    <input  class="form-control form-control-sm" type="text" name='gstin'/>
+                    <label>Type of Dealer</label>
+                    <input  class="form-control form-control-sm" type="text" name='dealerType'/>
+                        <div class='row'>
+                            <div class='col-sm'>
+                                <label>Default Tax Rate-1</label>
+                                <input  class="form-control form-control-sm" type="number" name='taxRate-1' />
+                            </div>
+                            <div class='col-sm'>
+                                <label>Default Tax Rate-2</label>
+                                <input  class="form-control form-control-sm" type="number" name='taxRate-2' />
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <button class='btn btn-outline-dark mx-0 px-4' type='submit'>Save</button>
+        </form>
+    </div>
+
+</body>
+
+<%- include("./footer.ejs") %> 

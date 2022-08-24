@@ -1,0 +1,54 @@
+<%- include("./header.ejs") %> 
+
+<body>
+    <%- include("./sidebar.ejs") %> 
+
+    <div class="p-2 flex-grow-1 bd-highlight" >
+    <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Bank Information</h5>
+        <div id='state' style="margin: 0px;background-color: white;" >
+
+           <form action="/createBank/create1" method="post">
+           <input type="hidden" name="name" value="<%=name%>">
+            <div class='row m-1'>
+                <div class='col-sm'>
+                    <label>Bank ID</label>
+                    <input class="form-control" type="text" name='bankId' /> 
+                    <label>Bank Name</label>
+                    <input class="form-control" type="text" name='bankName' /> 
+                </div>
+                <div class='col-sm'>
+                    <label>Account No.</label>
+                    <input class="form-control" type="text" name='accountNo' /> 
+                    <label>Branch Name</label>
+                    <input class="form-control" type="text" name='branchName' /> 
+                 </div>
+                <div class='col-sm'>
+                <label>Account Type</label>
+                    <select class="form-select" aria-label="Default select example" name='accountType'>
+                        <option value="1">Raj</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <label>Branch Address</label>
+                    <input class="form-control" type="text" name='branchAddress' /> 
+                    <button type='submit' class='btn btn-primary m-1' style="float: right;margin-top: 10px;">Create Bank</button>
+                </div>
+              </div>
+            </form>
+
+
+            <% if(popup===true){ %> 
+            <h4 style="text-align: center;color: green;">Information Saved Successfully</h4>
+            <% } %> 
+            <form action="/createBank" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+                <button type="submit" style="float: right;" class="btn btn-primary m-1 mt-2"><i class="bi bi-arrow-left"></i> Bank Information</button>
+                <div style="clear:both"></div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+    </body>
+    <%- include("./footer.ejs") %> 

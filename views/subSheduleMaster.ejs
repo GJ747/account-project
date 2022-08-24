@@ -1,0 +1,51 @@
+<%- include("./header.ejs") %> 
+
+<body>
+    <%- include("./sidebar.ejs") %> 
+
+    <div class="p-2 flex-grow-1 bd-highlight" >
+    <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Create Yarn Mill Information</h5>
+        <div id='state' style="margin: 0px;background-color: white;padding: 5px;" >
+
+            <form action="/createShedule/create1" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+            <div class='row'>
+                <div class='col-sm'>
+                    <label>Shedule ID</label>
+                    <input  class="form-control" type="text" name='sheduleId' /> 
+                    <label>Shedule Name</label>
+                    <input  class="form-control" type="text" name='sheduleName' /> 
+                    <label>Nature</label>
+                    <select class="form-select" aria-label="Default select example" name='nature'>
+                        <option value="1">Raj</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class='col-sm'>
+                 </div>
+                <div class='col-sm'>
+                </div>
+              </div>
+              <div>
+              <button type='submit' class='btn btn-primary' style="float: right;">Create Shedule</button>
+              <div style="clear:both"></div>
+            </div>
+        </form>
+
+            </form>
+            <% if(popup===true){ %> 
+            <h4 style="text-align: center;color: green;">Information Saved Successfully</h4>
+            <% } %> 
+            <form action="/createShedule" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Shedule Information</button>
+                <div style="clear:both"></div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+
+    <%- include("./footer.ejs") %> 

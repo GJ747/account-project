@@ -1,0 +1,40 @@
+<%- include("./header.ejs") %> 
+
+<body>
+    <%- include("./sidebar.ejs") %> 
+
+    <div class="p-2 flex-grow-1 bd-highlight" >
+    <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Create State Information</h5>
+        <div id='state' style="margin: 0px;background-color: white;padding: 5px;height: 200px;" >
+    <form method="post" action="/subStateCreate">
+        <input type="hidden" name="name" value="<%=name%>">
+          <div class='row'>
+            <div class='col-sm'>
+                <label>State Code</label>
+                <input  class="form-control" type="text" name='stateCode' required/> 
+            </div>
+            <div class='col-sm'>
+                <label>State Name</label>
+                <input  class="form-control" type="text" name='stateName' required/> 
+            </div>
+            <div class='col-sm'>
+                <label>GST State Code</label>
+                <input  class="form-control" type="text" name='gstStateCode' required/> 
+                 <button type='submit' class='btn btn-primary'  style="float: right;margin-top:3%" >Create State</button>
+            </div>
+          </div>
+    </form>
+            <% if(popup===true){ %> 
+            <h4 style="text-align: center;color: green;">Information Saved Successfully</h4>
+            <% } %> 
+            <form action="/createStatee" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> State Information</button>
+            </form>
+        </div>
+        </div>
+        </div>
+
+    <%- include("./footer.ejs") %> 
+

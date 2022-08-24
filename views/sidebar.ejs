@@ -1,0 +1,93 @@
+<div id='nav'>
+    <nav  >
+        <div class="d-flex flex-row bd-highlight">
+            <img class="p-2 bd-highlight" src="/logo.png" style="height: 50px;"/>
+            <button id='nButton' class="p-2 bd-highlight" onclick="toggle()" ><i class="bi bi-list"></i></button>
+            <a id="a" class="p-2 bd-highlight mt-1">Dashbord</a>
+            <a id="a" class="p-2 bd-highlight mt-1">Users</a>
+            <a id="a" class="p-2 flex-grow-1 bd-highlight mt-1">Setting</a>
+            <a id="a" class="p-2 mt-1" >Admin</a>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div class="d-flex bd-highlight">
+<div class="p-2 bd-highlight" id="sidebar">
+    <div id="dorpdown">
+        <h6>Main Masters</h6>
+        <div style="display: none;">
+            <ul style=" list-style-type: none;padding: 0px;">
+                <form action="/createStatee" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">State Master</button></li>
+                </form>
+                <form action="/createCity" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">City Master</button></li>
+                </form>
+                <form action="/createHsnCode" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">HSN Code Master</button></li>
+                </form>
+                <form action="/createLoom" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Loom Master</button></li>
+                </form>
+                <form action="/createFlange" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Flange Master</button></li>
+                </form>
+                <form action="/createGodown" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Godown Master</button></li>
+                </form>
+                <form action="/createYarnMill" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Yarn Mill Master</button></li>
+                </form>
+            </ul>
+        </div>
+    </div>
+    <div id="dorpdown1">
+        <h6>Account Masters</h6>
+        <div style="display: none;">
+            <ul style=" list-style-type: none;padding: 0px;">
+                <form action="/createShedule" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Shedule Master</button></li>
+                </form>
+                <form action="/createGroup" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Group Master</button></li>
+                </form>
+                <form action="/createCategory" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Category Master</button></li>
+                </form>
+                <form action="/createAccount" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Account Master</button></li>
+                </form>
+                <form action="/createBank" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Bank Master</button></li>
+                </form>
+            </ul>
+        </div>
+    </div>
+    <div id="dorpdown2">
+        <h6>Yarn Masters</h6>
+        <div style="display: none;">
+            <ul style=" list-style-type: none;padding: 0px;">
+                <li><a id="li" href=""> Master</a></li>
+                <li><a id="li" href=""> Master</a></li>
+                <li><a id="li" href=""> Master</a></li>
+                <li><a id="li" href=""> Master</a></li>
+                <li><a id="li" href=""> Master</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

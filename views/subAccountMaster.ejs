@@ -1,0 +1,129 @@
+<%- include("./header.ejs") %> 
+
+<body>
+    <%- include("./sidebar.ejs") %> 
+
+    <div class="p-2 flex-grow-1 bd-highlight" >
+    <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Account Information</h5>
+        <div id='state' style="margin: 0px;background-color: white;" >
+
+            <form action="/createAccount/create1" method="post">
+            <input type="hidden" name="name" value="<%=name%>">
+            <div class='row m-1'>
+                <div class='col-sm'>
+                    <label>Account ID</label>
+                    <input  class="form-control" type="text" name='accountId'/>
+                    <label>Category</label>
+                    <select class="form-select" aria-label="Default select example"  name='category'>
+                        <option value="1">India</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <div class='d-flex justify-content-start'>
+                    <label >Loan Returned</label>
+                    <div style="margin-left: 20px;" >
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="loanReturned"/>
+                        <label class="form-check-label" >
+                            yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="loanReturned"/>
+                        <label class="form-check-label" >
+                            no
+                        </label>
+                    </div>
+                    </div>
+                    </div>
+                    <label>TDS Rate</label>
+                    <input  class="form-control" type="text" name='tdsRate' /> 
+                </div>
+                <div class='col-sm'>
+                    <label>Account Name</label>
+                    <input  class="form-control" type="text" name='accountName'/>                
+                    <label>Group</label>
+                    <input  class="form-control" type="text" name='group'/>
+                    <label>Opening Balance DR</label>
+                    <input  class="form-control" type="text" name='openingBalanceDR' />
+                    <label>PAN No</label>
+                    <input  class="form-control" type="text" name='panNo' /> 
+                </div>
+                <div class='col-sm'>
+                    <label>Account Alias</label>
+                    <input  class="form-control" type="text" name='accountAlias' /> 
+                    <label>Shedule</label>
+                    <input  class="form-control" type="text" name='Shedule' />
+                    <label>State Code</label>
+                    <input  class="form-control" type="text" name='stateCode'/>
+                    <label>Intrest Rate</label>
+                    <input  class="form-control" type="text" name='intrestRate'/>
+          </div>
+              </div>
+              <div class='row m-0 px-0'>
+                <h5>Contact Information </h5>
+                <div class='col-sm'>
+                    <label>Address</label>
+                    <input  class="form-control" type="text" name='address'/>                    
+                    <label>Country</label>
+                    <input  class="form-control" type="text" name='country'/>                    
+                </div>
+                <div class='col-sm'>
+                <label>City</label>
+                    <select class="form-select" aria-label="Default select example"  name='city'>
+                        <option value="1">India</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <label>Pin Code</label>
+                    <input  class="form-control" type="text" name='pinCode' /> 
+                </div>
+                <div class='col-sm'>
+                    <label>State</label>
+                    <input  class="form-control" type="text" name='state' /> 
+                    <label>Email ID</label>
+                    <input  class="form-control" type="email" name='emailID'/>                  
+                </div>
+              </div>
+              <div class='row mx-0 mt-2 px-0'>
+                <h5>Banking Information </h5>
+                <div class='col-sm'>
+                    <label>Account No.</label>
+                    <input  class="form-control" type="text" name='accountNo' /> 
+                    <label>SWFT Code</label>
+                    <input  class="form-control" type="text" name='swftCode' /> 
+                </div>
+                <div class='col-sm'>
+                <label>Select Bank</label>
+                    <select class="form-select" aria-label="Default select example"  name='bank'>
+                        <option value="1">India</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <label>Branch Name</label>
+                    <input  class="form-control" type="text" name='branchName' /> 
+                </div>
+                <div class='col-sm'>
+                    <label>IFSC Code</label>
+                    <input  class="form-control" type="text" name='ifscCode'/>                    
+                </div>
+              </div>
+              <button class='btn btn-primary m-1' style="float: right;" >Create Account</button>
+              <div style="clear:both"></div>
+            </form>
+
+            <% if(popup===true){ %> 
+            <h4 style="text-align: center;color: green;">Information Saved Successfully</h4>
+            <% } %> 
+            <form action="/createAccount" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+                <button type="submit" style="float: right;" class="btn btn-primary m-1 mt-2"><i class="bi bi-arrow-left"></i> Account Information</button>
+                <div style="clear:both"></div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+
+    <%- include("./footer.ejs") %> 

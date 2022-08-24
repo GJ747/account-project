@@ -1,0 +1,28 @@
+<%- include("./header.ejs") %> 
+<body>
+    
+    <div>
+        <div id='div'>
+            <div id='div2'>
+                
+                <div id='div3'>
+                        <form method="post" action="/login">
+                        <input type="hidden" name="name" value="<%=name%>">
+                        <div class="d-flex bd-highlight" style="margin-top: 20%;margin-right:3%">
+                        <i class="bi bi-person-square p-2 bd-highlight" style="font-size: 25px;" ></i><input class="form-control p-2 flex-grow-1 bd-highlight" type="text" placeholder='User ID' name='username'/>
+                        </div>
+                        <div class="d-flex bd-highlight mt-2" style='margin-right: 3%;'>
+                        <i class="bi bi-envelope-fill p-2 bd-highlight" style="font-size: 25px;"></i><input class="form-control p-2 flex-grow-1 bd-highlight" type="password" placeholder='Password' name='password'/>
+                        </div>
+                        <button id="button" type='submit'>Get Started</button>
+                        </form>
+                </div>
+                <div style='position: absolute;top: -50px;left: 30px;z-index: 1;background-image: linear-gradient(to right, #a146bd, #8428a1);width: 80%;height: 20%;margin: auto;border-radius: 5px;box-shadow: 1px 5px 9px black;'>
+                    <h4 style="text-align:center;padding-top:20px;color:white">Login</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<%- include("./footer.ejs") %> 

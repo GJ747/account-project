@@ -1,0 +1,57 @@
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
+    const sidebar = document.getElementById("sidebar")
+    const menu = document.getElementById('dorpdown');
+    const menu1 = document.getElementById('dorpdown1');
+    const menu2 = document.getElementById('dorpdown2');
+   
+    menu.addEventListener('click',  function(){
+        const inner = menu.children[1];
+        if(inner.style.display === 'none'){
+            inner.style.display = 'block';
+        }else {
+            inner.style.display = 'none';
+        }
+    })
+    menu1.addEventListener('click',  function(){
+        const inner = menu1.children[1];
+        if(inner.style.display === 'none'){
+            inner.style.display = 'block';
+        }else {
+            inner.style.display = 'none';
+        }
+    })
+    menu2.addEventListener('click',function(){
+        const inner = menu2.children[1];
+        if(inner.style.display === 'none'){
+            inner.style.display = 'block';
+        }else {
+            inner.style.display = 'none';
+        }
+    })
+
+    const toggle = ()=>{
+        if(sidebar.style.display === 'none'){
+            sidebar.style.display = 'block';
+        }else {
+            sidebar.style.display = 'none';
+        }
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.keyCode === 13 ) {
+       event.preventDefault();
+            const currentNode = event.target;
+            const allElements = document.querySelectorAll('input,button, a, area, object, select, textarea, [contenteditable]');
+            const currentIndex = [...allElements].findIndex(el => currentNode.isEqualNode(el))
+            const targetIndex = (currentIndex + 1) % allElements.length;
+            allElements[targetIndex].focus();
+        }
+      });
+   
+</script>
+</html>
