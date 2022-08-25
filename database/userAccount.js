@@ -160,6 +160,15 @@ const UserAccount = new mongoose.Schema({
         hsn: String,
         gstRate: String,
         hsnDes: String,
+    }],
+    createWeave:[{
+        weaveId: String,
+        weaveName: String,
+        weaveDes: String,
+    }],
+    createYarnMillName:[{
+        millNameId: String,
+        millName: String,
     }]
   });
 

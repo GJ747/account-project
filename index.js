@@ -442,6 +442,75 @@ app.post("/createSpares/create1", async(req,res)=>{
   })
  })
 
+    //=================== Weave Information ================
+
+app.post("/createWeave",async(req,res)=>{
+  const name = req.body.name
+  const user = await User.findOne({name})
+  res.render("weaveMaster.ejs",{name,state:user.createWeave})
+})
+
+app.post("/createWeave/create",(req,res)=>{
+  const name = req.body.name
+  res.render("subWeaveMaster.ejs",{name,popup:false})
+})
+
+app.post("/createWeave/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+  const user = await User.findOneAndUpdate({name},{ $push: {createWeave:data} },{ new: true })
+  .then((doc)=>{
+    res.render("subWeaveMaster.ejs",{name,popup:true})
+  })
+ })
+
+
+ //=================== Weave Information ================
+
+app.post("/createYarnMillName",async(req,res)=>{
+  const name = req.body.name
+  const user = await User.findOne({name})
+  res.render("yarnMillNameMaster.ejs",{name,state:user.createYarnMillName})
+})
+
+app.post("/createYarnMillName/create",(req,res)=>{
+  const name = req.body.name
+  res.render("subYarnMillNameMaster.ejs",{name,popup:false})
+})
+
+app.post("/createYarnMillName/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+  const user = await User.findOneAndUpdate({name},{ $push: {createYarnMillName:data} },{ new: true })
+  .then((doc)=>{
+    res.render("subYarnMillNameMaster.ejs",{name,popup:true})
+  })
+ })
+
+
+  //=================== Purchase Information ================
+
+app.post("/createPurchaseOrder",async(req,res)=>{
+  const name = req.body.name
+  const user = await User.findOne({name})
+  res.render("purchaseOrder.ejs",{name})
+})
+
+app.post("/createPurchaseOrder/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+  // const user = await User.findOneAndUpdate({name},{ $push: {createYarnMillName:data} },{ new: true })
+  // .then((doc)=>{
+  //   res.render("subYarnMillNameMaster.ejs",{name,popup:true})
+  // })
+ })
+
 
  //================== server =====================
 

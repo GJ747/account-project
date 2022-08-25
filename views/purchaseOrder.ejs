@@ -1,0 +1,160 @@
+<%- include("./header.ejs") %> 
+<body>
+    <%- include("./sidebar.ejs") %> 
+    <div class="p-2 flex-grow-1 bd-highlight">
+        <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order</h5>
+            <div class="d-flex bd-highlight" style="background-color: white;">
+                <div class="p-2 flex-fill bd-highlight">    
+                    <label>Party Name</label>
+                    <input class="form-control" type="text" name="partyName">
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>Party Name</label>
+                    <input class="form-control" type="text" name="partyName">
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>Date</label>
+                    <input class="form-control" type="date" name="date">
+                </div>
+            </div>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Details</h5>
+                 
+                    <input type="hidden" name="name" value="<%=name%>">  
+                    <div class="d-flex bd-highlight" style="background-color: white;">
+                        <div class="p-2 flex-fill bd-highlight">    
+                            <label>Fabric</label>
+                            <input id="fabric" class="form-control" type="text" name="fabric">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">    
+                            <label>Mtr</label>
+                            <input id="mtr" class="form-control" type="number" step="0.01" name="mtr">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">    
+                            <label>Rate</label>
+                            <input id="rate" onchange="basicAmount()" class="form-control" type="number" step="0.01" name="rate">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">    
+                            <label>Basic Amount</label>
+                            <input id="basicAmount" class="form-control" type="number" step="0.01" name="basicAmount">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">
+                            <label>HSN Code</label>
+                            <input id="hsnCode" class="form-control" type="text" name="hsnCode">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">    
+                            <label>GST %</label>
+                            <input id="gst" onchange="taxAmt()" class="form-control" type="number" step="0.01" name="gst">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">    
+                            <label>Tax Amt.</label>
+                            <input id="taxAmt" class="form-control" type="number" step="0.01" name="taxAmt">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">    
+                            <label>Total Amt.</label>
+                            <input id="totalAmt" class="form-control" type="number" step="0.01" name="totalAmt">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">    
+                            <button onclick="addData()" class="btn btn-primary mt-4">Add</button>
+                        </div>
+                    </div>
+            
+            <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
+            <div style="border:solid 1px #613d94;background-color: white;height: 400px;overflow: scroll;">
+                    <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
+                        <p class="col-sm ">SNo</p>
+                        <p class="col-sm">Fabric</p>
+                        <p class="col-sm">Mtr</p>
+                        <p class="col-sm ">Rate</p>
+                        <p class="col-sm">Basic Amount</p>
+                        <p class="col-sm">HSN</p>
+                        <p class="col-sm ">GST Rate</p>
+                        <p class="col-sm">Tax Amt</p>
+                        <p class="col-sm">Total Amount</p>
+                        <hr>
+                    </div>
+                    <div id="tableData" class="m-0" style="text-align: center;">
+                      
+                    </div>
+             </div>
+
+             <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
+             <div class="row m-0" style="background-color: white;">
+                <div class="col-sm">
+                    <label>Remark</label>
+                    <textarea class="form-control" name="remark" rows="10"></textarea>
+                </div>
+                <div class="col-sm">
+                    <label>Frieght Charges</label>
+                    <input type="text" class="form-control" name="frieghtCharges">
+                    <label>Discount %</label>
+                    <input class="form-control" type="number" step="0.01" name="discount">
+                    <label>Other Charges</label>
+                    <input class="form-control" type="number" step="0.01" name="otherCharges">
+                    <button class="btn btn-primary" style="float: right;">Add</button>
+                    <div style="clear: both;"></div>
+                    <div class="row m-0" style="text-align: center;background-color: white; padding-top: 10px;font-weight: bold;">
+                        <p class="col-sm ">Charge Name</p>
+                        <p class="col-sm">Amount</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+<script>
+let basicAmt = document.getElementById("basicAmount");
+let mtr = document.getElementById("mtr") ;
+let rate = document.getElementById("rate");
+let tax = document.getElementById("taxAmt");
+let gst = document.getElementById("gst");
+let totalAmt = document.getElementById("totalAmt")
+const basicAmount = ()=>{ basicAmt.value = rate.value*mtr.value
+}
+const taxAmt =()=>{ 
+    tax.value = basicAmt.value*(gst.value/100);
+    totalAmt.value = basicAmt.value + tax.value;
+} 
+    const po1 = [];
+    let data = []
+    const addData =()=>{
+        data = [
+             document.getElementById("fabric").value,
+             document.getElementById("mtr").value,
+             document.getElementById("rate").value,
+             document.getElementById("basicAmount").value,
+             document.getElementById("hsnCode").value,
+             document.getElementById("gst").value,
+             document.getElementById("taxAmt").value,
+             document.getElementById("totalAmt").value,
+        ]
+        po1.push(data)
+        console.log(data)
+        createTable()
+    }
+
+    const createTable =()=>{
+
+        const div = document.getElementById("tableData")
+            const row = document.createElement("div");
+            row.className += " row";
+            div.append(row)
+            const s = document.createElement("p");
+                s.className += " col-sm";
+                s.innerHTML = po1.length;
+                row.append(s)
+
+            for(let y=0; y<8; y++){
+                const p = document.createElement("p");
+                p.className += " col-sm";
+                p.innerHTML = data[y];
+                row.append(p)
+                console.log(data)
+            }
+    }
+</script>
+
+<%- include("./footer.ejs") %> 

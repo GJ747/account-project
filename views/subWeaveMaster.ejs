@@ -1,0 +1,54 @@
+<%- include("./header.ejs") %> 
+
+<body>
+    <%- include("./sidebar.ejs") %> 
+
+    <div class="p-2 flex-grow-1 bd-highlight" >
+    <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Weave pattern Information</h5>
+        <div id='state' style="margin: 0px;background-color: white;padding: 5px;" >
+
+            <form action="/createWeave/create1" method="post">
+            <input type="hidden" name="name" value="<%=name%>">
+            <div class='row'>
+                <div class='col-sm'>
+                    <label>Weave ID</label>
+                    <input id="id" class="form-control" type="text" name='weaveId' /> 
+                    <label>Weave  Name</label>
+                    <input  class="form-control" type="text" name='weaveName' /> 
+                    <label>Weave Des</label>
+                    <input  class="form-control" type="text" name='weaveDes' /> 
+                </div>
+                <div class='col-sm'>
+                 </div>
+                <div class='col-sm'>
+                </div>
+              </div>
+              <div>
+              <button type='submit' class='btn btn-primary' style="float: right;">Create Weave</button>
+              <div style="clear:both"></div>
+            </div>
+        </form>
+
+            </form>
+            <%if(popup) { %> 
+                <div id="popup">
+                    <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
+                    <button id="btn" class="btn btn-primary" onclick="popupHide()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+                </div>
+                <% } %> 
+            <form action="/createWeave" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Weave pattern Information</button>
+                <div style="clear:both"></div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+</body>
+
+<script>
+    document.getElementById("id").value = Date.now()
+</script>
+    <%- include("./footer.ejs") %> 

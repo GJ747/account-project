@@ -98,6 +98,25 @@
                     <input type="hidden" name="name" value="<%=name%>">
                     <li id="li"><button type="submit" id="sButton">Spares Master</button></li>
                 </form>
+                <form action="/createWeave" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Weave Master</button></li>
+                </form>
+                <form action="/createYarnMillName" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Yarn Mill Name Master</button></li>
+                </form>
+            </ul>
+        </div>
+    </div>
+    <div id="dorpdown3">
+        <h6>Transaction <i style="margin-left: 28%;" class="bi bi-chevron-right"></i></h6>
+        <div style="display: none;">
+            <ul style=" list-style-type: none;padding: 0px;">
+                <form action="/createPurchaseOrder" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Purchase Order</button></li>
+                </form>
             </ul>
         </div>
     </div>
