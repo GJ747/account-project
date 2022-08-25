@@ -1,0 +1,134 @@
+<%- include("./header.ejs") %> 
+<body>
+<%- include("./sidebar.ejs") %> 
+
+<div class="p-2 flex-grow-1 bd-highlight" >
+<div class="container mt-3" >
+<h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Create Yarn Information</h5>  
+<div style="background-color: white;" class="p-1">
+    <form method="post" action="/createYarn/create1">
+        <input type="hidden" name="name" value="<%=name%>">
+          <div class='row'>
+
+            <div class='col-sm'>
+                <label>Yarn ID</label>
+                <input id="id" class="form-control" type="text" name='yarnID' /> 
+                <label>Yarn Name</label>
+                <input  class="form-control" type="text" name='yarnName' /> 
+                <label>Select Blend</label>
+                <select class="form-select" aria-label="Default select example"  name='blend'>
+                    <option value="1">India</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <label>Yarn Type</label>
+                <select class="form-select" aria-label="Default select example"  name='yarnType'>
+                    <option value="1">India</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                  <label>Select Unit</label>
+                <select class="form-select" aria-label="Default select example"  name='unit'>
+                    <option value="1">India</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+
+            <div class='col-sm'>
+                <div class="row">
+                    <div class="col-sm">
+                        <label>Ne</label>
+                        <input  class="form-control" type="text" name='ne' /> 
+                        <label>Ply</label>
+                        <input  class="form-control" type="text" name='ply' /> 
+                    </div>
+                    <div class="col-sm">
+                        <label>Denier</label>
+                        <input  class="form-control" type="text" name='denier' /> 
+                        <label>Filament</label>
+                        <input  class="form-control" type="text" name='filament' /> 
+                    </div>
+                </div>
+                <label>Color</label>
+                <select class="form-select" aria-label="Default select example"  name='color'>
+                    <option value="1">India</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <div class="row">
+                    <div class="col-sm">
+                    <label>Lycra</label>
+                  <select class="form-select " aria-label="Default select example"  name='lycra'>
+                      <option value="1">India</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                  </select>
+                    </div>
+                  <div class="col-sm">
+                    <label>Ly Denier</label>
+                    <input  class="form-control" type="text" name='lyDenier' /> 
+                  </div>
+                 </div>
+            </div>
+
+            <div class='col-sm'>
+                <label>Count</label>
+                <input  class="form-control" type="text" name='count' /> 
+                <div class="row">
+                    <div class="col-sm">
+                  <label>HSN Code</label>
+                  <select class="form-select" aria-label="Default select example" name='hsnCode'>
+                      <option value="1">Raj</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                  </select>
+                    </div>
+                  <div class="col-sm">
+                  <label>GST Rate</label>
+                  <input  class="form-control" type="text" name='gstRate' /> 
+                    </div>
+                </div>
+                    <label>Slub</label>
+                    <select class="form-select" aria-label="Default select example" name='slub'>
+                        <option value="1">Raj</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <div class="row">
+                        <div class="col-sm">
+                      <label>CSP</label>
+                      <input  class="form-control" type="text" name='csp' /> 
+                      </div>
+                      <div class="col-sm">
+                      <label>TPI</label>
+                      <input  class="form-control" type="text" name='tpi' /> 
+                        </div>
+                        </div>
+                    <button class='btn btn-primary' style="float:right;margin-top:3%">Create Yarn</button>
+                        
+                </div>
+  </div>
+</form>
+<%if(popup) { %> 
+    <div id="popup">
+        <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
+        <button id="btn" class="btn btn-primary" onclick="popupHide()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+    </div>
+    <% } %> 
+    <form action="/createYarn" method="post">
+        <input type="hidden" name="name" value="<%=name%>">
+        <button type="submit"   style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Yarn Information</button>
+        <div style="clear: both;"></div>
+    </form>
+  </div>
+</div>
+</div>
+</body>
+
+<script>
+    document.getElementById("id").value = Date.now()
+</script>
+<%- include("./footer.ejs") %> 
+
+

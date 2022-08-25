@@ -46,12 +46,18 @@
       if (event.keyCode === 13 ) {
        event.preventDefault();
             const currentNode = event.target;
-            const allElements = document.querySelectorAll('input,button, a, area, object, select, textarea, [contenteditable]');
+            const allElements = document.querySelectorAll('input, a, area, object, select, textarea, [contenteditable]');
             const currentIndex = [...allElements].findIndex(el => currentNode.isEqualNode(el))
             const targetIndex = (currentIndex + 1) % allElements.length;
             allElements[targetIndex].focus();
         }
       });
+
+      document.getElementById("btn").focus();
+            const popupHide = () =>{
+                const x = document.getElementById("popup");
+                x.style.display = "none";
+            }
    
 </script>
 </html>

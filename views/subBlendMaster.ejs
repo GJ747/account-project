@@ -8,16 +8,16 @@
         <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Account Group Information</h5>
         <div id='state' style="margin: 0px;background-color: white;padding: 5px;" >
 
-            <form action="/createGroup/create1" method="post">
+            <form action="/createBlend/create1" method="post">
             <input type="hidden" name="name" value="<%=name%>">
             <div class='row'>
                 <div class='col-sm'>
-                    <label>Group ID</label>
-                    <input id="id" class="form-control" type="text" name='groupId' /> 
-                    <label>Group  Name</label>
-                    <input  class="form-control" type="text" name='groupName' /> 
-                    <label>Shedule</label>
-                    <select class="form-select" aria-label="Default select example" name='shedule'>
+                    <label>Blend ID</label>
+                    <input id="id" class="form-control" type="text" name='blendId' /> 
+                    <label>Blend  Name</label>
+                    <input  class="form-control" type="text" name='blendName' /> 
+                    <label>Yarn Type</label>
+                    <select class="form-select" aria-label="Default select example" name='yarnType'>
                         <option value="1">Raj</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -29,7 +29,7 @@
                 </div>
               </div>
               <div>
-              <button type='submit' class='btn btn-primary' style="float: right;">Create Group</button>
+              <button type='submit' class='btn btn-primary' style="float: right;">Create Blend</button>
               <div style="clear:both"></div>
             </div>
         </form>
@@ -41,9 +41,9 @@
                     <button id="btn" class="btn btn-primary" onclick="popupHide()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
                 </div>
                 <% } %> 
-            <form action="/createGroup" method="post">
+            <form action="/createBlend" method="post">
                 <input type="hidden" name="name" value="<%=name%>">
-                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Account Group Information</button>
+                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Blend Information</button>
                 <div style="clear:both"></div>
             </form>
 

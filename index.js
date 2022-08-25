@@ -320,7 +320,7 @@ app.post("/createAccount/create1", async(req,res)=>{
  })
 
 
-//=================== Godown Information ================
+//=================== Bank Information ================
 
 app.post("/createBank",async(req,res)=>{
   const name = req.body.name
@@ -341,6 +341,104 @@ app.post("/createBank/create1", async(req,res)=>{
   const user = await User.findOneAndUpdate({name},{ $push: {createBank:data} },{ new: true })
   .then((doc)=>{
     res.render("subBankMaster.ejs",{name,popup:true})
+  })
+ })
+
+
+ //=================== Bank Information ================
+
+app.post("/createYarn",async(req,res)=>{
+  const name = req.body.name
+  const user = await User.findOne({name})
+  res.render("yarnMaster.ejs",{name,state:user.createYarn})
+})
+
+app.post("/createYarn/create",(req,res)=>{
+  const name = req.body.name
+  res.render("subYarnMaster.ejs",{name,popup:false})
+})
+
+app.post("/createYarn/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+  const user = await User.findOneAndUpdate({name},{ $push: {createYarn:data} },{ new: true })
+  .then((doc)=>{
+    res.render("subYarnMaster.ejs",{name,popup:true})
+  })
+ })
+
+ //=================== Blend Information ================
+
+app.post("/createBlend",async(req,res)=>{
+  const name = req.body.name
+  const user = await User.findOne({name})
+  res.render("blendMaster.ejs",{name,state:user.createBlend})
+})
+
+app.post("/createBlend/create",(req,res)=>{
+  const name = req.body.name
+  res.render("subBlendMaster.ejs",{name,popup:false})
+})
+
+app.post("/createBlend/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+  const user = await User.findOneAndUpdate({name},{ $push: {createBlend:data} },{ new: true })
+  .then((doc)=>{
+    res.render("subBlendMaster.ejs",{name,popup:true})
+  })
+ })
+
+
+  //=================== Spares Group Information ================
+
+app.post("/createSparesGroup",async(req,res)=>{
+  const name = req.body.name
+  const user = await User.findOne({name})
+  res.render("sparesGroupMaster.ejs",{name,state:user.createSparesGroup})
+})
+
+app.post("/createSparesGroup/create",(req,res)=>{
+  const name = req.body.name
+  res.render("subSparesGroupMaster.ejs",{name,popup:false})
+})
+
+app.post("/createSparesGroup/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+  const user = await User.findOneAndUpdate({name},{ $push: {createSparesGroup:data} },{ new: true })
+  .then((doc)=>{
+    res.render("subSparesGroupMaster.ejs",{name,popup:true})
+  })
+ })
+
+   //=================== Spares Information ================
+
+app.post("/createSpares",async(req,res)=>{
+  const name = req.body.name
+  const user = await User.findOne({name})
+  res.render("sparesMaster.ejs",{name,state:user.createSpares})
+})
+
+app.post("/createSpares/create",(req,res)=>{
+  const name = req.body.name
+  res.render("subSparesMaster.ejs",{name,popup:false})
+})
+
+app.post("/createSpares/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+  const user = await User.findOneAndUpdate({name},{ $push: {createSpares:data} },{ new: true })
+  .then((doc)=>{
+    res.render("subSparesMaster.ejs",{name,popup:true})
   })
  })
 

@@ -12,7 +12,7 @@
             <div class='row'>
                 <div class='col-sm'>
                     <label>Godown ID</label>
-                    <input  class="form-control" type="text" name='godownId' /> 
+                    <input id="id" class="form-control" type="text" name='godownId' /> 
                     <label>Location/Name</label>
                     <input  class="form-control" type="text" name='locationName' /> 
                 </div>
@@ -28,9 +28,12 @@
         </form>
             
             <div>
-            <% if(popup===true){ %> 
-            <h4 style="text-align: center;color: green;">Information Saved Successfully</h4>
-            <% } %> 
+                <%if(popup) { %> 
+                    <div id="popup">
+                        <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
+                        <button id="btn" class="btn btn-primary" onclick="popupHide()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+                    </div>
+                    <% } %> 
             <form action="/createGodown" method="post">
                 <input type="hidden" name="name" value="<%=name%>">
                 <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Godown Information</button>
@@ -41,5 +44,9 @@
         </div>
     </div>
     </div>
+</body>
 
+<script>
+    document.getElementById("id").value = Date.now()
+</script>
     <%- include("./footer.ejs") %> 

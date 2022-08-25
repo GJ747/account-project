@@ -1,0 +1,77 @@
+<%- include("./header.ejs") %> 
+<body>
+<%- include("./sidebar.ejs") %> 
+
+<div class="p-2 flex-grow-1 bd-highlight" >
+<div class="container mt-3" >
+    
+<form action="/createSpares/create1" method="post">
+    <input type="hidden" name="name" value="<%=name%>">
+    <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Create Spares Information</h5>
+    <div class='row' style="margin: 0px;background-color: white;padding: 5px;">
+          <div class='col-sm'>
+          <label>Spares ID</label>
+          <input id="id" class="form-control" type="text" name='sparesId' /> 
+          <label>Spares Name</label>
+          <input  class="form-control" type="text" name='sparesName' /> 
+          <label>Spare Sub Group</label>
+          <select class="form-select" aria-label="Default select example"  name='spareSubGroup'>
+              <option value="1">India</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+          </select>
+      </div>
+      <div class='col-sm'>
+          <label>Spares Group</label>
+          <input  class="form-control" type="text" name='sparesGroup' /> 
+          <label>UOM</label>
+          <select class="form-select" aria-label="Default select example" name='uom'>
+              <option value="1">Raj</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+          </select>
+          <label>Part No.</label>
+          <input  class="form-control" type="text" name='partNo' /> 
+      </div>
+      <div class='col-sm'>
+        <label>HSN</label>
+        <select class="form-select" aria-label="Default select example" name='hsn'>
+            <option value="1">Raj</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+        <label>GST</label>
+        <select class="form-select" aria-label="Default select example" name='gstRate'>
+            <option value="1">Raj</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+        <label>HSN Des</label>
+        <input  class="form-control" type="text" name='hsnDes' /> 
+           <button class='btn btn-primary' style="float:right;margin-top:3%">Create Spares</button>
+        </div>
+    </div>
+</form>
+
+
+    <div style="background-color: white;padding: 8px;">
+        <%if(popup) { %> 
+            <div id="popup">
+                <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
+                <button id="btn" class="btn btn-primary" onclick="popupHide()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+            </div>
+            <% } %> 
+        <form action="/createSpares" method="post">
+            <input type="hidden" name="name" value="<%=name%>">
+            <button type="submit" style="float: right;" class="btn btn-primary mt-2 m-2"><i class="bi bi-arrow-left"></i> Spares Information</button>
+            <div style="clear:both"></div>
+        </form>
+    </div>
+  </div>
+</div>
+</body>
+
+<script>
+    document.getElementById("id").value = Date.now()
+</script>
+<%- include("./footer.ejs") %> 

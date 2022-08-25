@@ -17,7 +17,7 @@
 <div class="d-flex bd-highlight">
 <div class="p-2 bd-highlight" id="sidebar">
     <div id="dorpdown">
-        <h6>Main Masters</h6>
+        <h6>Main Masters <i style="margin-left: 20%;" class="bi bi-chevron-right"></i></h6>
         <div style="display: none;">
             <ul style=" list-style-type: none;padding: 0px;">
                 <form action="/createStatee" method="post">
@@ -52,7 +52,7 @@
         </div>
     </div>
     <div id="dorpdown1">
-        <h6>Account Masters</h6>
+        <h6>Account Masters <i style="margin-left: 8%;" class="bi bi-chevron-right"></i></h6>
         <div style="display: none;">
             <ul style=" list-style-type: none;padding: 0px;">
                 <form action="/createShedule" method="post">
@@ -79,14 +79,25 @@
         </div>
     </div>
     <div id="dorpdown2">
-        <h6>Yarn Masters</h6>
+        <h6>Yarn Masters <i style="margin-left: 23%;" class="bi bi-chevron-right"></i></h6>
         <div style="display: none;">
             <ul style=" list-style-type: none;padding: 0px;">
-                <li><a id="li" href=""> Master</a></li>
-                <li><a id="li" href=""> Master</a></li>
-                <li><a id="li" href=""> Master</a></li>
-                <li><a id="li" href=""> Master</a></li>
-                <li><a id="li" href=""> Master</a></li>
+                <form action="/createYarn" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Yarn Master</button></li>
+                </form>
+                <form action="/createBlend" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Blend Master</button></li>
+                </form>
+                <form action="/createSparesGroup" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Spares Group Master</button></li>
+                </form>
+                <form action="/createSpares" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Spares Master</button></li>
+                </form>
             </ul>
         </div>
     </div>

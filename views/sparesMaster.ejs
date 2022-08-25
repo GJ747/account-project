@@ -1,0 +1,32 @@
+<%- include("./header.ejs") %> 
+<body>
+<%- include("./sidebar.ejs") %> 
+
+<div class="p-2 flex-grow-1 bd-highlight" >
+    <div class="container mt-3" >
+        <div class="d-flex justify-content-between" style="background-color: #613d94;padding: 8px;">
+        <h5 style="margin-bottom:0px">Spares Information</h5>
+
+        <form method="post" action="/createSpares/create">
+            <input type="hidden" name="name" value="<%=name%>">
+            <button class='btn btn-light'><i style="font-size: 18px;" class="bi bi-plus"></i> Create Spares Info</button>
+        </form>
+        
+        </div>
+        <div class="row m-0" style="text-align: center;background-color: white; padding-top: 10px;font-weight: bold;">
+            <p class="col-sm ">Spare ID</p>
+            <p class="col-sm">Spare Name</p>
+            <p class="col-sm">Spare Group</p>
+            <hr>
+        </div>
+        <% for(let y = 0 ;y<state.length;y++) {%> 
+            <div class="row m-0" style="background-color: white;text-align: center;">
+                <p class="col-sm"><%= state[y].sparesId %> </p>
+                <p class="col-sm"><%= state[y].sparesName %> </p>
+                <p class="col-sm"><%= state[y].sparesGroup %></p>
+                <hr>
+            </div>
+        <% } %> 
+
+</body>
+<%- include("./footer.ejs") %> 

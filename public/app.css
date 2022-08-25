@@ -96,12 +96,16 @@ h5{
     width: 200px;
     background-color: #53278f;
     color: white;
+    padding: 0px !important;
 }
 
 h6{
     height: 40px;
     padding-top: 8px;
-    padding-left: 8px;
+    padding-left: 20px;
+}
+h6:hover,#li:hover,#li:hover #sButton{
+    background-color: #6931b5;
 }
 
 #li{
@@ -116,4 +120,18 @@ h6{
     background-color: #763dc4;
     border: #763dc4;
     color: white;
+}
+
+/* popup */
+
+#popup{
+    color: green;
+    width: 250px;
+    height: 150px;
+    position: fixed;
+    border: solid 2px #763dc4;
+    left: 50%;
+    z-index: 1;
+    background-color: white;
+    box-shadow: 1px 1px 6px black;
 }

@@ -13,7 +13,7 @@
             <div class='row m-1'>
                 <div class='col-sm'>
                     <label>Bank ID</label>
-                    <input class="form-control" type="text" name='bankId' /> 
+                    <input id="id" class="form-control" type="text" name='bankId' /> 
                     <label>Bank Name</label>
                     <input class="form-control" type="text" name='bankName' /> 
                 </div>
@@ -38,9 +38,12 @@
             </form>
 
 
-            <% if(popup===true){ %> 
-            <h4 style="text-align: center;color: green;">Information Saved Successfully</h4>
-            <% } %> 
+            <%if(popup) { %> 
+                <div id="popup">
+                    <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
+                    <button id="btn" class="btn btn-primary" onclick="popupHide()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+                </div>
+                <% } %> 
             <form action="/createBank" method="post">
                 <input type="hidden" name="name" value="<%=name%>">
                 <button type="submit" style="float: right;" class="btn btn-primary m-1 mt-2"><i class="bi bi-arrow-left"></i> Bank Information</button>
@@ -51,4 +54,8 @@
     </div>
     </div>
     </body>
+
+    <script>
+        document.getElementById("id").value = Date.now()
+    </script>
     <%- include("./footer.ejs") %> 

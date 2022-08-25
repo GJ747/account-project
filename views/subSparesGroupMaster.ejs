@@ -5,16 +5,16 @@
 
     <div class="p-2 flex-grow-1 bd-highlight" >
     <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Create Yarn Mill Information</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Create Spare Group Information</h5>
         <div id='state' style="margin: 0px;background-color: white;padding: 5px;" >
-            <form action="/createYarnMill/create1" method="post">
-            <input type="hidden" name="name" value="<%=name%>">
+            <form action="/createSparesGroup/create1" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
             <div class='row'>
                 <div class='col-sm'>
-                    <label>Mill ID</label>
-                    <input id="id" class="form-control" type="text" name='yarnMillId' /> 
-                    <label>Mill Name</label>
-                    <input  class="form-control" type="text" name='millName' /> 
+                    <label>Group ID</label>
+                    <input id="id"  class="form-control" type="text" name='groupId' /> 
+                    <label>Group Name</label>
+                    <input  class="form-control" type="text" name='groupName' /> 
                 </div>
                 <div class='col-sm'>
                  </div>
@@ -22,7 +22,7 @@
                 </div>
               </div>
               <div>
-              <button type='submit' class='btn btn-primary' style="float: right;">Create Yarn Mill</button>
+              <button type='submit' class='btn btn-primary' style="float: right;">Create Spares Group</button>
               <div style="clear:both"></div>
             </div>
         </form>
@@ -34,9 +34,9 @@
                         <button id="btn" class="btn btn-primary" onclick="popupHide()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
                     </div>
                     <% } %> 
-            <form action="/createYarnMill" method="post">
+            <form action="/createSparesGroup" method="post">
                 <input type="hidden" name="name" value="<%=name%>">
-                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Yarn Mill Information</button>
+                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Spares Group Information</button>
                 <div style="clear:both"></div>
             </form>
         </div>
@@ -44,8 +44,9 @@
         </div>
     </div>
     </div>
-    </body>
-    <script>
-        document.getElementById("id").value = Date.now()
-    </script>
+</body>
+
+<script>
+    document.getElementById("id").value = Date.now()
+</script>
     <%- include("./footer.ejs") %> 
