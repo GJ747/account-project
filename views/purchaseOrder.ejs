@@ -62,7 +62,6 @@
             <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
             <div style="border:solid 1px #613d94;background-color: white;height: 400px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm ">SNo</p>
                         <p class="col-sm">Fabric</p>
                         <p class="col-sm">Mtr</p>
                         <p class="col-sm ">Rate</p>
@@ -71,10 +70,11 @@
                         <p class="col-sm ">GST Rate</p>
                         <p class="col-sm">Tax Amt</p>
                         <p class="col-sm">Total Amount</p>
+                        <p class="col-sm">Del</p>
                         <hr>
                     </div>
                     <div id="tableData" class="m-0" style="text-align: center;">
-                      
+                        
                     </div>
              </div>
 
@@ -86,20 +86,46 @@
                 </div>
                 <div class="col-sm">
                     <label>Frieght Charges</label>
-                    <input type="text" class="form-control" name="frieghtCharges">
+                    <input id="frieghtCharges" type="text" class="form-control" name="frieghtCharges">
                     <label>Discount %</label>
-                    <input class="form-control" type="number" step="0.01" name="discount">
-                    <label>Other Charges</label>
-                    <input class="form-control" type="number" step="0.01" name="otherCharges">
-                    <button class="btn btn-primary" style="float: right;">Add</button>
+                    <input id="discount" class="form-control" type="number" step="0.01" name="discount">
+                    <div class="row">
+                        <div class="col-sm">
+                            <label>Other Charges</label>
+                            <select id="otherCharges" class="form-select" aria-label="Default select example" name="otherCharges">
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>     
+                        </div>
+                        <div class="col-sm">
+                            <label>Amount</label>
+                            <input id="amount" class="form-control" type="number" step="0.01" name="amount">
+                        </div>
+                    </div>
+                   <button onclick="addData1()" class="btn btn-primary mt-1" style="float: right;">Add</button>
                     <div style="clear: both;"></div>
                     <div class="row m-0" style="text-align: center;background-color: white; padding-top: 10px;font-weight: bold;">
                         <p class="col-sm ">Charge Name</p>
                         <p class="col-sm">Amount</p>
                         <hr>
                     </div>
+                    <div id="tableData1" class="m-0" style="text-align: center;border: solid 1px #613d94;">
+                        
+                    </div>
+
                 </div>
             </div>
+                        <div class="d-flex justify-content-between p-2" style="background-color: #613d94;color: white;">
+                            <label>CGST</label>
+                            <input id="cgst"  type="number" step="0.01" name="cgst">
+                            <label>SGST</label>
+                            <input id="sgst"  type="number" step="0.01" name="sgst">
+                            <label>IGST</label>
+                            <input id="igst"  type="number" step="0.01" name="igst">
+                            <label>Grand Total</label>
+                            <input id="grandTotal"  type="number" step="0.01" name="grandTotal">
+                        </div>
             
         </div>
     </div>
@@ -112,16 +138,31 @@ let rate = document.getElementById("rate");
 let tax = document.getElementById("taxAmt");
 let gst = document.getElementById("gst");
 let totalAmt = document.getElementById("totalAmt")
+let grandTotal = document.getElementById("grandTotal")
+let cgst = document.getElementById("cgst")
+let sgst = document.getElementById("sgst")
+let igst = document.getElementById("igst")
+let frieghtCharges = document.getElementById("frieghtCharges")
+let discount = document.getElementById("discount")
+
+const charges = []
+let = chargesData = []
+const po1 = [];
+let data = []
+
+
 const basicAmount = ()=>{ basicAmt.value = rate.value*mtr.value
 }
 const taxAmt =()=>{ 
-    tax.value = basicAmt.value*(gst.value/100);
-    totalAmt.value = basicAmt.value + tax.value;
+    const x = basicAmt.value*(gst.value/100);
+    tax.value = x.toFixed(2)
+    const y = +basicAmt.value + +tax.value;
+    totalAmt.value = y.toFixed(2)
 } 
-    const po1 = [];
-    let data = []
-    const addData =()=>{
-        data = [
+
+    
+const addData =()=>{
+    data = [
              document.getElementById("fabric").value,
              document.getElementById("mtr").value,
              document.getElementById("rate").value,
@@ -131,10 +172,20 @@ const taxAmt =()=>{
              document.getElementById("taxAmt").value,
              document.getElementById("totalAmt").value,
         ]
-        po1.push(data)
-        console.log(data)
-        createTable()
+    po1.push(data)
+    console.log(po1)
+    createTable()
     }
+
+const addData1 =()=>{
+    chargesData = [
+        document.getElementById("otherCharges").value,
+        document.getElementById("amount").value,
+     ]
+     charges.push(chargesData)
+     createTable1()
+     console.log(po1)
+}
 
     const createTable =()=>{
 
@@ -142,19 +193,77 @@ const taxAmt =()=>{
             const row = document.createElement("div");
             row.className += " row";
             div.append(row)
-            const s = document.createElement("p");
-                s.className += " col-sm";
-                s.innerHTML = po1.length;
-                row.append(s)
 
             for(let y=0; y<8; y++){
                 const p = document.createElement("p");
                 p.className += " col-sm";
                 p.innerHTML = data[y];
                 row.append(p)
-                console.log(data)
+                
             }
+            document.getElementById("fabric").value = ""
+             document.getElementById("mtr").value = ""
+             document.getElementById("rate").value = ""
+             document.getElementById("basicAmount").value = ""
+             document.getElementById("hsnCode").value = ""
+             document.getElementById("gst").value = ""
+             document.getElementById("taxAmt").value = ""
+             document.getElementById("totalAmt").value = ""
+
+
+            const i = document.createElement("i");
+                i.className += "col-sm bi bi-x-square"
+                i.setAttribute("onclick","del(this.id)")
+                i.setAttribute("id",`${po1.length}`)
+                i.setAttribute("style","color:red")
+                row.append(i)
+
+             document.getElementById("fabric").focus()
+             totalAmount()
     }
+
+const createTable1 =()=>{
+    const div = document.getElementById("tableData1")
+            const row = document.createElement("div");
+            row.className += "row";
+            div.append(row)
+    for(let y=0; y<2; y++){
+        const p = document.createElement("p");
+        p.className += "col-sm";
+        p.innerHTML = chargesData[y];
+        row.append(p)
+    }
+
+    document.getElementById("otherCharges").value=""
+    document.getElementById("amount").value=""
+
+    document.getElementById("otherCharges").focus()
+    totalAmount()
+}
+
+const del =(id)=>{
+const els = document.getElementById(id);
+const parent = els.parentNode;
+let index = $( "div" ).index( parent ) - 32
+els.parentNode.remove();
+po1.splice(index,1)
+totalAmount()
+}
+    
+const totalAmount =()=>{
+ let maintotal = 0
+ let otherTotal = 0
+ let subTotal = 0
+ for(let x=0;x<po1.length;x++){
+       maintotal =  maintotal + parseInt(po1[x]?.[7])
+ }
+ for(let x=0;x<charges.length;x++){
+       otherTotal =  otherTotal + parseInt(charges[x]?.[1])
+ }
+ subTotal = maintotal + otherTotal + +frieghtCharges.value - (maintotal*(discount.value/100))
+ grandTotal.value = subTotal + (subTotal*(cgst.value/100)) + (subTotal*(sgst.value/100))+ (subTotal*(igst.value/100))
+console.log(grandTotal.value)
+}
 </script>
 
 <%- include("./footer.ejs") %> 
