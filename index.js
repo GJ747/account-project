@@ -511,6 +511,9 @@ app.post("/createPurchaseOrder/create1", async(req,res)=>{
   // })
  })
 
+app.post("/post",(req,res)=>{
+  console.log(req.body)
+})
 
  //================== server =====================
 

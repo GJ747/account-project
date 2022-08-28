@@ -82,7 +82,7 @@
              <div class="row m-0" style="background-color: white;">
                 <div class="col-sm">
                     <label>Remark</label>
-                    <textarea class="form-control" name="remark" rows="10"></textarea>
+                    <textarea id="remark" class="form-control" name="remark" rows="10"></textarea>
                 </div>
                 <div class="col-sm">
                     <label>Frieght Charges</label>
@@ -264,6 +264,20 @@ const totalAmount =()=>{
  grandTotal.value = subTotal + (subTotal*(cgst.value/100)) + (subTotal*(sgst.value/100))+ (subTotal*(igst.value/100))
 console.log(grandTotal.value)
 }
+const post =()=>{
+    const data = {
+        tableData:po1,
+        otherCharges:charges,
+        remark: document.getElementById("remark").value,
+        grandTotal : grandTotal.value
+    }
+    axios({
+  method: 'post',
+  url: 'http://localhost:3000/post',
+  data: data
+});
+}
+
 </script>
 
 <%- include("./footer.ejs") %> 
