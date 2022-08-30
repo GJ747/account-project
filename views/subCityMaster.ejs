@@ -2,18 +2,26 @@
 <body>
 <%- include("./sidebar.ejs") %> 
 
+<% for(let y=0;y<data.length; y++){%> 
+    <input type="hidden" id="<%=data[y].stateName%>" value="<%=data[y].stateCode%>">
+<% } %> 
+
 <div class="p-2 flex-grow-1 bd-highlight" >
 <div class="container mt-3" >
-    
-<form action="/createState/create1" method="post">
+    <% console.log("from page",data) %> 
+<form action="/createCity/create1" method="post">
     <input type="hidden" name="name" value="<%=name%>">
     <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Create City Information</h5>
     <div class='row' style="margin: 0px;background-color: white;padding: 5px;height: 200px;">
           <div class='col-sm'>
-          <label>State No.</label>
-          <input  class="form-control" type="text" name='stateNo' /> 
+          <label>State Name</label> 
+          <select id="stateName" class="form-select" onchange="stateN()" aria-label="Default select example"  name='stateName'>
+            <% for(let x=0 ; x<data.length; x++){ %> 
+            <option value="<%=data[x].stateName%>"><%=data[x].stateName%></option>
+            <% } %> 
+        </select>
           <label>State Code</label>
-          <input  class="form-control" type="text" name='stateCode' /> 
+          <input id="stateCode"  class="form-control" type="text" name='stateCode' value=""/> 
       </div>
       <div class='col-sm'>
           <label>Country</label>
@@ -56,4 +64,11 @@
   </div>
 </div>
 </body>
+<script>
+    const stateN = () =>{
+        const name = document.getElementById("stateName").value;
+        const code = document.getElementById(`${name}`).value
+        document.getElementById("stateCode").value = code
+    }
+</script>
 <%- include("./footer.ejs") %> 

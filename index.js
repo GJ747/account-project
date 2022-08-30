@@ -89,19 +89,24 @@ app.post("/subStateCreate",async(req,res)=>{
   app.post("/createCity",async(req,res)=>{
     const name = req.body.name
     const user = await User.findOne({name})
+    console.log(user.createState)
     res.render("cityMaster.ejs",{name,state:user.createCity})
   })
 
-  app.post("/createState/create",(req,res)=>{
+  app.post("/createCity/create",async(req,res)=>{
     const name = req.body.name
-    res.render("subCityMaster.ejs",{name,popup:false})
+    const user = await User.findOne({name})
+    data = user.createState
+    res.render("subCityMaster.ejs",{name,popup:false,data})
   })
 
-  app.post("/createState/create1", async(req,res)=>{
+  app.post("/createCity/create1", async(req,res)=>{
    const {name,stateNo,stateCode,country,cityName,state,pinCode} =req.body
+   const user1 = await User.findOne({name})
    const user = await User.findOneAndUpdate({name},{ $push: {createCity:{stateNo,country,cityName,state,pinCode,stateCode}} },{ new: true })
    .then((doc)=>{
-     res.render("subCityMaster.ejs",{name,popup:true})
+    data = user1.createState
+     res.render("subCityMaster.ejs",{name,popup:true,data})
    })
   })
 
@@ -278,9 +283,11 @@ app.post("/createCategory",async(req,res)=>{
   res.render("categoryMaster.ejs",{name,state:user.createCategory})
 })
 
-app.post("/createCategory/create",(req,res)=>{
+app.post("/createCategory/create",async(req,res)=>{
   const name = req.body.name
-  res.render("subCategoryMaster.ejs",{name,popup:false})
+  const user = await User.findOne({name})
+    data = user.createShedule
+  res.render("subCategoryMaster.ejs",{name,popup:false,data})
 })
 
 app.post("/createCategory/create1", async(req,res)=>{
@@ -288,9 +295,11 @@ app.post("/createCategory/create1", async(req,res)=>{
   const data = req.body
   delete data.name
   console.log(data)
+  const user1 = await User.findOne({name})
   const user = await User.findOneAndUpdate({name},{ $push: {createCategory:data} },{ new: true })
   .then((doc)=>{
-    res.render("subCategoryMaster.ejs",{name,popup:true})
+    data = user1.createShedule
+    res.render("subCategoryMaster.ejs",{name,popup:true,data})
   })
  })
 
@@ -303,9 +312,14 @@ app.post("/createAccount",async(req,res)=>{
   res.render("accountMaster.ejs",{name,state:user.createAccount})
 })
 
-app.post("/createAccount/create",(req,res)=>{
+app.post("/createAccount/create",async(req,res)=>{
   const name = req.body.name
-  res.render("subAccountMaster.ejs",{name,popup:false})
+  const user = await User.findOne({name})
+  shedule = user.createShedule
+  state = user.createState
+  group = user.createGroup
+  category = user.createCategory
+  res.render("subAccountMaster.ejs",{name,popup:false,shedule,state,group,category})
 })
 
 app.post("/createAccount/create1", async(req,res)=>{
@@ -313,9 +327,14 @@ app.post("/createAccount/create1", async(req,res)=>{
   const data = req.body
   delete data.name
   console.log(data)
+  const user1 = await User.findOne({name})
+  shedule = user.createShedule
+  state = user.createState
+  group = user.createGroup
+  category = user.createCategory
   const user = await User.findOneAndUpdate({name},{ $push: {createAccount:data} },{ new: true })
   .then((doc)=>{
-    res.render("subAccountMaster.ejs",{name,popup:true})
+    res.render("subAccountMaster.ejs",{name,popup:true,shedule,state,group,category})
   })
  })
 
@@ -345,7 +364,7 @@ app.post("/createBank/create1", async(req,res)=>{
  })
 
 
- //=================== Bank Information ================
+ //=================== Yarn Information ================
 
 app.post("/createYarn",async(req,res)=>{
   const name = req.body.name
@@ -353,9 +372,11 @@ app.post("/createYarn",async(req,res)=>{
   res.render("yarnMaster.ejs",{name,state:user.createYarn})
 })
 
-app.post("/createYarn/create",(req,res)=>{
+app.post("/createYarn/create",async(req,res)=>{
   const name = req.body.name
-  res.render("subYarnMaster.ejs",{name,popup:false})
+  const user = await User.findOne({name})
+  const blend = user.createBlend
+  res.render("subYarnMaster.ejs",{name,popup:false,blend})
 })
 
 app.post("/createYarn/create1", async(req,res)=>{
@@ -363,9 +384,11 @@ app.post("/createYarn/create1", async(req,res)=>{
   const data = req.body
   delete data.name
   console.log(data)
+  const user1 = await User.findOne({name})
+  const blend = user1.createBlend
   const user = await User.findOneAndUpdate({name},{ $push: {createYarn:data} },{ new: true })
   .then((doc)=>{
-    res.render("subYarnMaster.ejs",{name,popup:true})
+    res.render("subYarnMaster.ejs",{name,popup:true,blend})
   })
  })
 
@@ -426,9 +449,12 @@ app.post("/createSpares",async(req,res)=>{
   res.render("sparesMaster.ejs",{name,state:user.createSpares})
 })
 
-app.post("/createSpares/create",(req,res)=>{
+app.post("/createSpares/create",async(req,res)=>{
   const name = req.body.name
-  res.render("subSparesMaster.ejs",{name,popup:false})
+  const user = await User.findOne({name})
+  const spares = user.createSparesGroup
+  const spare = user.createSpares
+  res.render("subSparesMaster.ejs",{name,popup:false,spares,spare})
 })
 
 app.post("/createSpares/create1", async(req,res)=>{
@@ -436,9 +462,12 @@ app.post("/createSpares/create1", async(req,res)=>{
   const data = req.body
   delete data.name
   console.log(data)
+  const user1 = await User.findOne({name})
+  const spares = user1.createSparesGroup
+  const spare = user.createSpares
   const user = await User.findOneAndUpdate({name},{ $push: {createSpares:data} },{ new: true })
   .then((doc)=>{
-    res.render("subSparesMaster.ejs",{name,popup:true})
+    res.render("subSparesMaster.ejs",{name,popup:true,spares,spare})
   })
  })
 
@@ -496,8 +525,10 @@ app.post("/createYarnMillName/create1", async(req,res)=>{
 
 app.post("/createPurchaseOrder",async(req,res)=>{
   const name = req.body.name
+  console.log(name)
   const user = await User.findOne({name})
-  res.render("purchaseOrder.ejs",{name})
+  const hsn = user.createHsnCode
+  res.render("purchaseOrder.ejs",{name,popup:false,hsn})
 })
 
 app.post("/createPurchaseOrder/create1", async(req,res)=>{
@@ -505,15 +536,34 @@ app.post("/createPurchaseOrder/create1", async(req,res)=>{
   const data = req.body
   delete data.name
   console.log(data)
-  // const user = await User.findOneAndUpdate({name},{ $push: {createYarnMillName:data} },{ new: true })
-  // .then((doc)=>{
-  //   res.render("subYarnMillNameMaster.ejs",{name,popup:true})
-  // })
+ 
+  const user = await User.findOneAndUpdate({name},{ $push: {createPurchaseOrder:data} },{ new: true })
+  .then((doc)=>{
+    console.log("saved")
+  })
  })
 
-app.post("/post",(req,res)=>{
-  console.log(req.body)
+//=================== Purchase Information ================
+
+app.post("/createPurchaseOrderGray",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const hsn = user.createHsnCode
+  res.render("purchaseOrderGray.ejs",{name,popup:false,hsn})
 })
+
+app.post("/createPurchaseOrderGray/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+ 
+  const user = await User.findOneAndUpdate({name},{ $push: {createPurchaseOrderGray:data} },{ new: true })
+  .then((doc)=>{
+    console.log("saved")
+  })
+ })
 
  //================== server =====================
 

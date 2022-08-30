@@ -22,8 +22,12 @@
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
-                    <label>Shedule</label>
-                    <input  class="form-control" type="text" name='shedule' /> 
+                    <label>Shedule</label> 
+                    <select class="form-select" aria-label="Default select example" name='shedule'>
+                        <% for(let x=0;x<data.length;x++){ %> 
+                        <option value="<%=data[x].sheduleName%>"><%=data[x].sheduleName%></option>
+                        <% } %> 
+                    </select>
                 </div>
                 <div class='col-sm'>
                  </div>

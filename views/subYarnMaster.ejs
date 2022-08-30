@@ -16,11 +16,11 @@
                 <label>Yarn Name</label>
                 <input  class="form-control" type="text" name='yarnName' /> 
                 <label>Select Blend</label>
-                <select class="form-select" aria-label="Default select example"  name='blend'>
-                    <option value="1">India</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+                    <select class="form-select" aria-label="Default select example" name='blend'>
+                        <% for(let x = 0; x<blend.length; x++){%> 
+                        <option value="<%= blend[x].blendName %>"><%= blend[x].blendName %></option>
+                       <% } %> 
+                    </select>
                 <label>Yarn Type</label>
                 <select class="form-select" aria-label="Default select example"  name='yarnType'>
                     <option value="1">India</option>

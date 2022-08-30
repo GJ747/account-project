@@ -28,8 +28,8 @@
                     <input type="hidden" name="name" value="<%=name%>">  
                     <div class="d-flex bd-highlight" style="background-color: white;">
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Fabric</label>
-                            <input id="fabric" class="form-control" type="text" name="fabric">
+                            <label>Gray</label>
+                            <input id="gray" class="form-control" type="text" name="gray">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
                             <label>Mtr</label>
@@ -71,7 +71,7 @@
             <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm">Fabric</p>
+                        <p class="col-sm">Gray</p>
                         <p class="col-sm">Mtr</p>
                         <p class="col-sm ">Rate</p>
                         <p class="col-sm">Basic Amount</p>
@@ -164,7 +164,6 @@ let discount = document.getElementById("discount")
 
 document.getElementById("poNumber").value = Date.now()
 
-
 const charges = []
 let = chargesData = []
 const po1 = [];
@@ -185,7 +184,7 @@ const taxAmt =()=>{
     
 const addData =()=>{
     data = [
-             document.getElementById("fabric").value,
+             document.getElementById("gray").value,
              document.getElementById("mtr").value,
              document.getElementById("rate").value,
              document.getElementById("basicAmount").value,
@@ -223,7 +222,7 @@ const addData1 =()=>{
                 row.append(p)
                 
             }
-            document.getElementById("fabric").value = ""
+            document.getElementById("gray").value = ""
              document.getElementById("mtr").value = ""
              document.getElementById("rate").value = ""
              document.getElementById("basicAmount").value = ""
@@ -240,7 +239,7 @@ const addData1 =()=>{
                 i.setAttribute("style","color:red")
                 row.append(i)
 
-             document.getElementById("fabric").focus()
+             document.getElementById("gray").focus()
              totalAmount()
     }
 
@@ -299,7 +298,7 @@ const post =()=>{
     }
     axios({
         method: 'post',
-        url: '/createPurchaseOrder/create1',
+        url: '/createPurchaseOrderGray/create1',
         data: data
     });
     popup.style.display = "block";

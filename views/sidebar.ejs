@@ -115,7 +115,11 @@
             <ul style=" list-style-type: none;padding: 0px;">
                 <form action="/createPurchaseOrder" method="post">
                     <input type="hidden" name="name" value="<%=name%>">
-                    <li id="li"><button type="submit" id="sButton">Purchase Order</button></li>
+                    <li id="li"><button type="submit" id="sButton">Purchase Order Fabric</button></li>
+                </form>
+                <form action="/createPurchaseOrderGray" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Purchase Order Gray</button></li>
                 </form>
             </ul>
         </div>

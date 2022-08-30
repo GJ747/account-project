@@ -16,9 +16,9 @@
                     <input id="id"  class="form-control" type="text" name='accountId'/>
                     <label>Category</label>
                     <select class="form-select" aria-label="Default select example"  name='category'>
-                        <option value="1">India</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <% for(let x = 0; x<category.length; x++){%> 
+                        <option value="<%=category[x].categoryName%>"><%=category[x].categoryName%></option>
+                        <% } %> 
                     </select>
                     <div class='d-flex justify-content-start'>
                     <label >Loan Returned</label>
@@ -44,7 +44,11 @@
                     <label>Account Name</label>
                     <input  class="form-control" type="text" name='accountName'/>                
                     <label>Group</label>
-                    <input  class="form-control" type="text" name='group'/>
+                    <select class="form-select" aria-label="Default select example"  name='group'>
+                        <% for(let x = 0; x<group.length; x++){%> 
+                            <option value="<%=group[x].groupName%>"><%=group[x].groupName%></option>
+                            <% } %> 
+                    </select>
                     <label>Opening Balance DR</label>
                     <input  class="form-control" type="text" name='openingBalanceDR' />
                     <label>PAN No</label>
@@ -54,9 +58,17 @@
                     <label>Account Alias</label>
                     <input  class="form-control" type="text" name='accountAlias' /> 
                     <label>Shedule</label>
-                    <input  class="form-control" type="text" name='Shedule' />
+                    <select class="form-select" aria-label="Default select example"  name='Shedule'>
+                        <% for(let x = 0; x<shedule.length; x++){%> 
+                            <option value="<%=shedule[x].sheduleName%>"><%=shedule[x].sheduleName%></option>
+                            <% } %> 
+                    </select>
                     <label>State Code</label>
-                    <input  class="form-control" type="text" name='stateCode'/>
+                    <select class="form-select" aria-label="Default select example"  name='stateCode'>
+                        <% for(let x = 0; x<state.length; x++){%> 
+                            <option value="<%=state[x].stateCode%>"><%=state[x].stateCode%></option>
+                            <% } %> 
+                    </select>
                     <label>Intrest Rate</label>
                     <input  class="form-control" type="text" name='intrestRate'/>
           </div>

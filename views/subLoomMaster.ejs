@@ -13,7 +13,7 @@
             <div class='row'>
                 <div class='col-sm'>
                 <label>Loom Number</label>
-                <input  class="form-control" type="text" name='loomNo' /> 
+                <input id="loomNo"  class="form-control" type="text" name='loomNo' /> 
                 <label>Model</label>
                 <input  class="form-control" type="text" name='model' /> 
                 <label>Staubli Model No</label>
@@ -116,4 +116,7 @@
     </div>
     </div>
 </body>
+<script>
+    document.getElementById("loomNo").value = Date.now()
+</script>
     <%- include("./footer.ejs") %> 

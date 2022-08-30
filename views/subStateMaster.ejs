@@ -12,7 +12,7 @@
           <div class='row'>
             <div class='col-sm'>
                 <label>State Code</label>
-                <input  class="form-control" type="text" name='stateCode' required/> 
+                <input id="stateCode"  class="form-control" type="text" name='stateCode' required/> 
             </div>
             <div class='col-sm'>
                 <label>State Name</label>
@@ -39,6 +39,8 @@
         </div>
         </div>
         </body>
-
+<script>
+    document.getElementById("stateCode").value = Date.now()
+</script>
     <%- include("./footer.ejs") %> 
 

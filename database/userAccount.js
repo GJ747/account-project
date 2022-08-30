@@ -27,7 +27,7 @@ const UserAccount = new mongoose.Schema({
             gstStateCode : String,
     }],
     createCity: [{
-        stateNo : String,
+        stateName : String,
         stateCode : String,
         country : String,
         cityName : String,
@@ -169,6 +169,26 @@ const UserAccount = new mongoose.Schema({
     createYarnMillName:[{
         millNameId: String,
         millName: String,
+    }],
+    createPurchaseOrder:[{
+        name: String,
+        tableData: [],
+        otherCharges: [],
+        remark: String,
+        grandTotal: String,
+        date: Date,
+        partyName: String,
+        poNumber: String,
+    }],
+    createPurchaseOrderGray:[{
+        name: String,
+        tableData: [],
+        otherCharges: [],
+        remark: String,
+        grandTotal: String,
+        date: Date,
+        partyName: String,
+        poNumber: String,
     }]
   });
 
