@@ -3,7 +3,7 @@
     <%- include("./sidebar.ejs") %> 
     <div class="p-2 flex-grow-1 bd-highlight">
         <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Gray</h5>
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
                     <input type="hidden" id="name" name="name" value="<%=name%>">
@@ -12,7 +12,12 @@
                         <button id="btn" class="btn btn-primary" onclick="reload()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
                     </div>
                     <label>Party Name</label>
-                    <input id="partyName" class="form-control" type="text" name="partyName">
+                    <select id="partyName" class="form-select" aria-label="Default select example" name='partyName' onchange="gstValue(this)">
+                        <option >Select Party Name</option>
+                        <% for(let x = 0; x<account.length; x++){%> 
+                        <option id="<%= account[x].state %>" value="<%= account[x].accountName %>"><%= account[x].accountName %></option>
+                       <% } %> 
+                    </select>
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <label>PO number</label>
@@ -92,7 +97,6 @@
                 <div class="col-sm">
                     <label>Remark</label>
                     <textarea id="remark" class="form-control" name="remark" rows="10"></textarea>
-                    <button onclick="post()" class="btn btn-primary m-1 ml-0">Save Data</button>
                 </div>
                 <div class="col-sm">
                     <label>Frieght Charges</label>
@@ -129,16 +133,18 @@
 
                 </div>
             </div>
-                        <div class="d-flex justify-content-between p-2" style="background-color: #613d94;color: white;">
-                            <label>CGST</label>
-                            <input id="cgst"  type="number" step="0.01" name="cgst">
-                            <label>SGST</label>
-                            <input id="sgst"  type="number" step="0.01" name="sgst">
-                            <label>IGST</label>
-                            <input id="igst"  type="number" step="0.01" name="igst">
-                            <label>Grand Total</label>
-                            <input id="grandTotal"  type="number" step="0.01" name="grandTotal">
-                        </div>
+                    <div class="d-flex justify-content-between p-2" style="background-color: #613d94;color: white;">
+                        <label style="margin-top: 8px;">CGST</label>
+                        <input id="cgst"  type="number" step="0.01" name="cgst">
+                        <label style="margin-top: 8px;">SGST</label>
+                        <input id="sgst"  type="number" step="0.01" name="sgst">
+                        <label style="margin-top: 8px;">IGST</label>
+                        <input id="igst"  type="number" step="0.01" name="igst">
+                        <label style="margin-top: 8px;">Grand Total</label>
+                        <input id="grandTotal"  type="number" step="0.01" name="grandTotal">
+                        <button onclick="post()" class="btn btn-primary">Save Data</button>
+                    </div>
+
 
 
             
@@ -163,6 +169,7 @@ let frieghtCharges = document.getElementById("frieghtCharges")
 let discount = document.getElementById("discount")
 
 document.getElementById("poNumber").value = Date.now()
+document.getElementById("date").valueAsDate = new Date();
 
 const charges = []
 let = chargesData = []
@@ -265,7 +272,7 @@ const createTable1 =()=>{
 const del =(id)=>{
 const els = document.getElementById(id);
 const parent = els.parentNode;
-let index = $( "div" ).index( parent ) - 32
+let index = $( "div" ).index( parent ) - 35
 els.parentNode.remove();
 po1.splice(index,1)
 totalAmount()
@@ -276,13 +283,13 @@ const totalAmount =()=>{
  let otherTotal = 0
  let subTotal = 0
  for(let x=0;x<po1.length;x++){
-       maintotal =  maintotal + parseInt(po1[x]?.[7])
+       maintotal =  maintotal + parseFloat(po1[x]?.[7])
  }
  for(let x=0;x<charges.length;x++){
-       otherTotal =  otherTotal + parseInt(charges[x]?.[1])
+       otherTotal =  otherTotal + parseFloat(charges[x]?.[1])
  }
  subTotal = maintotal + otherTotal + +frieghtCharges.value - (maintotal*(discount.value/100))
- grandTotal.value = subTotal + (subTotal*(cgst.value/100)) + (subTotal*(sgst.value/100))+ (subTotal*(igst.value/100))
+ grandTotal.value = (subTotal - (subTotal*(cgst.value/100)) - (subTotal*(sgst.value/100)) - (subTotal*(igst.value/100))).toFixed(2)
 console.log(grandTotal.value)
 }
 const post =()=>{
@@ -295,6 +302,11 @@ const post =()=>{
         date: document.getElementById("date").value,
         partyName: document.getElementById("partyName").value,
         poNumber: document.getElementById("poNumber").value,
+        cgst : document.getElementById("cgst").value,
+        sgst : document.getElementById("sgst").value,
+        igst : document.getElementById("igst").value,
+        discount : discount.value,
+        frieghtCharges : frieghtCharges.value,
     }
     axios({
         method: 'post',
@@ -309,6 +321,19 @@ const reload =()=>{
     location.reload();
 }
 
+function gstValue(s) {
+  let state = s[s.selectedIndex].id
+  state.toLowerCase();
+  if(state==="raj"){
+    cgst.value = 6
+    sgst.value = 6
+    igst.value = 0
+  }else{
+    igst.value = 12
+    cgst.value = 0
+    sgst.value = 0
+  }
+}
 </script>
 
 <%- include("./footer.ejs") %> 

@@ -121,6 +121,29 @@
                     <input type="hidden" name="name" value="<%=name%>">
                     <li id="li"><button type="submit" id="sButton">Purchase Order Gray</button></li>
                 </form>
+                <form action="/createPurchaseOrderYarn" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Purchase Order Yarn</button></li>
+                </form>
+            </ul>
+        </div>
+    </div>
+    <div id="dorpdown4">
+        <h6>Purchase <i style="margin-left: 38%;" class="bi bi-chevron-right"></i></h6>
+        <div style="display: none;">
+            <ul style=" list-style-type: none;padding: 0px;">
+                <form action="/fabric" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Fabric</button></li>
+                </form>
+                <form action="/gray" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Gray</button></li>
+                </form>
+                <form action="/yarn" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Yarn</button></li>
+                </form>
             </ul>
         </div>
     </div>

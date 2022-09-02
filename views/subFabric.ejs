@@ -1,0 +1,258 @@
+<%- include("./header.ejs") %> 
+<body>
+    <%- include("./sidebar.ejs") %> 
+    <div class="p-2 flex-grow-1 bd-highlight">
+        <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Fabric</h5>
+            <div class="d-flex bd-highlight" style="background-color: white;">
+                <div class="p-2 flex-fill bd-highlight">
+                    <input type="hidden" id="name" name="name" value="<%=name%>">
+                    <div id="popup">
+                        <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
+                        <button id="btn" class="btn btn-primary" onclick="reload()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+                    </div>
+                    <label>Party Name</label>
+                    <input id="partyName" class="form-control" type="text" name="partyName" value="<%=partyName%>">
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>PO number</label>
+                    <input id="poNumber" class="form-control" type="text" name="poNumber" value="<%=poNumber%>">
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>Date</label>
+                    <input id="date" class="form-control" type="date" name="date" value="<%=date%>">
+                </div>
+            </div>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Details</h5>
+                
+            
+            <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
+                    <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
+                        <p class="col-sm">Fabric</p>
+                        <p class="col-sm">Mtr</p>
+                        <p class="col-sm ">Rate</p>
+                        <p class="col-sm">Basic Amount</p>
+                        <p class="col-sm">HSN</p>
+                        <p class="col-sm ">GST Rate</p>
+                        <p class="col-sm">Tax Amt</p>
+                        <p class="col-sm">Total Amount</p>
+                        <hr>
+                    </div>
+                    <div class="m-0" style="text-align: center;">
+                        <% let no = 0 %> 
+                        <% for(let x=0;x<tableData.length;x++) {%> 
+                        <div class="row">
+                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[0]%>" value="<%=tableData[x]?.[0]%>">
+                            <input onchange="edit(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[1]%>" value="<%=tableData[x]?.[1]%>" >
+                            <input onchange="edit1(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[2]%>" value="<%=tableData[x]?.[2]%>">
+                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[3]%>" value="<%=tableData[x]?.[3]%>">
+                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[4]%>" value="<%=tableData[x]?.[4]%>">
+                            <input onchange="edit2(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[5]%>" value="<%=tableData[x]?.[5]%>">
+                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[6]%>" value="<%=tableData[x]?.[6]%>">
+                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[7]%>" value="<%=tableData[x]?.[7]%>"> 
+                            <hr>
+                        </div>
+                        <% } %> 
+                    </div>
+             </div>
+
+             <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
+             <div class="row m-0" style="background-color: white;">
+                <div class="col-sm">
+                    <label>Remark</label>
+                    <textarea id="remark" class="form-control" name="remark" rows="10" ><%=remark%></textarea>
+                </div>
+                <div class="col-sm">
+                    <label >Frieght Charges</label>
+                    <input class="form-control" onchange="grandTotal()" id="frieghtCharges" type="text" value="<%=frieghtCharges%>">
+                    <label >Discount</label>
+                    <input class="form-control" onchange="grandTotal()" id="discount" type="text" value="<%=discount%>">
+                    <div class="row m-0" style="text-align: center;background-color: white; padding-top: 10px;font-weight: bold;">
+                        <p class="col-sm ">Charge Name</p>
+                        <p class="col-sm">Amount</p>
+                        <hr>
+                    </div>
+                    <div>
+                        <% let z = 0 %> 
+                        <% for(let x=0;x<otherCharges.length;x++) {%> 
+                            <div class="row">
+                            <input  style="text-align: center;" class="col-sm" type="text" name="<%=otherCharges[x]?.[0]%>" value="<%=otherCharges[x]?.[0]%>">
+                            <input onchange="grandTotal()" id="<%=z++%>o" style="text-align: center;" class="col-sm" type="text" name="<%=otherCharges[x]?.[1]%>" value="<%=otherCharges[x]?.[1]%>">
+                            </div>
+                            <% } %> 
+                    </div>
+
+                </div>
+            </div>
+                        <div class="d-flex justify-content-between p-2" style="background-color: #613d94;color: white;">
+                            <label style="margin-top: 5px;">CGST</label>
+                            <input id="cgst"  type="number" step="0.01" name="cgst" value="<%=cgst%>">
+                            <label style="margin-top: 5px;">SGST</label>
+                            <input id="sgst"  type="number" step="0.01" name="sgst" value="<%=sgst%>">
+                            <label style="margin-top: 5px;">IGST</label>
+                            <input id="igst"  type="number" step="0.01" name="igst" value="<%=igst%>">
+                            <label style="margin-top: 5px;">Grand Total</label>
+                            <input id="grandtotal"  type="number" step="0.01" name="grandTotal" value="<%=grandTotal%>">
+                            <button onclick="post()" class="btn btn-primary">Save Data</button>
+                        </div>
+
+
+            
+        </div>
+    </div>
+    <input id="valueT" type="hidden" value="<%=tableData.length %>">
+    <input id="valueO" type="hidden" value="<%=otherCharges.length %>">
+    
+</body>
+
+<script>
+document.getElementById("popup").style.display = "none"
+
+let tax = document.getElementById("taxAmt");
+let gst = document.getElementById("gst");
+const valueT = document.getElementById("valueT").value;
+const valueO = document.getElementById("valueO").value;
+let discount = document.getElementById("discount")
+let grandtotal = document.getElementById("grandtotal")
+
+const edit=(s)=>{
+    let mtrI = s.id
+    let rateI = +mtrI + 1  
+    let basicAmtI = +mtrI +2
+    let totalAmountI = +mtrI + 6
+
+    let beforeBasicAmt = document.getElementById(basicAmtI).value
+
+    let mtr = document.getElementById(mtrI) ;
+    let rate = document.getElementById(rateI);
+    let basicAmt = document.getElementById(basicAmtI);
+    let totalAmount = document.getElementById(totalAmountI);
+
+    basicAmt.value = (mtr.value*rate.value).toFixed(2)
+
+    totalAmount.value = (+totalAmount.value - +beforeBasicAmt  + +basicAmt.value).toFixed(2)
+    grandTotal()
+}
+
+const edit1=(s)=>{
+    let mtrI = +s.id - 1
+    let rateI = +mtrI + 1 
+    let basicAmtI = +mtrI + 2
+    let totalAmountI = +mtrI + 6
+    console.log(totalAmountI)
+
+    let beforeBasicAmt = document.getElementById(basicAmtI).value
+
+    let mtr = document.getElementById(mtrI) ;
+    let rate = document.getElementById(rateI);
+    let basicAmt = document.getElementById(basicAmtI);
+    let totalAmount = document.getElementById(totalAmountI);
+
+    basicAmt.value = (mtr.value*rate.value).toFixed(2)
+    totalAmount.value = (+totalAmount.value - +beforeBasicAmt  + +basicAmt.value).toFixed(2)
+    grandTotal()
+}
+
+const edit2=(s)=>{
+    let gstI = s.id
+    let taxI = +s.id + 1
+    let basicAmtI = +gstI - 3
+    let totalAmountI = +gstI + 2
+
+    let beforeTax = document.getElementById(taxI).value
+
+    let gst = document.getElementById(gstI);
+    let basicAmt = document.getElementById(basicAmtI);
+    let tax = document.getElementById(taxI);
+    let totalAmount = document.getElementById(totalAmountI);
+
+    tax.value = (basicAmt.value*(gst.value/100)).toFixed(2)   
+    totalAmount.value =  (+totalAmount.value - +beforeTax  + +tax.value).toFixed(2)
+    grandTotal()
+}
+
+
+const grandTotal = ()=>{
+    let total = 0
+    let y = 7
+    let z = 0
+    let cgst = document.getElementById("cgst").value
+    let sgst = document.getElementById("sgst").value
+    let igst = document.getElementById("igst").value
+    let frieghtCharges = document.getElementById("frieghtCharges")
+
+    for(let x=0;x<valueT;x++){
+        total = total + +document.getElementById(`${y}`).value
+        y = y + 8
+    }
+    total = total + +frieghtCharges.value - (total*(discount.value/100))
+
+    for(let x=0;x<valueO;x++){
+        total = total + +document.getElementById(`${z}o`).value
+        z++
+    }
+    
+    total = (total + total*(cgst/100) + total*(sgst/100)+ total*(igst/100)).toFixed(2)
+    console.log(total)
+    grandtotal.value = total
+}
+
+const tableData = []
+const otherCharges = []
+
+const post =()=>{
+    let tableArray = []
+    let otherArray = []
+    let y = 0
+    let z = 0
+
+    for(let x=0;x<valueT;x++){
+         tableArray = [
+            document.getElementById(y++).value,
+            document.getElementById(y++).value,
+            document.getElementById(y++).value,
+            document.getElementById(y++).value,
+            document.getElementById(y++).value,
+            document.getElementById(y++).value,
+            document.getElementById(y++).value,
+            document.getElementById(y++).value,
+        ]
+        tableData.push(tableArray)
+    }
+
+    for(let x=0;x<valueO;x++){
+        otherArray = [
+        document.getElementById(`${z++}o`).value,
+        ]
+        otherCharges.push(otherArray)
+    }
+    const data = {
+        name: document.getElementById("name").value,
+        tableData,
+        otherCharges,
+        remark: document.getElementById("remark").value,
+        grandTotal : grandtotal.value,
+        date: document.getElementById("date").value,
+        partyName: document.getElementById("partyName").value,
+        poNumber: document.getElementById("poNumber").value,
+        cgst : document.getElementById("cgst").value,
+        sgst : document.getElementById("sgst").value,
+        igst : document.getElementById("igst").value,
+        discount : discount.value,
+        frieghtCharges : frieghtCharges.value,
+    }
+    axios({
+        method: 'post',
+        url: '/fabric/create1',
+        data: data
+    });
+    popup.style.display = "block";
+}
+
+const reload =()=>{
+    popup.style.display = "none";
+}
+
+</script>
+
+<%- include("./footer.ejs") %> 

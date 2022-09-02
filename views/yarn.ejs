@@ -1,0 +1,22 @@
+<%- include("./header.ejs") %> 
+<body>
+    <%- include("./sidebar.ejs") %> 
+    <div class="p-2 flex-grow-1 bd-highlight">
+        <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Yarn</h5>
+        <form action="/yarn/create" method="post">     
+            <div style="background-color: white;" >
+            <input type="hidden" name="name" value="<%=name%>">
+            <label class="m-1">PO number</label>
+                <select  id="poNumber" class="form-select m-1" aria-label="Default select example" name='poNumber' style="width: 300px;">
+                <% for(let x = 0; x<yarn.length; x++){%> 
+                    <option value="<%= yarn[x].poNumber %>"><%= yarn[x].poNumber %></option>
+                <% } %> 
+                </select>
+            <button type="submit" class="btn btn-primary m-1">Get PO</button>  
+            </div> 
+        </form>            
+        </div>
+    </div>
+</body>
+<%- include("./footer.ejs") %> 

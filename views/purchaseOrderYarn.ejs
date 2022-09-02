@@ -3,7 +3,7 @@
     <%- include("./sidebar.ejs") %> 
     <div class="p-2 flex-grow-1 bd-highlight">
         <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Fabric</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Yarn</h5>
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
                     <input type="hidden" id="name" name="name" value="<%=name%>">
@@ -33,12 +33,16 @@
                     <input type="hidden" name="name" value="<%=name%>">  
                     <div class="d-flex bd-highlight" style="background-color: white;">
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Fabric</label>
-                            <input id="fabric" class="form-control" type="text" name="fabric">
+                            <label>Yarn</label>
+                            <select id="yarn" class="form-select" aria-label="Default select example" name='yarn' style="width:100px">
+                                <% for(let x = 0; x<yarn.length; x++){%> 
+                                <option value="<%= yarn[x].yarnName %>"><%= yarn[x].yarnName %></option>
+                               <% } %> 
+                            </select>
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Mtr</label>
-                            <input id="mtr" class="form-control" type="number" step="0.01" name="mtr">
+                            <label>Wieght</label>
+                            <input id="wieght" class="form-control" type="number" step="0.01" name="wieght">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
                             <label>Rate</label>
@@ -76,9 +80,9 @@
             <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm">Fabric</p>
+                        <p class="col-sm">Yarn</p>
                         <p class="col-sm">Mtr</p>
-                        <p class="col-sm ">Rate</p>
+                        <p class="col-sm ">Wieght</p>
                         <p class="col-sm">Basic Amount</p>
                         <p class="col-sm">HSN</p>
                         <p class="col-sm ">GST Rate</p>
@@ -144,9 +148,6 @@
                             <input id="grandTotal"  type="number" step="0.01" name="grandTotal">
                             <button onclick="post()" class="btn btn-primary">Save Data</button>
                         </div>
-
-
-            
         </div>
     </div>
 </body>
@@ -155,7 +156,7 @@
 document.getElementById("popup")
 popup.style.display = "none";
 let basicAmt = document.getElementById("basicAmount");
-let mtr = document.getElementById("mtr") ;
+let mtr = document.getElementById("wieght") ;
 let rate = document.getElementById("rate");
 let tax = document.getElementById("taxAmt");
 let gst = document.getElementById("gst");
@@ -170,6 +171,7 @@ let discount = document.getElementById("discount")
 document.getElementById("poNumber").value = Date.now()
 document.getElementById("date").valueAsDate = new Date();
 
+
 const charges = []
 let = chargesData = []
 const po1 = [];
@@ -178,7 +180,8 @@ let data = []
 
 
 
-const basicAmount = ()=>{ basicAmt.value = rate.value*mtr.value}
+const basicAmount = ()=>{ basicAmt.value = rate.value*mtr.value
+}
 const taxAmt =()=>{ 
     const x = basicAmt.value*(gst.value/100);
     tax.value = x.toFixed(2)
@@ -189,8 +192,8 @@ const taxAmt =()=>{
     
 const addData =()=>{
     data = [
-             document.getElementById("fabric").value,
-             document.getElementById("mtr").value,
+             document.getElementById("yarn").value,
+             document.getElementById("wieght").value,
              document.getElementById("rate").value,
              document.getElementById("basicAmount").value,
              document.getElementById("hsnCode").value,
@@ -227,8 +230,8 @@ const addData1 =()=>{
                 row.append(p)
                 
             }
-            document.getElementById("fabric").value = ""
-             document.getElementById("mtr").value = ""
+            document.getElementById("yarn").value = ""
+             document.getElementById("wieght").value = ""
              document.getElementById("rate").value = ""
              document.getElementById("basicAmount").value = ""
              document.getElementById("hsnCode").value = ""
@@ -244,7 +247,7 @@ const addData1 =()=>{
                 i.setAttribute("style","color:red")
                 row.append(i)
 
-             document.getElementById("fabric").focus()
+             document.getElementById("yarn").focus()
              totalAmount()
     }
 
@@ -288,7 +291,6 @@ const totalAmount =()=>{
  }
  subTotal = maintotal + otherTotal + +frieghtCharges.value - (maintotal*(discount.value/100))
  grandTotal.value = (subTotal + (subTotal*(cgst.value/100)) + (subTotal*(sgst.value/100))+ (subTotal*(igst.value/100))).toFixed(2)
- console.log(grandTotal.value)
 }
 const post =()=>{
     const data = {
@@ -305,17 +307,15 @@ const post =()=>{
         igst : document.getElementById("igst").value,
         discount : discount.value,
         frieghtCharges : frieghtCharges.value,
-
     }
     axios({
         method: 'post',
-        url: '/createPurchaseOrder/create1',
+        url: '/createPurchaseOrderYarn/create1',
         data: data
     });
     popup.style.display = "block";
-    
-    
 }
+
 const reload =()=>{
     location.reload();
 }
@@ -333,7 +333,6 @@ function gstValue(s) {
     sgst.value = 0
   }
 }
-
 </script>
 
 <%- include("./footer.ejs") %> 
