@@ -529,8 +529,9 @@ app.post("/createPurchaseOrder",async(req,res)=>{
   const user = await User.findOne({name})
   const hsn = user.createHsnCode
   const account = user.createAccount
+  const no = user.createPurchaseOrder.length
   console.log( "account",account)
-  res.render("purchaseOrder.ejs",{name,popup:false,hsn,account})
+  res.render("purchaseOrder.ejs",{name,popup:false,hsn,account,no})
 })
 
 app.post("/createPurchaseOrder/create1", async(req,res)=>{
@@ -553,7 +554,8 @@ app.post("/createPurchaseOrderGray",async(req,res)=>{
   const user = await User.findOne({name})
   const hsn = user.createHsnCode
   const account = user.createAccount
-  res.render("purchaseOrderGray.ejs",{name,popup:false,hsn,account})
+  const no = user.createPurchaseOrderGray.length
+  res.render("purchaseOrderGray.ejs",{name,popup:false,hsn,account,no})
 })
 
 app.post("/createPurchaseOrderGray/create1", async(req,res)=>{
@@ -578,7 +580,8 @@ app.post("/createPurchaseOrderYarn",async(req,res)=>{
   const yarn = user.createYarn
   const hsn = user.createHsnCode
   const account = user.createAccount
-  res.render("purchaseOrderYarn.ejs",{name,popup:false,hsn,yarn,account})
+  const no = user.createPurchaseOrderYarn.length
+  res.render("purchaseOrderYarn.ejs",{name,popup:false,hsn,yarn,account,no})
 })
 
 app.post("/createPurchaseOrderYarn/create1", async(req,res)=>{
@@ -605,7 +608,9 @@ app.post("/fabric",async(req,res)=>{
 
 app.post("/fabric/create", async(req,res)=>{
   const {name,poNumber} = req.body
+  console.log(req.body)
   const user = await User.findOne({name})
+  const fabric = user.createPurchaseOrder
   const data = user.createPurchaseOrder
   let y = 0
   for(let x=0; x<data.length;x++){
@@ -614,7 +619,7 @@ app.post("/fabric/create", async(req,res)=>{
     }
   }
   const {tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
-  res.render("subFabric.ejs",{discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
+  res.render("subFabric.ejs",{fabric,discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
  })
 
  app.post("/fabric/create1", async(req,res)=>{
@@ -651,7 +656,7 @@ app.post("/gray/create", async(req,res)=>{
     }
   }
   const {tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
-  res.render("subGray.ejs",{name,tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges,poNumber})
+  res.render("subGray.ejs",{data,name,tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges,poNumber})
  })
 
  app.post("/gray/create1", async(req,res)=>{
@@ -679,6 +684,7 @@ app.post("/yarn",async(req,res)=>{
 
 app.post("/yarn/create", async(req,res)=>{
   const {name,poNumber} = req.body
+  console.log(poNumber)
   const user = await User.findOne({name})
   const data = user.createPurchaseOrderYarn
   let y = 0
@@ -688,7 +694,7 @@ app.post("/yarn/create", async(req,res)=>{
     }
   }
   const {tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
-  res.render("subYarn.ejs",{name,tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges,poNumber})
+  res.render("subYarn.ejs",{data,name,tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges,poNumber})
  })
 
  app.post("/yarn/create1", async(req,res)=>{
@@ -703,7 +709,7 @@ app.post("/yarn/create", async(req,res)=>{
   })
  })
 
- 
+
  //================== server =====================
 
 

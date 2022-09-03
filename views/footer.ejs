@@ -63,7 +63,7 @@
       if (event.keyCode === 13 ) {
        event.preventDefault();
             const currentNode = event.target;
-            const allElements = document.querySelectorAll('input, a, area, object, select, textarea, [contenteditable]');
+            const allElements = document.querySelectorAll('input, a, area,button, object, select, textarea, [contenteditable]');
             const currentIndex = [...allElements].findIndex(el => currentNode.isEqualNode(el))
             const targetIndex = (currentIndex + 1) % allElements.length;
             allElements[targetIndex].focus();

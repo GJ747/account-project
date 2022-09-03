@@ -150,6 +150,7 @@
             
         </div>
     </div>
+    <input type="hidden" id="no" value="<%=no%>">
 </body>
 
 <script>
@@ -167,8 +168,11 @@ let sgst = document.getElementById("sgst")
 let igst = document.getElementById("igst")
 let frieghtCharges = document.getElementById("frieghtCharges")
 let discount = document.getElementById("discount")
+let no = document.getElementById("no").value
 
-document.getElementById("poNumber").value = Date.now()
+
+document.getElementById("poNumber").value = `POG/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
+
 document.getElementById("date").valueAsDate = new Date();
 
 const charges = []

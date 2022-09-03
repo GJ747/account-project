@@ -15,8 +15,16 @@
                     <input id="partyName" class="form-control" type="text" name="partyName" value="<%=partyName%>">
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
-                    <label>PO number</label>
-                    <input id="poNumber" class="form-control" type="text" name="poNumber" value="<%=poNumber%>">
+                    <form action="/yarn/create" method="post">     
+                        <input type="hidden" name="name" value="<%=name%>">
+                        <label>PO number</label>
+                            <select onchange="clickBtn()" id="poNumber" class="form-select" aria-label="Default select example" name='poNumber'>
+                            <% for(let x = 0; x<data.length; x++){%> 
+                                <option value="<%= data[x].poNumber %>"><%= data[x].poNumber %></option>
+                            <% } %> 
+                            </select>
+                        <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
+                    </form> 
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <label>Date</label>
@@ -102,12 +110,14 @@
     </div>
     <input id="valueT" type="hidden" value="<%=tableData.length %>">
     <input id="valueO" type="hidden" value="<%=otherCharges.length %>">
-    <input id="discount" type="hidden" value="<%=discount%>">
-    <input id="frieghtCharges" type="hidden" value="<%=frieghtCharges%>">
+    <input type="hidden" id="po" name="name" value="<%=poNumber%>">
 </body>
 
 <script>
 document.getElementById("popup").style.display = "none"
+
+const po = document.getElementById("po").value
+document.getElementById("poNumber").value = po
 
 let tax = document.getElementById("taxAmt");
 let gst = document.getElementById("gst");
@@ -116,20 +126,28 @@ const valueO = document.getElementById("valueO").value;
 let discount = document.getElementById("discount")
 let grandtotal = document.getElementById("grandtotal")
 
+const clickBtn =()=>{
+    document.getElementById("getPO").click()
+}
+
 const edit=(s)=>{
     let mtrI = s.id
     let rateI = +mtrI + 1  
     let basicAmtI = +mtrI +2
     let totalAmountI = +mtrI + 6
-
+    let taxI = +mtrI + 5
+    let gstI = +mtrI + 4
     let beforeBasicAmt = document.getElementById(basicAmtI).value
 
     let mtr = document.getElementById(mtrI) ;
     let rate = document.getElementById(rateI);
     let basicAmt = document.getElementById(basicAmtI);
     let totalAmount = document.getElementById(totalAmountI);
+    let tax = document.getElementById(taxI);
+    let gst = document.getElementById(gstI);
 
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
+    tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
 
     totalAmount.value = (+totalAmount.value - +beforeBasicAmt  + +basicAmt.value).toFixed(2)
     grandTotal()
@@ -140,7 +158,8 @@ const edit1=(s)=>{
     let rateI = +mtrI + 1 
     let basicAmtI = +mtrI + 2
     let totalAmountI = +mtrI + 6
-    console.log(totalAmountI)
+    let gstI = +mtrI + 4
+    let taxI = +mtrI + 5
 
     let beforeBasicAmt = document.getElementById(basicAmtI).value
 
@@ -148,12 +167,14 @@ const edit1=(s)=>{
     let rate = document.getElementById(rateI);
     let basicAmt = document.getElementById(basicAmtI);
     let totalAmount = document.getElementById(totalAmountI);
+    let tax = document.getElementById(taxI);
+    let gst = document.getElementById(gstI);
 
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
+    tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
     totalAmount.value = (+totalAmount.value - +beforeBasicAmt  + +basicAmt.value).toFixed(2)
     grandTotal()
 }
-
 const edit2=(s)=>{
     let gstI = s.id
     let taxI = +s.id + 1

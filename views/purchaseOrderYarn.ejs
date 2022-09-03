@@ -12,7 +12,7 @@
                         <button id="btn" class="btn btn-primary" onclick="reload()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
                     </div>
                     <label>Party Name</label>
-                    <select id="partyName" class="form-select" aria-label="Default select example" name='partyName' onchange="gstValue(this)">
+                    <select  id="partyName" class="form-select" aria-label="Default select example" name='partyName' onchange="gstValue(this)">
                         <option >Select Party Name</option>
                         <% for(let x = 0; x<account.length; x++){%> 
                         <option id="<%= account[x].state %>" value="<%= account[x].accountName %>"><%= account[x].accountName %></option>
@@ -150,6 +150,7 @@
                         </div>
         </div>
     </div>
+    <input type="hidden" id="no" value="<%=no%>">
 </body>
 
 <script>
@@ -167,8 +168,11 @@ let sgst = document.getElementById("sgst")
 let igst = document.getElementById("igst")
 let frieghtCharges = document.getElementById("frieghtCharges")
 let discount = document.getElementById("discount")
+let no = document.getElementById("no").value
 
-document.getElementById("poNumber").value = Date.now()
+
+document.getElementById("poNumber").value = `POY/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
+
 document.getElementById("date").valueAsDate = new Date();
 
 
@@ -332,6 +336,7 @@ function gstValue(s) {
     cgst.value = 0
     sgst.value = 0
   }
+
 }
 </script>
 
