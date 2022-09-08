@@ -125,6 +125,10 @@
                     <input type="hidden" name="name" value="<%=name%>">
                     <li id="li"><button type="submit" id="sButton">Purchase Order Yarn</button></li>
                 </form>
+                <form action="/createPurchaseOrderSpare" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Purchase Order Spare</button></li>
+                </form>
             </ul>
         </div>
     </div>
@@ -143,6 +147,10 @@
                 <form action="/yarn" method="post">
                     <input type="hidden" name="name" value="<%=name%>">
                     <li id="li"><button type="submit" id="sButton">Yarn</button></li>
+                </form>
+                <form action="/spare" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Spare</button></li>
                 </form>
             </ul>
         </div>

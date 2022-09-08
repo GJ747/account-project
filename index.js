@@ -453,8 +453,7 @@ app.post("/createSpares/create",async(req,res)=>{
   const name = req.body.name
   const user = await User.findOne({name})
   const spares = user.createSparesGroup
-  const spare = user.createSpares
-  res.render("subSparesMaster.ejs",{name,popup:false,spares,spare})
+  res.render("subSparesMaster.ejs",{name,popup:false,spares})
 })
 
 app.post("/createSpares/create1", async(req,res)=>{
@@ -464,10 +463,9 @@ app.post("/createSpares/create1", async(req,res)=>{
   console.log(data)
   const user1 = await User.findOne({name})
   const spares = user1.createSparesGroup
-  const spare = user.createSpares
   const user = await User.findOneAndUpdate({name},{ $push: {createSpares:data} },{ new: true })
   .then((doc)=>{
-    res.render("subSparesMaster.ejs",{name,popup:true,spares,spare})
+    res.render("subSparesMaster.ejs",{name,popup:true,spares})
   })
  })
 
@@ -529,8 +527,10 @@ app.post("/createPurchaseOrder",async(req,res)=>{
   const user = await User.findOne({name})
   const hsn = user.createHsnCode
   const account = user.createAccount
-  const no = user.createPurchaseOrder.length
-  console.log( "account",account)
+  let no = 0
+  if(user.createPurchaseOrder){
+     no = +user.createPurchaseOrder.length + 1
+    }
   res.render("purchaseOrder.ejs",{name,popup:false,hsn,account,no})
 })
 
@@ -554,7 +554,10 @@ app.post("/createPurchaseOrderGray",async(req,res)=>{
   const user = await User.findOne({name})
   const hsn = user.createHsnCode
   const account = user.createAccount
-  const no = user.createPurchaseOrderGray.length
+  let no = 0
+  if(user.createPurchaseOrderGray){
+     no = +user.createPurchaseOrderGray.length + 1
+    }
   res.render("purchaseOrderGray.ejs",{name,popup:false,hsn,account,no})
 })
 
@@ -580,7 +583,10 @@ app.post("/createPurchaseOrderYarn",async(req,res)=>{
   const yarn = user.createYarn
   const hsn = user.createHsnCode
   const account = user.createAccount
-  const no = user.createPurchaseOrderYarn.length
+  let no = 0
+  if(user.createPurchaseOrderYarn){
+     no = +user.createPurchaseOrderYarn.length + 1
+    }
   res.render("purchaseOrderYarn.ejs",{name,popup:false,hsn,yarn,account,no})
 })
 
@@ -590,6 +596,34 @@ app.post("/createPurchaseOrderYarn/create1", async(req,res)=>{
   delete data.name
  
   const user = await User.findOneAndUpdate({name},{ $push: {createPurchaseOrderYarn:data} },{ new: true })
+  .then((doc)=>{
+    console.log(doc)
+  })
+ })
+
+
+  //=================== Purchase Spare Information ================
+
+app.post("/createPurchaseOrderSpare",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const spare = user.createSpares
+  const hsn = user.createHsnCode
+  const account = user.createAccount
+  let no = 0
+  if(user.createPurchaseOrderSpare){
+     no = +user.createPurchaseOrderSpare.length + 1
+    }
+  res.render("purchaseOrderSpare.ejs",{name,popup:false,hsn,spare,account,no})
+})
+
+app.post("/createPurchaseOrderSpare/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+ 
+  const user = await User.findOneAndUpdate({name},{ $push: {createPurchaseOrderSpare:data} },{ new: true })
   .then((doc)=>{
     console.log(doc)
   })
@@ -709,6 +743,42 @@ app.post("/yarn/create", async(req,res)=>{
   })
  })
 
+
+   //=================== spare ================
+
+app.post("/spare",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const spare = user.createPurchaseOrderSpare
+  res.render("spare.ejs",{name,popup:false,spare})
+})
+
+app.post("/spare/create", async(req,res)=>{
+  const {name,poNumber} = req.body
+  console.log(poNumber)
+  const user = await User.findOne({name})
+  const data = user.createPurchaseOrderSpare
+  let y = 0
+  for(let x=0; x<data.length;x++){
+    if(poNumber===data[x].poNumber){
+      y = x
+    }
+  }
+  const {tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
+  res.render("subSpare.ejs",{data,name,tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges,poNumber})
+ })
+
+ app.post("/spare/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+ 
+  const user = await User.findOneAndUpdate({name},{ $push: {spare:data} },{ new: true })
+  .then((doc)=>{
+    console.log(doc)
+  })
+ })
 
  //================== server =====================
 

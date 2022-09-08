@@ -13,11 +13,7 @@
           <label>Spares ID</label>
           <input id="id" class="form-control" type="text" name='sparesId' /> 
           <label>Spares Name</label>
-          <select class="form-select" aria-label="Default select example" name='sparesName'>
-            <% for(let x = 0; x<spare.length; x++){%> 
-            <option value="<%= spare[x].sparesName %>"><%= spare[x].sparesName %></option>
-           <% } %> 
-        </select>
+        <input  class="form-control" type="text" name='sparesName' /> 
           <label>Spare Sub Group</label>
           <select class="form-select" aria-label="Default select example"  name='spareSubGroup'>
               <option value="1">India</option>
