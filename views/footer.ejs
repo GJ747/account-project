@@ -10,6 +10,7 @@
     const menu2 = document.getElementById('dorpdown2');
     const menu3 = document.getElementById('dorpdown3');
     const menu4 = document.getElementById('dorpdown4');
+    const menu5 = document.getElementById('dorpdown5');
     menu.addEventListener('click',  function(){
         const inner = menu.children[1];
         if(inner.style.display === 'none'){
@@ -44,6 +45,14 @@
     })
     menu4.addEventListener('click',function(){
         const inner = menu4.children[1];
+        if(inner.style.display === 'none'){
+            inner.style.display = 'block';
+        }else {
+            inner.style.display = 'none';
+        }
+    })
+    menu5.addEventListener('click',function(){
+        const inner = menu5.children[1];
         if(inner.style.display === 'none'){
             inner.style.display = 'block';
         }else {

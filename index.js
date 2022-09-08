@@ -780,6 +780,119 @@ app.post("/spare/create", async(req,res)=>{
   })
  })
 
+
+   //=================== Sales Fabric Information ================
+
+app.post("/createSalesOrderFabric",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const hsn = user.createHsnCode
+  const account = user.createAccount
+  let no = 0
+  if(user.createSalesOrderFabric){
+     no = +user.createSalesOrderFabric.length + 1
+    }
+  res.render("salesOrderFabric.ejs",{name,popup:false,hsn,account,no})
+})
+
+app.post("/createSalesOrderFabric/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+ 
+  const user = await User.findOneAndUpdate({name},{ $push: {createSalesOrderFabric:data} },{ new: true })
+  .then((doc)=>{
+    console.log("saved")
+  })
+ })
+
+
+ //=================== Sales Gray Information ================
+
+app.post("/createSalesOrderGray",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const hsn = user.createHsnCode
+  const account = user.createAccount
+  let no = 0
+  if(user.createSalesOrderGray){
+     no = +user.createSalesOrderGray.length + 1
+    }
+  res.render("SalesOrderGray.ejs",{name,popup:false,hsn,account,no})
+})
+
+app.post("/createSalesOrderGray/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log(data)
+ 
+  const user = await User.findOneAndUpdate({name},{ $push: {createSalesOrderGray:data} },{ new: true })
+  .then((doc)=>{
+    console.log("saved")
+  })
+ })
+
+
+ //=================== Sales Yarn Information ================
+
+app.post("/createSalesOrderYarn",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const yarn = user.createYarn
+  const hsn = user.createHsnCode
+  const account = user.createAccount
+  let no = 0
+  if(user.createSalesOrderYarn){
+     no = +user.createSalesOrderYarn.length + 1
+    }
+  res.render("SalesOrderYarn.ejs",{name,popup:false,hsn,yarn,account,no})
+})
+
+app.post("/createSalesOrderYarn/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+ 
+  const user = await User.findOneAndUpdate({name},{ $push: {createSalesOrderYarn:data} },{ new: true })
+  .then((doc)=>{
+    console.log(doc)
+  })
+ })
+
+
+  //=================== Sales Spare Information ================
+
+app.post("/createSalesOrderSpare",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const spare = user.createSpares
+  const hsn = user.createHsnCode
+  const account = user.createAccount
+  let no = 0
+  if(user.createSalesOrderSpare){
+     no = +user.createSalesOrderSpare.length + 1
+    }
+  res.render("SalesOrderSpare.ejs",{name,popup:false,hsn,spare,account,no})
+})
+
+app.post("/createSalesOrderSpare/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+ 
+  const user = await User.findOneAndUpdate({name},{ $push: {createSalesOrderSpare:data} },{ new: true })
+  .then((doc)=>{
+    console.log(doc)
+  })
+ })
+
+
  //================== server =====================
 
 

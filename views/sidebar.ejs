@@ -155,4 +155,27 @@
             </ul>
         </div>
     </div>
+    <div id="dorpdown5">
+        <h6>Sales Order <i style="margin-left: 28%;" class="bi bi-chevron-right"></i></h6>
+        <div style="display: none;">
+            <ul style=" list-style-type: none;padding: 0px;">
+                <form action="/createSalesOrderFabric" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Sales Order Fabric</button></li>
+                </form>
+                <form action="/createSalesOrderGray" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Sales Order Gray</button></li>
+                </form>
+                <form action="/createSalesOrderYarn" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Sales Order Yarn</button></li>
+                </form>
+                <form action="/createSalesOrderSpare" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Sales Order Spare</button></li>
+                </form>
+            </ul>
+        </div>
+    </div>
 </div>
