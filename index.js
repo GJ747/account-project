@@ -539,11 +539,9 @@ app.post("/createPurchaseOrder/create1", async(req,res)=>{
   const data = req.body
   delete data.name
   console.log(data)
- 
   const user = await User.findOneAndUpdate({name},{ $push: {createPurchaseOrder:data} },{ new: true })
-  .then((doc)=>{
-    console.log("saved")
-  })
+  data.grandTotal = 0
+  const userUpdated = await User.findOneAndUpdate({name},{ $push: {fabricUpdated:data} },{ new: true })
  })
 
 //=================== Purchase Gray Information ================
@@ -584,10 +582,11 @@ app.post("/createPurchaseOrderYarn",async(req,res)=>{
   const hsn = user.createHsnCode
   const account = user.createAccount
   let no = 0
+  const mill = user.createYarnMillName
   if(user.createPurchaseOrderYarn){
      no = +user.createPurchaseOrderYarn.length + 1
     }
-  res.render("purchaseOrderYarn.ejs",{name,popup:false,hsn,yarn,account,no})
+  res.render("purchaseOrderYarn.ejs",{name,popup:false,hsn,yarn,account,no,mill})
 })
 
 app.post("/createPurchaseOrderYarn/create1", async(req,res)=>{
@@ -636,22 +635,57 @@ app.post("/fabric",async(req,res)=>{
   const name = req.body.name
   console.log(name)
   const user = await User.findOne({name})
+  const data = user.createPurchaseOrder
+  let fabric = []
+  for(let x = 0;x<data.length;x++){
+    fabric.push(data[x].partyName)
+  } 
+
+  let uniqueFabric = fabric.filter((c, index) => {
+    return fabric.indexOf(c) === index;
+});
+
+  res.render("fabricPo.ejs",{name,popup:false,uniqueFabric})
+})
+
+app.post("/fabric/po",async(req,res)=>{
+  const {name, partyName} = req.body
+  const user = await User.findOne({name})
   const fabric = user.createPurchaseOrder
-  res.render("fabric.ejs",{name,popup:false,fabric})
+  let fabric1 = []
+  for(let x = 0;x<fabric.length;x++){
+    fabric1.push(fabric[x].partyName)
+  } 
+
+  let uniqueFabric = fabric1.filter((c, index) => {
+    return fabric1.indexOf(c) === index;
+});
+
+  // const user1 = await User.findOne({name},{createPurchaseOrder:{$elemMatch:{partyName,orderCompleted:"no"}}})
+  const data = user.createPurchaseOrder
+  const po = []
+  for(let x=0;x<data.length;x++){
+    if(data[x].partyName === partyName && data[x].orderCompleted === "no"){
+      po.push(data[x].poNumber)
+    }
+  }
+  console.log(partyName,po)
+  res.render("fabric.ejs",{name,partyName,po,popup:false,uniqueFabric})
 })
 
 app.post("/fabric/create", async(req,res)=>{
   const {name,poNumber} = req.body
-  console.log(req.body)
   const user = await User.findOne({name})
-  const fabric = user.createPurchaseOrder
-  const data = user.createPurchaseOrder
+  const fabric = user.fabricUpdated
+  const data = user.fabricUpdated
   let y = 0
   for(let x=0; x<data.length;x++){
     if(poNumber===data[x].poNumber){
       y = x
+      console.log(poNumber,data[x].poNumber)
     }
   }
+  
   const {tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
   res.render("subFabric.ejs",{fabric,discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
  })
@@ -660,17 +694,19 @@ app.post("/fabric/create", async(req,res)=>{
   const {name} = req.body
   const data = req.body
   delete data.name
-  console.log(data,name)
- 
+ const po = data.poNumber
   const user = await User.findOneAndUpdate({name},{ $push: {fabric:data} },{ new: true })
-  .then((doc)=>{
-    console.log("saved")
-  })
+  const user1 = await User.findOneAndUpdate({name,"fabricUpdated.poNumber": po},{$set:{"fabricUpdated.$":data}})
+  const oldData = await User.findOne({name},{createPurchaseOrder:{$elemMatch:{poNumber:po}}})
+ 
+  if(data.grandTotal === oldData.createPurchaseOrder[0].grandTotal){
+    const updateData = await User.findOneAndUpdate({name,"createPurchaseOrder.poNumber":po},{$set:{"createPurchaseOrder.$.orderCompleted":"yes"}})
+    const deleteData = await User.findOneAndUpdate({name,"fabricUpdated.poNumber": po},{$pull:{fabricUpdated:{poNumber:po}}})
+  }
  })
 
 
   //=================== Gray ================
-
 app.post("/gray",async(req,res)=>{
   const name = req.body.name
   console.log(name)
@@ -847,10 +883,11 @@ app.post("/createSalesOrderYarn",async(req,res)=>{
   const hsn = user.createHsnCode
   const account = user.createAccount
   let no = 0
+  const mill = user.createYarnMillName
   if(user.createSalesOrderYarn){
      no = +user.createSalesOrderYarn.length + 1
     }
-  res.render("SalesOrderYarn.ejs",{name,popup:false,hsn,yarn,account,no})
+  res.render("SalesOrderYarn.ejs",{name,popup:false,hsn,yarn,account,no,mill})
 })
 
 app.post("/createSalesOrderYarn/create1", async(req,res)=>{
@@ -864,33 +901,6 @@ app.post("/createSalesOrderYarn/create1", async(req,res)=>{
   })
  })
 
-
-  //=================== Sales Spare Information ================
-
-app.post("/createSalesOrderSpare",async(req,res)=>{
-  const name = req.body.name
-  console.log(name)
-  const user = await User.findOne({name})
-  const spare = user.createSpares
-  const hsn = user.createHsnCode
-  const account = user.createAccount
-  let no = 0
-  if(user.createSalesOrderSpare){
-     no = +user.createSalesOrderSpare.length + 1
-    }
-  res.render("SalesOrderSpare.ejs",{name,popup:false,hsn,spare,account,no})
-})
-
-app.post("/createSalesOrderSpare/create1", async(req,res)=>{
-  const {name} = req.body
-  const data = req.body
-  delete data.name
- 
-  const user = await User.findOneAndUpdate({name},{ $push: {createSalesOrderSpare:data} },{ new: true })
-  .then((doc)=>{
-    console.log(doc)
-  })
- })
 
 
  //================== server =====================

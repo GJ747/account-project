@@ -12,7 +12,7 @@
                         <button id="btn" class="btn btn-primary" onclick="reload()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
                     </div>
                     <label>Party Name</label>
-                    <select  id="partyName" class="form-select" aria-label="Default select example" name='partyName' onchange="gstValue(this)">
+                    <select  id="partyName" class="form-select" aria-label="Default select example" name='partyName' >
                         <option >Select Party Name</option>
                         <% for(let x = 0; x<account.length; x++){%> 
                         <option id="<%= account[x].state %>" value="<%= account[x].accountName %>"><%= account[x].accountName %></option>
@@ -67,9 +67,6 @@
                         <div class="p-2 flex-fill bd-highlight">    
                             <label>Total Amt.</label>
                             <input id="totalAmt" class="form-control" type="number" step="0.01" name="totalAmt">
-                        </div>
-                        <div class="p-2 flex-fill bd-highlight">    
-                            <button onclick="addData()" class="btn btn-primary mt-4">Add</button>
                         </div>
                     </div>
             
@@ -156,7 +153,7 @@
 document.getElementById("popup")
 popup.style.display = "none";
 const no = document.getElementById("no").value
-document.getElementById("poNumber").value = `SOF/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
+document.getElementById("poNumber").value = `POF/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
 
 let basicAmt = document.getElementById("basicAmount");
 let mtr = document.getElementById("mtr") ;
@@ -173,6 +170,12 @@ let discount = document.getElementById("discount")
 let partyName = document.getElementById("partyName").value
 
 
+totalAmt.addEventListener("keydown",(event)=>{
+    if(event.keyCode === 13){
+        addData()
+    }
+    
+})
 
 document.getElementById("date").valueAsDate = new Date();
 
@@ -190,6 +193,7 @@ const taxAmt =()=>{
     tax.value = x.toFixed(2)
     const y = +basicAmt.value + +tax.value;
     totalAmt.value = y.toFixed(2)
+    gstValue()
 } 
 
     
@@ -219,7 +223,7 @@ const addData1 =()=>{
      console.log(po1)
 }
 
-    const createTable =()=>{
+const createTable =()=>{
 
         const div = document.getElementById("tableData")
             const row = document.createElement("div");
@@ -250,8 +254,8 @@ const addData1 =()=>{
                 i.setAttribute("style","color:red")
                 row.append(i)
 
-             document.getElementById("fabric").focus()
              totalAmount()
+             console.log("total")
     }
 
 const createTable1 =()=>{
@@ -276,13 +280,14 @@ const createTable1 =()=>{
 const del =(id)=>{
 const els = document.getElementById(id);
 const parent = els.parentNode;
-let index = $( "div" ).index( parent ) - 35
+let index = $( "div" ).index( parent ) - 36
 els.parentNode.remove();
 po1.splice(index,1)
 totalAmount()
 }
     
 const totalAmount =()=>{
+    console.log("helo")
  let maintotal = 0
  let otherTotal = 0
  let subTotal = 0
@@ -293,7 +298,7 @@ const totalAmount =()=>{
        otherTotal =  otherTotal + parseFloat(charges[x]?.[1])
  }
  subTotal = maintotal + otherTotal + +frieghtCharges.value - (maintotal*(discount.value/100))
- grandTotal.value = (subTotal + (subTotal*(cgst.value/100)) + (subTotal*(sgst.value/100))+ (subTotal*(igst.value/100))).toFixed(2)
+ grandTotal.value = (subTotal).toFixed(2)
  console.log(grandTotal.value)
 }
 const post =()=>{
@@ -326,15 +331,17 @@ const reload =()=>{
     location.reload();
 }
 
-function gstValue(s) {
-  let state = s[s.selectedIndex].id
-  state.toLowerCase();
-  if(state==="raj"){
-    cgst.value = 6
-    sgst.value = 6
+function gstValue() {
+//   let state = s[s.selectedIndex].id
+let state = document.getElementById("partyName")
+let s = state.options[state.selectedIndex].id
+  s.toLowerCase();
+  if(s==="raj"){
+    cgst.value = tax.value/2
+    sgst.value = tax.value/2
     igst.value = 0
   }else{
-    igst.value = 12
+    igst.value = tax.value
     cgst.value = 0
     sgst.value = 0
   }

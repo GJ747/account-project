@@ -3,25 +3,26 @@
     <%- include("./sidebar.ejs") %> 
     <div class="p-2 flex-grow-1 bd-highlight">
         <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Yarn</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Fabric</h5>
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
-                    
+                <form action="/fabric/po" method="post">     
+                    <input type="hidden" name="name" value="<%=name%>">
                     <label>Party Name</label>
-                    <input id="partyName" class="form-control" type="text" name="partyName" >
+                    <select onchange="clickBtn()" id="partyName" class="form-select" aria-label="Default select example" name='partyName'>
+                        <option value="">Select Party Name</option>
+                    <% for(let x = 0; x<uniqueFabric.length; x++){%> 
+                        <option value="<%= uniqueFabric[x] %>"><%= uniqueFabric[x] %></option>
+                    <% } %> 
+                    </select>
+                    <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
+                </form> 
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
-                    <form action="/yarn/create" method="post">     
-                        <input type="hidden" name="name" value="<%=name%>">
                         <label>PO number</label>
-                            <select onchange="clickBtn()" id="poNumber" class="form-select" aria-label="Default select example" name='poNumber'>
-                                <option value="">Select PO No.</option>
-                            <% for(let x = 0; x<yarn.length; x++){%> 
-                                <option value="<%= yarn[x].poNumber %>"><%= yarn[x].poNumber %></option>
-                            <% } %> 
-                            </select>
-                        <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
-                    </form> 
+                        <select  class="form-select" aria-label="Default select example" >
+                            <option value=""></option>
+                        </select>   
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <label>Date</label>
@@ -33,7 +34,7 @@
             
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm">Yarn</p>
+                        <p class="col-sm">Fabric</p>
                         <p class="col-sm">Mtr</p>
                         <p class="col-sm ">Rate</p>
                         <p class="col-sm">Basic Amount</p>
