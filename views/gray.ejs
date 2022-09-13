@@ -7,17 +7,26 @@
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
                     
-                    <label>Party Name</label>
-                    <input id="partyName" class="form-control" type="text" name="partyName" >
+                    <form action="/gray/po" method="post">     
+                        <input type="hidden" name="name" value="<%=name%>">
+                        <label>Party Name</label>
+                        <select onchange="clickBtn()" id="partyName" class="form-select" aria-label="Default select example" name='partyName'>
+                            <option value=""><%= partyName %></option>
+                        <% for(let x = 0; x<uniqueGray.length; x++){%> 
+                            <option value="<%= uniqueGray[x] %>"><%= uniqueGray[x] %></option>
+                        <% } %> 
+                        </select>
+                        <button id="getPartyName" style="display: none;"  type="submit" >Get PO</button>  
+                    </form> 
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <form action="/gray/create" method="post">     
                         <input type="hidden" name="name" value="<%=name%>">
                         <label>PO number</label>
-                            <select onchange="clickBtn()" id="poNumber" class="form-select" aria-label="Default select example" name='poNumber'>
+                            <select onchange="clickBtn1()" id="poNumber" class="form-select" aria-label="Default select example" name='poNumber'>
                                 <option value="">Select PO No.</option>
-                            <% for(let x = 0; x<gray.length; x++){%> 
-                                <option value="<%= gray[x].poNumber %>"><%= gray[x].poNumber %></option>
+                            <% for(let x = 0; x<po.length; x++){%> 
+                                <option value="<%= po[x] %>"><%= po[x] %></option>
                             <% } %> 
                             </select>
                         <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
@@ -88,12 +97,14 @@
     </div>
     <input id="valueT" type="hidden" >
     <input id="valueO" type="hidden" >
-    
 </body>
 
 <script>
-const clickBtn =()=>{
+const clickBtn1 =()=>{
     document.getElementById("getPO").click()
+}
+const clickBtn =()=>{
+    document.getElementById("getPartyName").click()
 }
 </script>
 

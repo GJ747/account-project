@@ -15,16 +15,8 @@
                     <input id="partyName" class="form-control" type="text" name="partyName" value="<%=partyName%>">
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
-                    <form action="/gray/create" method="post">     
-                        <input type="hidden" name="name" value="<%=name%>">
                         <label>PO number</label>
-                            <select onchange="clickBtn()" id="poNumber" class="form-select" aria-label="Default select example" name='poNumber'>
-                            <% for(let x = 0; x<data.length; x++){%> 
-                                <option value="<%= data[x].poNumber %>"><%= data[x].poNumber %></option>
-                            <% } %> 
-                            </select>
-                        <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
-                    </form> 
+                        <input id="poNumber" class="form-control" type="text" name="poNumber" value="<%=poNumber%>">
                  </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <label>Date</label>
@@ -36,7 +28,7 @@
             
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm">Fabric</p>
+                        <p class="col-sm">Gray</p>
                         <p class="col-sm">Mtr</p>
                         <p class="col-sm ">Rate</p>
                         <p class="col-sm">Basic Amount</p>
@@ -146,6 +138,8 @@ const edit=(s)=>{
     let tax = document.getElementById(taxI);
     let gst = document.getElementById(gstI);
 
+    
+
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
     tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
 
@@ -169,6 +163,8 @@ const edit1=(s)=>{
     let totalAmount = document.getElementById(totalAmountI);
     let tax = document.getElementById(taxI);
     let gst = document.getElementById(gstI);
+
+
 
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
     tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
@@ -214,7 +210,7 @@ const grandTotal = ()=>{
         z++
     }
     
-    total = (total + total*(cgst/100) + total*(sgst/100)+ total*(igst/100)).toFixed(2)
+    total = (total ).toFixed(2)
     console.log(total)
     grandtotal.value = total
 }

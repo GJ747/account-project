@@ -3,34 +3,26 @@
     <%- include("./sidebar.ejs") %> 
     <div class="p-2 flex-grow-1 bd-highlight">
         <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Spare</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Gray</h5>
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
-                    
-                    <form action="/spare/po" method="post">     
-                        <input type="hidden" name="name" value="<%=name%>">
-                        <label>Party Name</label>
-                        <select onchange="clickBtn()" id="partyName" class="form-select" aria-label="Default select example" name='partyName'>
-                            <option value=""><%= partyName %></option>
-                        <% for(let x = 0; x<uniqueSpare.length; x++){%> 
-                            <option value="<%= uniqueSpare[x] %>"><%= uniqueSpare[x] %></option>
-                        <% } %> 
-                        </select>
-                        <button id="getPartyName" style="display: none;"  type="submit" >Get PO</button>  
-                    </form> 
+                <form action="/gray/po" method="post">     
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <label>Party Name</label>
+                    <select onchange="clickBtn()" id="partyName" class="form-select" aria-label="Default select example" name='partyName'>
+                        <option value="">Select Party Name</option>
+                    <% for(let x = 0; x<uniqueGray.length; x++){%> 
+                        <option value="<%= uniqueGray[x] %>"><%= uniqueGray[x] %></option>
+                    <% } %> 
+                    </select>
+                    <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
+                </form> 
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
-                    <form action="/spare/create" method="post">     
-                        <input type="hidden" name="name" value="<%=name%>">
                         <label>PO number</label>
-                            <select onchange="clickBtn1()" id="poNumber" class="form-select" aria-label="Default select example" name='poNumber'>
-                                <option value="">Select PO No.</option>
-                            <% for(let x = 0; x<po.length; x++){%> 
-                                <option value="<%= po[x] %>"><%= po[x] %></option>
-                            <% } %> 
-                            </select>
-                        <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
-                    </form> 
+                        <select  class="form-select" aria-label="Default select example" >
+                            <option value=""></option>
+                        </select>   
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <label>Date</label>
@@ -42,8 +34,8 @@
             
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm">Spare</p>
-                        <p class="col-sm">Part</p>
+                        <p class="col-sm">Gray</p>
+                        <p class="col-sm">Mtr</p>
                         <p class="col-sm ">Rate</p>
                         <p class="col-sm">Basic Amount</p>
                         <p class="col-sm">HSN</p>
@@ -97,14 +89,12 @@
     </div>
     <input id="valueT" type="hidden" >
     <input id="valueO" type="hidden" >
+    
 </body>
 
 <script>
-const clickBtn1 =()=>{
-    document.getElementById("getPO").click()
-}
 const clickBtn =()=>{
-    document.getElementById("getPartyName").click()
+    document.getElementById("getPO").click()
 }
 </script>
 

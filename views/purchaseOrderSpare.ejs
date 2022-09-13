@@ -195,7 +195,6 @@ const taxAmt =()=>{
     tax.value = x.toFixed(2)
     const y = +basicAmt.value + +tax.value;
     totalAmt.value = y.toFixed(2)
-    gstValue()
 } 
 
     
@@ -285,6 +284,7 @@ totalAmount()
 }
     
 const totalAmount =()=>{
+    gstValue()
  let maintotal = 0
  let otherTotal = 0
  let subTotal = 0
@@ -313,7 +313,7 @@ const post =()=>{
         igst : document.getElementById("igst").value,
         discount : discount.value,
         frieghtCharges : frieghtCharges.value,
-
+        orderCompleted : "no"
     }
     axios({
         method: 'post',
@@ -329,19 +329,26 @@ const reload =()=>{
 }
 
 function gstValue() {
+//   let state = s[s.selectedIndex].id
 let state = document.getElementById("partyName")
 let s = state.options[state.selectedIndex].id
   s.toLowerCase();
+  let taxData = 0
+for(let x=0;x<po1.length;x++){
+    taxData = taxData + +po1[x]?.[6]
+}
+console.log(taxData)
   if(s==="raj"){
-    cgst.value = tax.value/2
-    sgst.value = tax.value/2
+    cgst.value = taxData/2
+    sgst.value = taxData/2
     igst.value = 0
   }else{
-    igst.value = tax.value
+    igst.value = taxData
     cgst.value = 0
     sgst.value = 0
   }
 }
+
 
 </script>
 

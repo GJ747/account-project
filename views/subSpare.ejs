@@ -15,17 +15,9 @@
                     <input id="partyName" class="form-control" type="text" name="partyName" value="<%=partyName%>">
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
-                    <form action="/spare/create" method="post">     
-                        <input type="hidden" name="name" value="<%=name%>">
                         <label>PO number</label>
-                            <select onchange="clickBtn()" id="poNumber" class="form-select" aria-label="Default select example" name='poNumber'>
-                            <% for(let x = 0; x<data.length; x++){%> 
-                                <option value="<%= data[x].poNumber %>"><%= data[x].poNumber %></option>
-                            <% } %> 
-                            </select>
-                        <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
-                    </form> 
-                </div>
+                        <input id="poNumber" class="form-control" type="text" name="poNumber" value="<%=poNumber%>">
+                 </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <label>Date</label>
                     <input id="date" class="form-control" type="date" name="date" value="<%=date%>">
@@ -94,7 +86,7 @@
             </div>
                         <div class="d-flex justify-content-between p-2" style="background-color: #613d94;color: white;">
                             <label style="margin-top: 5px;">CGST</label>
-                            <input  id="cgst"  type="number" step="0.01" name="cgst" value="<%=cgst%>">
+                            <input id="cgst"  type="number" step="0.01" name="cgst" value="<%=cgst%>">
                             <label style="margin-top: 5px;">SGST</label>
                             <input id="sgst"  type="number" step="0.01" name="sgst" value="<%=sgst%>">
                             <label style="margin-top: 5px;">IGST</label>
@@ -146,6 +138,8 @@ const edit=(s)=>{
     let tax = document.getElementById(taxI);
     let gst = document.getElementById(gstI);
 
+    
+
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
     tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
 
@@ -169,6 +163,8 @@ const edit1=(s)=>{
     let totalAmount = document.getElementById(totalAmountI);
     let tax = document.getElementById(taxI);
     let gst = document.getElementById(gstI);
+
+
 
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
     tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
@@ -214,7 +210,7 @@ const grandTotal = ()=>{
         z++
     }
     
-    total = (total + total*(cgst/100) + total*(sgst/100)+ total*(igst/100)).toFixed(2)
+    total = (total ).toFixed(2)
     console.log(total)
     grandtotal.value = total
 }

@@ -29,7 +29,8 @@
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
                         <p class="col-sm">Fabric</p>
-                        <p class="col-sm">Mtr</p>
+                        <p class="col-sm">Mtr Recived</p>
+                        <p class="col-sm">Mtr Remaining</p>
                         <p class="col-sm ">Rate</p>
                         <p class="col-sm">Basic Amount</p>
                         <p class="col-sm">HSN</p>
@@ -43,7 +44,12 @@
                         <% for(let x=0;x<tableData.length;x++) {%> 
                         <div class="row">
                             <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[0]%>" value="<%=tableData[x]?.[0]%>">
-                            <input onchange="edit(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[1]%>" value="<%=tableData[x]?.[1]%>" >
+                            <% let a = 0 %> 
+                            <% if(tableData[x]?.[1] === remain[x]) {%> 
+                            <% a = 0 %> 
+                            <% }else{ a = tableData[x]?.[1]} %> 
+                            <input onchange="edit(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=a%>" value="<%=a%>" >
+                            <input type="text"  style="text-align: center;" class="col-sm" value="<%=remain[x]%>">
                             <input onchange="edit1(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[2]%>" value="<%=tableData[x]?.[2]%>">
                             <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[3]%>" value="<%=tableData[x]?.[3]%>">
                             <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[4]%>" value="<%=tableData[x]?.[4]%>">
@@ -138,10 +144,13 @@ const edit=(s)=>{
     let tax = document.getElementById(taxI);
     let gst = document.getElementById(gstI);
 
+    
+
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
     tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
-
+    console.log(totalAmount.value ,beforeBasicAmt,basicAmt.value)
     totalAmount.value = (+totalAmount.value - +beforeBasicAmt  + +basicAmt.value).toFixed(2)
+    
     grandTotal()
 }
 
@@ -161,6 +170,8 @@ const edit1=(s)=>{
     let totalAmount = document.getElementById(totalAmountI);
     let tax = document.getElementById(taxI);
     let gst = document.getElementById(gstI);
+
+
 
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
     tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
@@ -188,6 +199,8 @@ const edit2=(s)=>{
 
 const grandTotal = ()=>{
     let total = 0
+    let gst = 0
+    let g = 6
     let y = 7
     let z = 0
     let cgst = document.getElementById("cgst").value
@@ -197,17 +210,31 @@ const grandTotal = ()=>{
 
     for(let x=0;x<valueT;x++){
         total = total + +document.getElementById(`${y}`).value
+
         y = y + 8
     }
     total = total + +frieghtCharges.value - (total*(discount.value/100))
+    
 
     for(let x=0;x<valueO;x++){
         total = total + +document.getElementById(`${z}o`).value
         z++
     }
+    for(let x=0;x<valueT;x++){
+        gst = gst + +document.getElementById(`${g}`).value
+        g = g + 8
+    }
+
+    if(cgst == 0){
+        document.getElementById("igst").value = gst
+        console.log("igst",gst)
+    }else{
+        document.getElementById("cgst").value = gst/2
+        document.getElementById("sgst").value = gst/2
+        console.log("cgst sgst",cgst,sgst)
+    }
     
     total = (total ).toFixed(2)
-    console.log(total)
     grandtotal.value = total
 }
 

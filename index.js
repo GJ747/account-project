@@ -566,9 +566,8 @@ app.post("/createPurchaseOrderGray/create1", async(req,res)=>{
   console.log(data)
  
   const user = await User.findOneAndUpdate({name},{ $push: {createPurchaseOrderGray:data} },{ new: true })
-  .then((doc)=>{
-    console.log("saved")
-  })
+  data.grandTotal = 0
+  const userUpdated = await User.findOneAndUpdate({name},{ $push: {grayUpdated:data} },{ new: true })
  })
 
 
@@ -623,9 +622,8 @@ app.post("/createPurchaseOrderSpare/create1", async(req,res)=>{
   delete data.name
  
   const user = await User.findOneAndUpdate({name},{ $push: {createPurchaseOrderSpare:data} },{ new: true })
-  .then((doc)=>{
-    console.log(doc)
-  })
+  data.grandTotal = 0
+  const userUpdated = await User.findOneAndUpdate({name},{ $push: {spareUpdated:data} },{ new: true })
  })
 
 
@@ -685,9 +683,18 @@ app.post("/fabric/create", async(req,res)=>{
       console.log(poNumber,data[x].poNumber)
     }
   }
+  const main = await User.findOne({name},{createPurchaseOrder:{$elemMatch:{poNumber}}})
+  const t1 = main.createPurchaseOrder[0].tableData
+  const remain = []
   
-  const {tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
-  res.render("subFabric.ejs",{fabric,discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
+  
+  let {tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
+  for(let x=0;x<t1.length;x++){
+    if(t1[x]?.[1] - +tableData[x]?.[1] == 0){
+      remain.push(t1[x]?.[1])
+    }else{remain.push(t1[x]?.[1] - +tableData[x]?.[1])}
+  }
+  res.render("subFabric.ejs",{remain,fabric,discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
  })
 
  app.post("/fabric/create1", async(req,res)=>{
@@ -700,6 +707,7 @@ app.post("/fabric/create", async(req,res)=>{
   const oldData = await User.findOne({name},{createPurchaseOrder:{$elemMatch:{poNumber:po}}})
  
   if(data.grandTotal === oldData.createPurchaseOrder[0].grandTotal){
+    console.log("delete")
     const updateData = await User.findOneAndUpdate({name,"createPurchaseOrder.poNumber":po},{$set:{"createPurchaseOrder.$.orderCompleted":"yes"}})
     const deleteData = await User.findOneAndUpdate({name,"fabricUpdated.poNumber": po},{$pull:{fabricUpdated:{poNumber:po}}})
   }
@@ -711,34 +719,76 @@ app.post("/gray",async(req,res)=>{
   const name = req.body.name
   console.log(name)
   const user = await User.findOne({name})
+  const data = user.createPurchaseOrderGray
+  let gray = []
+  for(let x = 0;x<data.length;x++){
+    gray.push(data[x].partyName)
+  } 
+
+  let uniqueGray = gray.filter((c, index) => {
+    return gray.indexOf(c) === index;
+});
+
+  res.render("grayPo.ejs",{name,popup:false,uniqueGray})
+})
+
+
+app.post("/gray/po",async(req,res)=>{
+  const {name, partyName} = req.body
+  const user = await User.findOne({name})
   const gray = user.createPurchaseOrderGray
-  res.render("gray.ejs",{name,popup:false,gray})
+  let gray1 = []
+  for(let x = 0;x<gray.length;x++){
+    gray1.push(gray[x].partyName)
+  } 
+
+  let uniqueGray = gray1.filter((c, index) => {
+    return gray1.indexOf(c) === index;
+});
+
+  // const user1 = await User.findOne({name},{createPurchaseOrder:{$elemMatch:{partyName,orderCompleted:"no"}}})
+  const data = user.createPurchaseOrderGray
+  const po = []
+  for(let x=0;x<data.length;x++){
+    if(data[x].partyName === partyName && data[x].orderCompleted === "no"){
+      po.push(data[x].poNumber)
+    }
+  }
+  console.log(partyName,po)
+  res.render("gray.ejs",{name,partyName,po,popup:false,uniqueGray})
 })
 
 app.post("/gray/create", async(req,res)=>{
   const {name,poNumber} = req.body
   const user = await User.findOne({name})
-  const data = user.createPurchaseOrderGray
+  const gray = user.grayUpdated
+  const data = user.grayUpdated
   let y = 0
   for(let x=0; x<data.length;x++){
     if(poNumber===data[x].poNumber){
       y = x
+      console.log(poNumber,data[x].poNumber)
     }
   }
+  
   const {tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
-  res.render("subGray.ejs",{data,name,tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges,poNumber})
+  res.render("subGray.ejs",{gray,discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
  })
 
  app.post("/gray/create1", async(req,res)=>{
+  console.log("right")
   const {name} = req.body
   const data = req.body
   delete data.name
-  console.log(data,name)
- 
+ const po = data.poNumber
   const user = await User.findOneAndUpdate({name},{ $push: {gray:data} },{ new: true })
-  .then((doc)=>{
-    console.log("saved")
-  })
+  const user1 = await User.findOneAndUpdate({name,"grayUpdated.poNumber": po},{$set:{"grayUpdated.$":data}})
+  const oldData = await User.findOne({name},{createPurchaseOrderGray:{$elemMatch:{poNumber:po}}})
+ 
+  if(data.grandTotal === oldData.createPurchaseOrderGray[0].grandTotal){
+    const updateData = await User.findOneAndUpdate({name,"createPurchaseOrderGray.poNumber":po},{$set:{"createPurchaseOrderGray.$.orderCompleted":"yes"}})
+    const deleteData = await User.findOneAndUpdate({name,"grayUpdated.poNumber": po},{$pull:{grayUpdated:{poNumber:po}}})
+  }
  })
 
 
@@ -786,34 +836,75 @@ app.post("/spare",async(req,res)=>{
   const name = req.body.name
   console.log(name)
   const user = await User.findOne({name})
+  const data = user.createPurchaseOrderSpare
+  let spare = []
+  for(let x = 0;x<data.length;x++){
+    spare.push(data[x].partyName)
+  } 
+
+  let uniqueSpare = spare.filter((c, index) => {
+    return spare.indexOf(c) === index;
+});
+
+  res.render("sparePo.ejs",{name,popup:false,uniqueSpare})
+})
+
+app.post("/spare/po",async(req,res)=>{
+  const {name, partyName} = req.body
+  const user = await User.findOne({name})
   const spare = user.createPurchaseOrderSpare
-  res.render("spare.ejs",{name,popup:false,spare})
+  let spare1 = []
+  for(let x = 0;x<spare.length;x++){
+    spare1.push(spare[x].partyName)
+  } 
+
+  let uniqueSpare = spare1.filter((c, index) => {
+    return spare1.indexOf(c) === index;
+});
+
+  // const user1 = await User.findOne({name},{createPurchaseOrder:{$elemMatch:{partyName,orderCompleted:"no"}}})
+  const data = user.createPurchaseOrderSpare
+  const po = []
+  for(let x=0;x<data.length;x++){
+    if(data[x].partyName === partyName && data[x].orderCompleted === "no"){
+      po.push(data[x].poNumber)
+    }
+  }
+  console.log(partyName,po)
+  res.render("spare.ejs",{name,partyName,po,popup:false,uniqueSpare})
 })
 
 app.post("/spare/create", async(req,res)=>{
   const {name,poNumber} = req.body
-  console.log(poNumber)
   const user = await User.findOne({name})
-  const data = user.createPurchaseOrderSpare
+  const spare = user.spareUpdated
+  const data = user.spareUpdated
   let y = 0
   for(let x=0; x<data.length;x++){
     if(poNumber===data[x].poNumber){
       y = x
+      console.log(poNumber,data[x].poNumber)
     }
   }
+  
   const {tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
-  res.render("subSpare.ejs",{data,name,tableData,otherCharges,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges,poNumber})
+  res.render("subSpare.ejs",{spare,discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
  })
 
  app.post("/spare/create1", async(req,res)=>{
+  console.log("right")
   const {name} = req.body
   const data = req.body
   delete data.name
- 
+ const po = data.poNumber
   const user = await User.findOneAndUpdate({name},{ $push: {spare:data} },{ new: true })
-  .then((doc)=>{
-    console.log(doc)
-  })
+  const user1 = await User.findOneAndUpdate({name,"spareUpdated.poNumber": po},{$set:{"spareUpdated.$":data}})
+  const oldData = await User.findOne({name},{createPurchaseOrderSpare:{$elemMatch:{poNumber:po}}})
+ 
+  if(data.grandTotal === oldData.createPurchaseOrderSpare[0].grandTotal){
+    const updateData = await User.findOneAndUpdate({name,"createPurchaseOrderSpare.poNumber":po},{$set:{"createPurchaseOrderSpare.$.orderCompleted":"yes"}})
+    const deleteData = await User.findOneAndUpdate({name,"spareUpdated.poNumber": po},{$pull:{spareUpdated:{poNumber:po}}})
+  }
  })
 
 
