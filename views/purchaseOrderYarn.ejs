@@ -311,8 +311,9 @@ const totalAmount =()=>{
  let otherTotal = 0
  let subTotal = 0
  for(let x=0;x<po1.length;x++){
-       maintotal =  maintotal + parseFloat(po1[x]?.[7])
+       maintotal =  maintotal + parseFloat(po1[x]?.[9])
  }
+ 
  for(let x=0;x<charges.length;x++){
        otherTotal =  otherTotal + parseFloat(charges[x]?.[1])
  }
@@ -334,6 +335,7 @@ const post =()=>{
         igst : document.getElementById("igst").value,
         discount : discount.value,
         frieghtCharges : frieghtCharges.value,
+        orderCompleted : "no"
     }
     axios({
         method: 'post',

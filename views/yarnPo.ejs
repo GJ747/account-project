@@ -3,16 +3,16 @@
     <%- include("./sidebar.ejs") %> 
     <div class="p-2 flex-grow-1 bd-highlight">
         <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Gray</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Yarn</h5>
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
-                <form action="/gray/po" method="post">     
+                <form action="/yarn/po" method="post">     
                     <input type="hidden" name="name" value="<%=name%>">
                     <label>Party Name</label>
                     <select onchange="clickBtn()" id="partyName" class="form-select" aria-label="Default select example" name='partyName'>
                         <option value="">Select Party Name</option>
-                    <% for(let x = 0; x<uniqueGray.length; x++){%> 
-                        <option value="<%= uniqueGray[x] %>"><%= uniqueGray[x] %></option>
+                    <% for(let x = 0; x<uniqueYarn.length; x++){%> 
+                        <option value="<%= uniqueYarn[x] %>"><%= uniqueYarn[x] %></option>
                     <% } %> 
                     </select>
                     <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
@@ -34,12 +34,14 @@
             
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm">Gray</p>
-                        <p class="col-sm">Mtr Recived</p>
-                        <p class="col-sm">Mtr Remaining</p>
+                        <p class="col-sm">Yarn</p>
+                        <p class="col-sm">weight Recived</p>
+                        <p class="col-sm">weight Remaining</p>
                         <p class="col-sm ">Rate</p>
                         <p class="col-sm">Basic Amount</p>
                         <p class="col-sm">HSN</p>
+                        <p class="col-sm">Lot No.</p>
+                        <p class="col-sm">Mill Name</p>
                         <p class="col-sm ">GST Rate</p>
                         <p class="col-sm">Tax Amt</p>
                         <p class="col-sm">Total Amount</p>

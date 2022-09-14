@@ -7,17 +7,26 @@
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
                     
-                    <label>Party Name</label>
-                    <input id="partyName" class="form-control" type="text" name="partyName" >
+                    <form action="/yarn/po" method="post">     
+                        <input type="hidden" name="name" value="<%=name%>">
+                        <label>Party Name</label>
+                        <select onchange="clickBtn()" id="partyName" class="form-select" aria-label="Default select example" name='partyName'>
+                            <option value=""><%= partyName %></option>
+                        <% for(let x = 0; x<uniqueYarn.length; x++){%> 
+                            <option value="<%= uniqueYarn[x] %>"><%= uniqueYarn[x] %></option>
+                        <% } %> 
+                        </select>
+                        <button id="getPartyName" style="display: none;"  type="submit" >Get PO</button>  
+                    </form> 
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <form action="/yarn/create" method="post">     
                         <input type="hidden" name="name" value="<%=name%>">
                         <label>PO number</label>
-                            <select onchange="clickBtn()" id="poNumber" class="form-select" aria-label="Default select example" name='poNumber'>
+                            <select onchange="clickBtn1()" id="poNumber" class="form-select" aria-label="Default select example" name='poNumber'>
                                 <option value="">Select PO No.</option>
-                            <% for(let x = 0; x<yarn.length; x++){%> 
-                                <option value="<%= yarn[x].poNumber %>"><%= yarn[x].poNumber %></option>
+                            <% for(let x = 0; x<po.length; x++){%> 
+                                <option value="<%= po[x] %>"><%= po[x] %></option>
                             <% } %> 
                             </select>
                         <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
@@ -34,10 +43,13 @@
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
                         <p class="col-sm">Yarn</p>
-                        <p class="col-sm">Mtr</p>
+                        <p class="col-sm">weight Recived</p>
+                        <p class="col-sm">weight Remaining</p>
                         <p class="col-sm ">Rate</p>
                         <p class="col-sm">Basic Amount</p>
                         <p class="col-sm">HSN</p>
+                        <p class="col-sm">Lot No.</p>
+                        <p class="col-sm">Mill Name</p>
                         <p class="col-sm ">GST Rate</p>
                         <p class="col-sm">Tax Amt</p>
                         <p class="col-sm">Total Amount</p>
@@ -88,12 +100,14 @@
     </div>
     <input id="valueT" type="hidden" >
     <input id="valueO" type="hidden" >
-    
 </body>
 
 <script>
-const clickBtn =()=>{
+const clickBtn1 =()=>{
     document.getElementById("getPO").click()
+}
+const clickBtn =()=>{
+    document.getElementById("getPartyName").click()
 }
 </script>
 

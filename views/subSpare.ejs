@@ -9,7 +9,10 @@
                     <input type="hidden" id="name" name="name" value="<%=name%>">
                     <div id="popup">
                         <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
-                        <button id="btn" class="btn btn-primary" onclick="reload()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+                        <form action="/spare" method="post">
+                            <input type="hidden" name="name" value="<%=name%>">
+                            <button id="btn" class="btn btn-primary" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+                        </form>
                     </div>
                     <label>Party Name</label>
                     <input id="partyName" class="form-control" type="text" name="partyName" value="<%=partyName%>">
@@ -29,7 +32,8 @@
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
                         <p class="col-sm">Spare</p>
-                        <p class="col-sm">Part</p>
+                        <p class="col-sm">Part Recived</p>
+                        <p class="col-sm">Part Remaining</p>
                         <p class="col-sm ">Rate</p>
                         <p class="col-sm">Basic Amount</p>
                         <p class="col-sm">HSN</p>
@@ -42,14 +46,19 @@
                         <% let no = 0 %> 
                         <% for(let x=0;x<tableData.length;x++) {%> 
                         <div class="row">
-                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[0]%>" value="<%=tableData[x]?.[0]%>">
-                            <input onchange="edit(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[1]%>" value="<%=tableData[x]?.[1]%>" >
-                            <input onchange="edit1(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[2]%>" value="<%=tableData[x]?.[2]%>">
-                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[3]%>" value="<%=tableData[x]?.[3]%>">
-                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[4]%>" value="<%=tableData[x]?.[4]%>">
-                            <input onchange="edit2(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[5]%>" value="<%=tableData[x]?.[5]%>">
-                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[6]%>" value="<%=tableData[x]?.[6]%>">
-                            <input id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[7]%>" value="<%=tableData[x]?.[7]%>"> 
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[0]%>" value="<%=tableData[x]?.[0]%>">
+                            <% let a = 0 %> 
+                            <% if(tableData[x]?.[1] === remain[x]) {%> 
+                            <% a = 0 %> 
+                            <% }else{ a = tableData[x]?.[1]} %> 
+                            <input onchange="edit(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=a%>"  >
+                            <input disabled type="text"  style="text-align: center;" class="col-sm" value="<%=remain[x]%>">
+                            <input disabled onchange="edit1(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[2]%>" value="<%=tableData[x]?.[2]%>">
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[3]%>" value="<%=tableData[x]?.[3]%>">
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[4]%>" value="<%=tableData[x]?.[4]%>">
+                            <input disabled onchange="edit2(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[5]%>" value="<%=tableData[x]?.[5]%>">
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[6]%>" value="<%=tableData[x]?.[6]%>">
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[7]%>" value="<%=tableData[x]?.[7]%>"> 
                             <hr>
                         </div>
                         <% } %> 
@@ -123,6 +132,7 @@ const clickBtn =()=>{
 }
 
 const edit=(s)=>{
+    let max = document.getElementById(s.id).nextElementSibling.value
     let mtrI = s.id
     let rateI = +mtrI + 1  
     let basicAmtI = +mtrI +2
@@ -137,14 +147,18 @@ const edit=(s)=>{
     let totalAmount = document.getElementById(totalAmountI);
     let tax = document.getElementById(taxI);
     let gst = document.getElementById(gstI);
-
     
+    if(parseInt(mtr.value) > parseInt(max)){
+        mtr.value = "Greater Value"
+    }else{
 
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
     tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
-
-    totalAmount.value = (+totalAmount.value - +beforeBasicAmt  + +basicAmt.value).toFixed(2)
+    console.log(mtr.value*rate.value + +(mtr.value*rate.value)*(gst.value/100))
+    totalAmount.value = (mtr.value*rate.value + +(mtr.value*rate.value)*(gst.value/100)).toFixed(2)
+    
     grandTotal()
+    }
 }
 
 const edit1=(s)=>{
@@ -168,13 +182,13 @@ const edit1=(s)=>{
 
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
     tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
-    totalAmount.value = (+totalAmount.value - +beforeBasicAmt  + +basicAmt.value).toFixed(2)
+    totalAmount.value = (mtr.value*rate.value + +(mtr.value*rate.value)*(gst.value/100)).toFixed(2)
     grandTotal()
 }
 const edit2=(s)=>{
     let gstI = s.id
     let taxI = +s.id + 1
-    let basicAmtI = +gstI - 3
+    let basicAmtI = +gstI - 2
     let totalAmountI = +gstI + 2
 
     let beforeTax = document.getElementById(taxI).value
@@ -183,7 +197,6 @@ const edit2=(s)=>{
     let basicAmt = document.getElementById(basicAmtI);
     let tax = document.getElementById(taxI);
     let totalAmount = document.getElementById(totalAmountI);
-
     tax.value = (basicAmt.value*(gst.value/100)).toFixed(2)   
     totalAmount.value =  (+totalAmount.value - +beforeTax  + +tax.value).toFixed(2)
     grandTotal()
@@ -192,6 +205,8 @@ const edit2=(s)=>{
 
 const grandTotal = ()=>{
     let total = 0
+    let gst = 0
+    let g = 6
     let y = 7
     let z = 0
     let cgst = document.getElementById("cgst").value
@@ -201,17 +216,31 @@ const grandTotal = ()=>{
 
     for(let x=0;x<valueT;x++){
         total = total + +document.getElementById(`${y}`).value
+
         y = y + 8
     }
     total = total + +frieghtCharges.value - (total*(discount.value/100))
+    console.log("frieghtCharges",frieghtCharges.value)
 
     for(let x=0;x<valueO;x++){
         total = total + +document.getElementById(`${z}o`).value
         z++
     }
+    for(let x=0;x<valueT;x++){
+        gst = gst + +document.getElementById(`${g}`).value
+        g = g + 8
+    }
+
+    if(cgst == 0){
+        document.getElementById("igst").value = gst
+        console.log("igst",gst)
+    }else{
+        document.getElementById("cgst").value = gst/2
+        document.getElementById("sgst").value = gst/2
+        console.log("cgst sgst",cgst,sgst)
+    }
     
     total = (total ).toFixed(2)
-    console.log(total)
     grandtotal.value = total
 }
 
@@ -269,9 +298,6 @@ const post =()=>{
     popup.style.display = "block";
 }
 
-const reload =()=>{
-    popup.style.display = "none";
-}
 </script>
 
 <%- include("./footer.ejs") %> 
