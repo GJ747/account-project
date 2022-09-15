@@ -42,7 +42,7 @@
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
                             <label>Wieght</label>
-                            <input id="wieght" class="form-control" type="number" step="0.01" name="wieght">
+                            <input id="wieght" onchange="basicAmount()" class="form-control" type="number" step="0.01" name="wieght">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
                             <label>Rate</label>
@@ -353,7 +353,7 @@ function gstValue() {
 let state = document.getElementById("partyName")
 let s = state.options[state.selectedIndex].id
   s.toLowerCase();
-  if(s==="raj"){
+  if(s==="raj"||s==="rajasthan"){
     cgst.value = tax.value/2
     sgst.value = tax.value/2
     igst.value = 0

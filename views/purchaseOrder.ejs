@@ -38,7 +38,7 @@
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
                             <label>Mtr</label>
-                            <input id="mtr" class="form-control" type="number" step="0.01" name="mtr">
+                            <input id="mtr" onchange="basicAmount()" class="form-control" type="number" step="0.01" name="mtr">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
                             <label>Rate</label>
@@ -340,7 +340,7 @@ for(let x=0;x<po1.length;x++){
     taxData = taxData + +po1[x]?.[6]
 }
 console.log(taxData)
-  if(s==="raj"){
+  if(s==="raj"||s==="rajasthan"){
     cgst.value = taxData/2
     sgst.value = taxData/2
     igst.value = 0

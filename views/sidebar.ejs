@@ -174,4 +174,23 @@
             </ul>
         </div>
     </div>
+    <div id="dorpdown6">
+        <h6>Sales<i style="margin-left: 55%;" class="bi bi-chevron-right"></i></h6>
+        <div style="display: none;">
+            <ul style=" list-style-type: none;padding: 0px;">
+                <form action="/fabricSales" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Sales Fabric</button></li>
+                </form>
+                <form action="/graySales" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Sales Gray</button></li>
+                </form>
+                <form action="/yarnSales" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Sales Yarn</button></li>
+                </form>
+            </ul>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,102 @@
+<%- include("./header.ejs") %> 
+<body>
+    <%- include("./sidebar.ejs") %> 
+    <div class="p-2 flex-grow-1 bd-highlight">
+        <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Sales Order Fabric</h5>
+            <div class="d-flex bd-highlight" style="background-color: white;">
+                <div class="p-2 flex-fill bd-highlight">
+                <form action="/fabricSales/po" method="post">     
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <label>Party Name</label>
+                    <select onchange="clickBtn()" id="partyName" class="form-select" aria-label="Default select example" name='partyName'>
+                        <option value="">Select Party Name</option>
+                    <% for(let x = 0; x<uniqueFabric.length; x++){%> 
+                        <option value="<%= uniqueFabric[x] %>"><%= uniqueFabric[x] %></option>
+                    <% } %> 
+                    </select>
+                    <button id="getPO" style="display: none;"  type="submit" >Get PO</button>  
+                </form> 
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                        <label>PO number</label>
+                        <select  class="form-select" aria-label="Default select example" >
+                            <option value=""></option>
+                        </select>   
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>Date</label>
+                    <input id="date" class="form-control" type="date" name="date" >
+                </div>
+            </div>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Sales Order Details</h5>
+                
+            
+            <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
+                    <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
+                        <p class="col-sm">Fabric</p>
+                        <p class="col-sm">Mtr Recived</p>
+                        <p class="col-sm">SO Remaining</p>
+                        <p class="col-sm ">Rate</p>
+                        <p class="col-sm">Basic Amount</p>
+                        <p class="col-sm">HSN</p>
+                        <p class="col-sm ">GST Rate</p>
+                        <p class="col-sm">Tax Amt</p>
+                        <p class="col-sm">Total Amount</p>
+                        <hr>
+                    </div>
+                    <div class="m-0" style="text-align: center;">
+                      
+                    </div>
+             </div>
+
+             <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
+             <div class="row m-0" style="background-color: white;">
+                <div class="col-sm">
+                    <label>Remark</label>
+                    <textarea id="remark" class="form-control" name="remark" rows="10" ></textarea>
+                </div>
+                <div class="col-sm">
+                    <label >Frieght Charges</label>
+                    <input class="form-control"  id="frieghtCharges" type="text" >
+                    <label >Discount</label>
+                    <input class="form-control"  id="discount" type="text" >
+                    <div class="row m-0" style="text-align: center;background-color: white; padding-top: 10px;font-weight: bold;">
+                        <p class="col-sm ">Charge Name</p>
+                        <p class="col-sm">Amount</p>
+                        <hr>
+                    </div>
+                    <div>
+                     
+                    </div>
+
+                </div>
+            </div>
+                        <div class="d-flex justify-content-between p-2" style="background-color: #613d94;color: white;">
+                            <label style="margin-top: 5px;">CGST</label>
+                            <input id="cgst"  type="number" step="0.01" name="cgst" >
+                            <label style="margin-top: 5px;">SGST</label>
+                            <input id="sgst"  type="number" step="0.01" name="sgst" >
+                            <label style="margin-top: 5px;">IGST</label>
+                            <input id="igst"  type="number" step="0.01" name="igst" >
+                            <label style="margin-top: 5px;">Grand Total</label>
+                            <input id="grandtotal"  type="number" step="0.01" name="grandTotal" >
+                            <button  class="btn btn-primary">Save Data</button>
+                        </div>
+
+
+            
+        </div>
+    </div>
+    <input id="valueT" type="hidden" >
+    <input id="valueO" type="hidden" >
+    
+</body>
+
+<script>
+const clickBtn =()=>{
+    document.getElementById("getPO").click()
+}
+</script>
+
+<%- include("./footer.ejs") %> 

@@ -20,7 +20,7 @@
                     </select>
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
-                    <label>PO number</label>
+                    <label>SO number</label>
                     <input id="poNumber" class="form-control" type="text" name="poNumber">
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
                             <label>Wieght</label>
-                            <input id="wieght" class="form-control" type="number" step="0.01" name="wieght">
+                            <input id="wieght" onchange="basicAmount()" class="form-control" type="number" step="0.01" name="wieght">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
                             <label>Rate</label>
@@ -182,7 +182,7 @@ let discount = document.getElementById("discount")
 let no = document.getElementById("no").value
 
 
-document.getElementById("poNumber").value = `POY/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
+document.getElementById("poNumber").value = `SOY/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
 
 document.getElementById("date").valueAsDate = new Date();
 
@@ -311,8 +311,9 @@ const totalAmount =()=>{
  let otherTotal = 0
  let subTotal = 0
  for(let x=0;x<po1.length;x++){
-       maintotal =  maintotal + parseFloat(po1[x]?.[7])
+       maintotal =  maintotal + parseFloat(po1[x]?.[9])
  }
+ 
  for(let x=0;x<charges.length;x++){
        otherTotal =  otherTotal + parseFloat(charges[x]?.[1])
  }
@@ -334,6 +335,7 @@ const post =()=>{
         igst : document.getElementById("igst").value,
         discount : discount.value,
         frieghtCharges : frieghtCharges.value,
+        orderCompleted : "no"
     }
     axios({
         method: 'post',
@@ -351,7 +353,7 @@ function gstValue() {
 let state = document.getElementById("partyName")
 let s = state.options[state.selectedIndex].id
   s.toLowerCase();
-  if(s==="raj"){
+  if(s==="raj"||s==="rajasthan"){
     cgst.value = tax.value/2
     sgst.value = tax.value/2
     igst.value = 0
