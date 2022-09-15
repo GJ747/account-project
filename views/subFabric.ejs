@@ -33,7 +33,7 @@
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
                         <p class="col-sm">Fabric</p>
                         <p class="col-sm">Mtr Recived</p>
-                        <p class="col-sm">Mtr Remaining</p>
+                        <p class="col-sm">PO Remaining</p>
                         <p class="col-sm ">Rate</p>
                         <p class="col-sm">Basic Amount</p>
                         <p class="col-sm">HSN</p>
@@ -51,7 +51,7 @@
                             <% if(tableData[x]?.[1] === remain[x]) {%> 
                             <% a = 0 %> 
                             <% }else{ a = tableData[x]?.[1]} %> 
-                            <input  onchange="edit(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=a%>">
+                            <input  oninput="edit(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=a%>">
                             <input disabled type="text"  style="text-align: center;" class="col-sm" value="<%=remain[x]%>">
                             <input disabled onchange="edit1(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[2]%>" value="<%=tableData[x]?.[2]%>">
                             <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[3]%>" value="<%=tableData[x]?.[3]%>">
@@ -148,8 +148,8 @@ const edit=(s)=>{
     let tax = document.getElementById(taxI);
     let gst = document.getElementById(gstI);
 
-    if(parseInt(mtr.value) > parseInt(max)){
-        mtr.value = "Greater Value"
+    if(parseFloat(mtr.value) > parseFloat(max)){
+        mtr.value = max
     }else{
 
     basicAmt.value = (mtr.value*rate.value).toFixed(2)
