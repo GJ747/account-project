@@ -3,9 +3,13 @@
 <body>
     
     <div class='container'  style="background-color:white;padding: 1%;margin-top: 20px;">
+        <div id="popup" style="left:40% !important;">
+            <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
+                <button onclick="saved()" class="btn btn-primary" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+        </div>
         <a  style="text-decoration: none;"><h2  style="text-align:center;margin:8px;">Create Company</h2></a>    
         <h5>Company Information</h5>
-        <form method="post" action="/createCompany">
+        <form action="/createCompany"  method="post">
             <div class='row p-0' style="font-size: 15px;">
                 <div class='col-sm'>
                     <label>Company Name</label>
@@ -95,10 +99,40 @@
                         </div>
                 </div>
             </div>
-            <button class='btn btn-outline-dark mx-0 px-4' type='submit'>Save</button>
-        </form>
+            <button hidden id="submit" type='submit'></button>
+        </form> 
+        <button onclick="clickBtn()"  class='btn btn-outline-dark mx-0 px-4'>Save</button>
     </div>
 
 </body>
 
-<%- include("./footer.ejs") %> 
+<script>
+    document.getElementById("popup").style.display = "none"
+    document.addEventListener("keypress", (event) => {
+     console.log(event)
+  if (event.keyCode === 13 ) {
+    event.preventDefault();
+         const currentNode = event.target;
+         const allElements = document.querySelectorAll('input, a, area,button, object, select, textarea, [contenteditable]');
+         const currentIndex = [...allElements].findIndex(el => currentNode.isEqualNode(el))
+         const targetIndex = (currentIndex + 1) % allElements.length;
+         allElements[targetIndex].focus();
+     }
+   });
+
+   const clickBtn =()=>{
+    document.getElementById("popup").style.display = "block"
+   }
+
+   const saved =()=>{
+    document.getElementById("submit").click()
+   }
+
+   $(window).bind("pageshow", function(event) {
+    if (event.originalEvent.persisted) {
+        window.location.reload(); 
+        console.log("hello")
+    }
+});
+</script>
+</html>

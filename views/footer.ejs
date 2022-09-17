@@ -78,7 +78,7 @@
     }
 
     document.addEventListener("keypress", (event) => {
-        
+        console.log(event)
         if(event.keyCode === 13 && event.srcElement.id === "totalAmt"){
             document.getElementById("fabric") ? document.getElementById("fabric").focus() : ""
             document.getElementById("gray") ? document.getElementById("gray").focus() : ""

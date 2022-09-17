@@ -9,7 +9,14 @@ body{
     margin-top: 2%;
     padding: 0px;
     padding-bottom: 20px;
+    height: 600px;
+    overflow: scroll;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
 }
+#container::-webkit-scrollbar {
+   display: none;
+ }
 h5{
     color: white;
     background-color: #613d94;
