@@ -134,6 +134,8 @@ h6:hover,#li:hover,#li:hover #sButton{
     background-color: #763dc4;
     border: #763dc4;
     color: white;
+    width: 200px;
+    text-align: left;
 }
 
 /* popup */
