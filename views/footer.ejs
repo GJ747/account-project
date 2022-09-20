@@ -12,6 +12,7 @@
     const menu4 = document.getElementById('dorpdown4');
     const menu5 = document.getElementById('dorpdown5');
     const menu6 = document.getElementById('dorpdown6');
+    const menu7 = document.getElementById('dorpdown7');
     menu.addEventListener('click',  function(){
         const inner = menu.children[1];
         if(inner.style.display === 'none'){
@@ -68,6 +69,14 @@
             inner.style.display = 'none';
         }
     })
+    menu7.addEventListener('click',  function(){
+        const inner = menu7.children[1];
+        if(inner.style.display === 'none'){
+            inner.style.display = 'block';
+        }else {
+            inner.style.display = 'none';
+        }
+    })
 
     const toggle = ()=>{
         if(sidebar.style.display === 'none'){
@@ -88,7 +97,7 @@
       else if (event.keyCode === 13 ) {
        event.preventDefault();
             const currentNode = event.target;
-            const allElements = document.querySelectorAll('input, a, area,button, object, select, textarea, [contenteditable]');
+            const allElements = document.querySelectorAll('input, a, area, object, select, textarea, [contenteditable]');
             const currentIndex = [...allElements].findIndex(el => currentNode.isEqualNode(el))
             const targetIndex = (currentIndex + 1) % allElements.length;
             allElements[targetIndex].focus();

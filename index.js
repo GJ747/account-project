@@ -46,7 +46,7 @@ app.post("/login",async(req,res)=>{
   const details = req.body
   if(details.username==="admin" && details.password === 'admin'){
         const user = await User.findOne({name:details.name})
-        res.render("stateMaster.ejs",{name: details.name,state:user.createState})
+        res.render("dashBoard.ejs",{name: details.name,state:user.createState})
   }
 })
 
@@ -1450,6 +1450,58 @@ app.post("/yarnSales/create", async(req,res)=>{
   }
   })
   
+ //================== Job Recieved with yarn =====================
+
+ app.post("/createJobWithYarn",async(req,res)=>{
+  const {name} = req.body
+  const user = await User.findOne({name})
+  const data = user.createJobWithYarn
+  res.render("JobWithYarn.ejs",{data,name})
+ })
+
+ app.post("/createJobWithYarn/create",async(req,res)=>{
+  const {name} = req.body
+  const user = await User.findOne({name})
+  const mill = user.createYarnMillName
+  const hsn = user.createHsnCode
+  const yarn = user.createYarn
+  const godown = user.createGodown
+  res.render("subJobWithYarn.ejs",{mill,hsn,yarn,godown,name,popup:false})
+ })
+  
+ app.post("/createJobWithYarn/create1",async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  const user1 = await User.findOneAndUpdate({name},{ $push: {createJobWithYarn:data} },{ new: true })
+  const user = await User.findOne({name})
+  const mill = user.createYarnMillName
+  const hsn = user.createHsnCode
+  const yarn = user.createYarn
+  const godown = user.createGodown
+  res.render("subJobWithYarn.ejs",{mill,hsn,yarn,godown,name,popup:true})
+})
+
+
+//================== Job Recieved with yarn & Beam =====================
+
+app.post("/createJobWithYarn&Beam/create",async(req,res)=>{
+  const {name} = req.body
+  const user = await User.findOne({name})
+  const flange = user.createFlange
+  res.render("subJobWithYarn&Beam.ejs",{flange,name,popup:false})
+ })
+
+ app.post("/createJobWithYarn&Beam/create1",async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  const user1 = await User.findOneAndUpdate({name},{ $push: {createJobWithYarnBeam:data} },{ new: true })
+  const user = await User.findOne({name})
+  const flange = user.createFlange
+  res.render("subJobWithYarn&Beam.ejs",{flange,name,popup:true})
+ }) 
+
  //================== server =====================
 
 

@@ -5,7 +5,7 @@
             <button id='nButton' class="p-2 bd-highlight" onclick="toggle()" ><i class="bi bi-list"></i></button>
             <a id="a" class="p-2 bd-highlight mt-1">Dashbord</a>
             <a id="a" class="p-2 bd-highlight mt-1">Users</a>
-            <a id="a" class="p-2 flex-grow-1 bd-highlight mt-1">Setting</a>
+            <a id="a" href="http://localhost:3000/" class="p-2 flex-grow-1 bd-highlight mt-1">Company List</a>
             <a id="a" class="p-2 mt-1" >Admin</a>
         </div>
     </nav>
@@ -189,6 +189,21 @@
                 <form action="/yarnSales" method="post">
                     <input type="hidden" name="name" value="<%=name%>">
                     <li id="li"><button  type="submit" id="sButton">Sales Yarn</button></li>
+                </form>
+            </ul>
+        </div>
+    </div>
+    <div id="dorpdown7">
+        <h6>Job Recieved<i style="margin-left: 23%;" class="bi bi-chevron-right"></i></h6>
+        <div style="display: none;">
+            <ul style=" list-style-type: none;padding: 0px;">
+                <form action="/createJobWithYarn" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Job With Yarn</button></li>
+                </form>
+                <form action="/createJobWithYarn&Beam/create" method="post">
+                    <input type="hidden" name="name" value="<%=name%>">
+                    <li id="li"><button type="submit" id="sButton">Job with Yarn & Beam</button></li>
                 </form>
             </ul>
         </div>

@@ -1,0 +1,126 @@
+<%- include("./header.ejs") %> 
+
+<body>
+    <%- include("./sidebar.ejs") %> 
+
+<div class="p-2 flex-grow-1 bd-highlight" >
+    <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Job With yarn & Beam Information</h5>
+        <div style="margin: 0px;background-color: white;padding: 5px;" >
+            <div class="d-flex flex-row bd-highlight">
+                <button id="btn1" onclick="hide1()"  style="background-color: #613d94;color: white;border: solid #613d94;">Basic</button>
+                <button id="btn2" onclick="hide2()" style="background-color: white;border: solid #613d94; margin-left: 5px;">weight</button>
+            </div> 
+            <div style="width: 100%;height: 10px;background-color: #613d94;"></div>
+        <form method="post" action="/createJobWithYarn&Beam/create1">
+        <input type="hidden" name="name" value="<%=name%>">
+        <div id="basic">
+          <div class='row'>
+            <div class='col-sm'>
+                <label>Challan No.</label>
+                <input id="id" class="form-control" type="text" name='challanNo' />  
+                <label>T-End</label>
+                <input  class="form-control" type="text" name='tEnd' />
+            </div>
+            <div class='col-sm'>
+                <label>Date</label>
+                <input id="date" class="form-control" type="date" name="date">
+                <label>Meter</label>
+                <input  class="form-control" type="number" step="0.01" name='meter' />
+            </div>
+            <div class='col-sm'>
+                <label>Flange No</label>
+                    <select id="millName" class="form-select" aria-label="Default select example" name='flangeNo' >
+                        <% for(let x = 0; x<flange.length; x++){%> 
+                        <option value="<%= flange[x].flangeNo %>"><%= flange[x].flangeNo %></option>
+                       <% } %> 
+                    </select>
+                    <label>Set No.</label>
+                    <input  class="form-control" type="number" step="0.01" name='setNo' />
+            </div>
+          </div>
+        </div>
+        <div id="weight">
+            <div class='row'>
+                <div class='col-sm'>
+                    <label>Party Net Wieght</label>
+                    <input class="form-control" type="number" step="0.01" name='partyNetWeight' />  
+                    <label>CSPL Net weight</label>
+                    <input  class="form-control" type="number"  step="0.01" name='csplNetWeight' />
+                </div>
+                <div class='col-sm'>
+                    <label>CSPL Gross Wieght</label>
+                    <input  class="form-control" type="number" step="0.01" name="csplGrossWeight">
+                    <label>Difference</label>
+                    <input  class="form-control" type="number" step="0.01" name='difference' />
+                </div>
+                <div class='col-sm'>
+                        <label>Flange Tear weight</label>
+                        <input  class="form-control" type="number" step="0.01" name='flangeTearWeight' />
+                </div>
+              </div>
+        </div>
+        <p style="font-weight: bold;margin-top: 4px;border-bottom: solid 2px black ;font-size: 18px;">Gst Information</p>
+        <div class='row'>
+            <div class='col-sm'>
+                <label>Rate</label>
+                <input  class="form-control" type="number" step="0.01" name="rate">  
+                <label>LR Date</label>
+                <input  class="form-control" type="date"  name='lrDate' />
+            </div>
+            <div class='col-sm'>
+                <label>Amount</label>
+                <input  class="form-control" type="number" step="0.01" name="amount">
+            </div>
+            <div class='col-sm'>
+                    <label>Truck No.</label>
+                    <input  class="form-control" type="text"  name='truckNo' />
+            </div>
+          </div>
+        <button type='submit' class='btn btn-primary' style="float: right;"  >Create Job</button>
+        <div style="clear:both"></div>
+    </form>
+            <form action="/createJobWithYarn&Beam/create" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Job with Yarn & Beam Information</button>
+                <div style="clear:both"></div>
+            </form>
+            <%if(popup) { %> 
+                <div id="popup">
+                    <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
+                    <button id="btn" class="btn btn-primary" onclick="popupHide()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+                </div>
+                <% } %> 
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    document.getElementById("id").value = Date.now()
+    document.getElementById("date").valueAsDate = new Date();
+    document.getElementById("weight").style.display = "none"
+    const hide1 =()=>{
+        const btn = document.getElementById("btn1")
+        btn.style.backgroundColor = "#613d94"
+        btn.style.color = "white"
+
+        const btn2 = document.getElementById("btn2")
+        btn2.style.backgroundColor = "white"
+        btn2.style.color = "black"
+        document.getElementById("basic").style.display = "block"
+        document.getElementById("weight").style.display = "none"
+    }
+    const hide2 =()=>{
+        const btn = document.getElementById("btn2")
+        btn.style.backgroundColor = "#613d94"
+        btn.style.color = "white"
+
+        const btn2 = document.getElementById("btn1")
+        btn2.style.backgroundColor = "white"
+        btn2.style.color = "black"
+        document.getElementById("basic").style.display = "none"
+        document.getElementById("weight").style.display = "block"
+    }
+</script>
+    <%- include("./footer.ejs") %> 
+

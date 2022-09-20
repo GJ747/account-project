@@ -522,6 +522,37 @@ const UserAccount = new mongoose.Schema({
         frieghtCharges : String,
         orderCompleted : String,
     }],
+    createJobWithYarn:[{
+        weft: String,
+        yarn: String,
+        wieght: String,
+        challanNo: String,
+        lotNo: String,
+        rate: String,
+        millName: String,
+        shared: String,
+        quantity: String,
+        hsnCode: String,
+        beg: String,
+        godown: String,
+    }],
+    createJobWithYarnBeam:[{
+        challanNo: String,
+        tEnd: String,
+        date: String,
+        meter: String,
+        flangeNo: String,
+        setNo: String,
+        partyNetWeight: String,
+        csplNetWeight: String,
+        csplGrossWeight: String,
+        difference: String,
+        flangeTearWeight: String,
+        rate: String,
+        lrDate: String,
+        amount: String,
+        truckNo: String,
+    }]
   });
 
  module.exports = mongoose.model('UserAccount', UserAccount);
