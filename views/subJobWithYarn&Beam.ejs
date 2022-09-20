@@ -5,7 +5,13 @@
 
 <div class="p-2 flex-grow-1 bd-highlight" >
     <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Job With yarn & Beam Information</h5>
+        <div class="d-flex justify-content-between" style="background-color: #613d94;padding: 4px;">
+            <h5 style="margin-bottom:0px;padding-left: 0px;">Job with Yarn & Beam Information</h5>
+            <form  action="/createJobWithYarn&Beam/create" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+                <button class='btn btn-light'><i class="bi bi-arrow-left"></i> Job With Yarn & Beam Information</button>
+            </form>
+            </div>
         <div style="margin: 0px;background-color: white;padding: 5px;" >
             <div class="d-flex flex-row bd-highlight">
                 <button id="btn1" onclick="hide1()"  style="background-color: #613d94;color: white;border: solid #613d94;">Basic</button>
@@ -60,7 +66,7 @@
                 </div>
               </div>
         </div>
-        <p style="font-weight: bold;margin-top: 4px;border-bottom: solid 2px black ;font-size: 18px;">Gst Information</p>
+        <p style="font-weight: bold;margin-top: 4px;border-bottom: solid 2px black ;font-size: 18px;">GST Information</p>
         <div class='row'>
             <div class='col-sm'>
                 <label>Rate</label>
@@ -80,11 +86,6 @@
         <button type='submit' class='btn btn-primary' style="float: right;"  >Create Job</button>
         <div style="clear:both"></div>
     </form>
-            <form action="/createJobWithYarn&Beam/create" method="post">
-                <input type="hidden" name="name" value="<%=name%>">
-                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i> Job with Yarn & Beam Information</button>
-                <div style="clear:both"></div>
-            </form>
             <%if(popup) { %> 
                 <div id="popup">
                     <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>

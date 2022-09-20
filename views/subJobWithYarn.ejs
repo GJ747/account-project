@@ -5,7 +5,13 @@
 
     <div class="p-2 flex-grow-1 bd-highlight" >
     <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Job With Yarn Information</h5>
+        <div class="d-flex justify-content-between" style="background-color: #613d94;padding: 4px;">
+            <h5 style="margin-bottom:0px;padding-left: 0px;">Job With Yarn Information</h5>
+            <form  action="/createJobWithYarn" method="post">
+                <input type="hidden" name="name" value="<%=name%>">
+                <button class='btn btn-light'><i class="bi bi-arrow-left"></i>Job With Yarn Information</button>
+            </form>
+            </div>
         <div id='state' style="margin: 0px;background-color: white;padding: 5px;" >
             <form action="/createJobWithYarn/create1" method="post">
                 <input type="hidden" name="name" value="<%=name%>">
@@ -72,11 +78,6 @@
                         <button id="btn" class="btn btn-primary" onclick="popupHide()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
                     </div>
                     <% } %> 
-            <form action="/createJobWithYarn" method="post">
-                <input type="hidden" name="name" value="<%=name%>">
-                <button type="submit" style="float: right;" class="btn btn-primary mt-2"><i class="bi bi-arrow-left"></i>Job With Yarn Information</button>
-                <div style="clear:both"></div>
-            </form>
         </div>
     
         </div>

@@ -3,85 +3,96 @@
     <%- include("./sidebar.ejs") %> 
     <div class="p-2 flex-grow-1 bd-highlight">
         <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Fabric</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Sizing</h5>
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
-                    <input type="hidden" id="name" name="name" value="<%=name%>">
                     <div id="popup">
                         <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
                         <button id="btn" class="btn btn-primary" onclick="reload()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
                     </div>
-                    <label>Party Name</label>
-                    <select  id="partyName" class="form-select" aria-label="Default select example" name='partyName' >
-                        <option >Select Party Name</option>
-                        <% for(let x = 0; x<account.length; x++){%> 
-                        <option id="<%= account[x].state %>" value="<%= account[x].accountName %>"><%= account[x].accountName %></option>
-                       <% } %> 
-                    </select>
-                </div>
-                <div class="p-2 flex-fill bd-highlight">
                     <label>PO number</label>
                     <input id="poNumber" class="form-control" type="text" name="poNumber">
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>Quality No</label>
+                    <input id="qualityNo" class="form-control" type="text" name="qualityNo">
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>Warp Yarn</label>
+                    <input id="warpYarn" class="form-control" type="text" name="warpYarn">
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <label>Date</label>
                     <input id="date" class="form-control" type="date" name="date">
                 </div>
             </div>
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Details</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Sizing</h5>
                  
                     <input type="hidden" name="name" value="<%=name%>">  
                     <div class="d-flex bd-highlight" style="background-color: white;">
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Fabric</label>
-                            <input id="fabric" class="form-control" type="text" name="fabric">
+                            <label>Lot No.</label>
+                            <input id="lotNo" class="form-control" type="text" name="lotNo">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Mtr</label>
-                            <input id="mtr" onchange="basicAmount()" class="form-control" type="number" step="0.01" name="mtr">
+                            <label>Set No.</label>
+                            <input id="setNo"  class="form-control" type="text"  name="setNo">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Rate</label>
-                            <input id="rate" onchange="basicAmount()" class="form-control" type="number" step="0.01" name="rate">
+                            <label>Number of Beams</label>
+                            <input id="noBeams"  class="form-control" type="text"  name="noBeams">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Basic Amount</label>
-                            <input id="basicAmount" class="form-control" type="number" step="0.01" name="basicAmount">
+                            <label>Size length</label>
+                            <input id="sizeLength" class="form-control" type="text"  name="sizeLength">
                         </div>
-                        <div class="p-2 flex-fill bd-highlight">
+                        <div class="p-2 flex-fill bd-highlight" style="width: 220px;">
                             <label>HSN Code</label>
-                            <select id="hsnCode" class="form-select" aria-label="Default select example" name='hsnCode' style="width:100px">
+                            <select id="hsnCode" class="form-select" aria-label="Default select example" name='hsnCode'>
                                 <% for(let x = 0; x<hsn.length; x++){%> 
                                 <option value="<%= hsn[x].hsnCode %>"><%= hsn[x].hsnCode %></option>
                                <% } %> 
                             </select>
                         </div>
+                    </div>
+
+                    <div class="d-flex bd-highlight" style="background-color: white;">
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>GST %</label>
-                            <input id="gst" onchange="taxAmt()" class="form-control" type="number" step="0.01" name="gst">
+                            <label>UOM</label>
+                            <input id="uom" class="form-control" type="text" name="uom">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Tax Amt.</label>
-                            <input id="taxAmt" class="form-control" type="number" step="0.01" name="taxAmt">
+                            <label>Quantity</label>
+                            <input onchange="amount()" id="quantity"  class="form-control" type="text"  name="quantity">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Total Amt.</label>
-                            <input id="totalAmt" class="form-control" type="number" step="0.01" name="totalAmt">
+                            <label>Rate/Kg</label>
+                            <input id="rate" onchange="amount()"  class="form-control" type="text"  name="rate">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">    
+                            <label>GST</label>
+                            <input id="gst" onchange="taxAmt()" class="form-control" type="text"  name="gst">
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">
+                            <label>Net Amount</label>
+                            <input id="totalAmt" class="form-control" type="text"  name="totalAmt">
                         </div>
                     </div>
             
             <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm">Fabric</p>
-                        <p class="col-sm">Mtr</p>
-                        <p class="col-sm ">Rate</p>
-                        <p class="col-sm">Basic Amount</p>
+                        <p class="col-sm">Lot No.</p>
+                        <p class="col-sm">Set No.</p>
+                        <p class="col-sm ">No. Of Beams</p>
+                        <p class="col-sm">Size length</p>
                         <p class="col-sm">HSN</p>
-                        <p class="col-sm ">GST Rate</p>
-                        <p class="col-sm">Tax Amt</p>
-                        <p class="col-sm">Total Amount</p>
-                        <p class="col-sm">Del</p>
+                        <p class="col-sm ">UOM</p>
+                        <p class="col-sm">Quantity</p>
+                        <p class="col-sm">Rate/Kg</p>
+                        <p class="col-sm">GST</p>
+                        <p class="col-sm">Net Amount</p>
+                        <p class="col-sm">del</p>
                         <hr>
                     </div>
                     <div id="tableData" class="m-0" style="text-align: center;">
@@ -147,19 +158,25 @@
         </div>
     </div>
     <input type="hidden" id="no" value="<%=no%>">
+    <input type="hidden" id="name" name="name" value="<%= name %>">
 </body>
 
 <script>
 const popup = document.getElementById("popup")
 popup.style.display = "none";
 const no = document.getElementById("no").value
-document.getElementById("poNumber").value = `POF/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
+document.getElementById("poNumber").value = `POSize/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
+document.getElementById("date").valueAsDate = new Date();
 
-let basicAmt = document.getElementById("basicAmount");
-let mtr = document.getElementById("mtr") ;
-let rate = document.getElementById("rate");
-let tax = document.getElementById("taxAmt");
-let gst = document.getElementById("gst");
+let lotNo = document.getElementById("lotNo");
+let setNo = document.getElementById("setNo") ;
+let noBeams = document.getElementById("noBeams");
+let sizeLength = document.getElementById("sizeLength");
+let hsnCode = document.getElementById("hsnCode");
+let uom = document.getElementById("uom")
+let quantity = document.getElementById("quantity")
+let rate = document.getElementById("rate")
+let gst = document.getElementById("gst")
 let totalAmt = document.getElementById("totalAmt")
 let grandTotal = document.getElementById("grandTotal")
 let cgst = document.getElementById("cgst")
@@ -167,7 +184,6 @@ let sgst = document.getElementById("sgst")
 let igst = document.getElementById("igst")
 let frieghtCharges = document.getElementById("frieghtCharges")
 let discount = document.getElementById("discount")
-let partyName = document.getElementById("partyName").value
 
 
 totalAmt.addEventListener("keydown",(event)=>{
@@ -177,7 +193,7 @@ totalAmt.addEventListener("keydown",(event)=>{
     
 })
 
-document.getElementById("date").valueAsDate = new Date();
+
 
 const charges = []
 let = chargesData = []
@@ -187,24 +203,27 @@ let data = []
 
 
 
-const basicAmount = ()=>{ basicAmt.value = rate.value*mtr.value}
+const amount = ()=>{ 
+    totalAmt.value = ((rate.value*quantity.value).toFixed(2))
+    taxAmt()
+}
 const taxAmt =()=>{ 
-    const x = basicAmt.value*(gst.value/100);
-    tax.value = x.toFixed(2)
-    const y = +basicAmt.value + +tax.value;
-    totalAmt.value = y.toFixed(2)
+    const x = ((rate.value*quantity.value)*(gst.value/100)).toFixed(2)
+    totalAmt.value = +((rate.value*quantity.value).toFixed(2)) + +x
 } 
 
     
 const addData =()=>{
     data = [
-             document.getElementById("fabric").value,
-             document.getElementById("mtr").value,
-             document.getElementById("rate").value,
-             document.getElementById("basicAmount").value,
+             document.getElementById("lotNo").value,
+             document.getElementById("setNo").value,
+             document.getElementById("noBeams").value,
+             document.getElementById("sizeLength").value,
              document.getElementById("hsnCode").value,
+             document.getElementById("uom").value,
+             document.getElementById("quantity").value,
+             document.getElementById("rate").value,
              document.getElementById("gst").value,
-             document.getElementById("taxAmt").value,
              document.getElementById("totalAmt").value,
         ]
     po1.push(data)
@@ -229,20 +248,22 @@ const createTable =()=>{
             row.className += " row";
             div.append(row)
 
-            for(let y=0; y<8; y++){
+            for(let y=0; y<10; y++){
                 const p = document.createElement("p");
                 p.className += " col-sm";
                 p.innerHTML = data[y];
                 row.append(p)
                 
             }
-            document.getElementById("fabric").value = ""
-             document.getElementById("mtr").value = ""
-             document.getElementById("rate").value = ""
-             document.getElementById("basicAmount").value = ""
+            document.getElementById("lotNo").value = ""
+             document.getElementById("setNo").value = ""
+             document.getElementById("noBeams").value = ""
+             document.getElementById("sizeLength").value = ""
              document.getElementById("hsnCode").value = ""
+             document.getElementById("uom").value = ""
+             document.getElementById("quantity").value = ""
+             document.getElementById("rate").value = ""
              document.getElementById("gst").value = ""
-             document.getElementById("taxAmt").value = ""
              document.getElementById("totalAmt").value = ""
 
 
@@ -279,19 +300,18 @@ const createTable1 =()=>{
 const del =(id)=>{
 const els = document.getElementById(id);
 const parent = els.parentNode;
-let index = $( "div" ).index( parent ) - 36
+let index = $( "div" ).index( parent ) - 44
 els.parentNode.remove();
 po1.splice(index,1)
 totalAmount()
 }
     
 const totalAmount =()=>{
-gstValue()
  let maintotal = 0
  let otherTotal = 0
  let subTotal = 0
  for(let x=0;x<po1.length;x++){
-       maintotal =  maintotal + parseFloat(po1[x]?.[7])
+       maintotal =  maintotal + parseFloat(po1[x]?.[9])
  }
  for(let x=0;x<charges.length;x++){
        otherTotal =  otherTotal + parseFloat(charges[x]?.[1])
@@ -302,13 +322,14 @@ gstValue()
 }
 const post =()=>{
     const data = {
-        name: document.getElementById("name").value,
+        name : document.getElementById("name").value,
         tableData:po1,
         otherCharges:charges,
         remark: document.getElementById("remark").value,
         grandTotal : grandTotal.value,
         date: document.getElementById("date").value,
-        partyName: document.getElementById("partyName").value,
+        qualityNo: document.getElementById("qualityNo").value,
+        warpYarn: document.getElementById("warpYarn").value,
         poNumber: document.getElementById("poNumber").value,
         cgst : document.getElementById("cgst").value,
         sgst : document.getElementById("sgst").value,
@@ -317,9 +338,10 @@ const post =()=>{
         frieghtCharges : frieghtCharges.value,
         orderCompleted : "no"
     }
+    console.log(document.getElementById("name").value)
     axios({
         method: 'post',
-        url: '/createPurchaseOrder/create1',
+        url: '/SizingPo/create1',
         data: data
     });
     popup.style.display = "block";

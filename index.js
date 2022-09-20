@@ -1502,6 +1502,31 @@ app.post("/createJobWithYarn&Beam/create",async(req,res)=>{
   res.render("subJobWithYarn&Beam.ejs",{flange,name,popup:true})
  }) 
 
+ //================== Sizing PO =====================
+
+ app.post("/SizingPo",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const hsn = user.createHsnCode
+  let no = 0
+  if(user.SizingPo){
+     no = +user.SizingPo.length + 1
+    }
+  res.render("sizingPo.ejs",{name,popup:false,hsn,no})
+})
+
+app.post("/SizingPo/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+  console.log("hello",data)
+  const user = await User.findOneAndUpdate({name},{ $push: {SizingPo:data} },{ new: true })
+  data.grandTotal = 0
+  const userUpdated = await User.findOneAndUpdate({name},{ $push: {SizingPoUpdate:data} },{ new: true })
+ })
+
+
  //================== server =====================
 
 
