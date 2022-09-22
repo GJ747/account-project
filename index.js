@@ -991,7 +991,7 @@ app.post("/spare/po",async(req,res)=>{
 app.post("/spare/create", async(req,res)=>{
   const {name,poNumber} = req.body
   const user = await User.findOne({name})
-  const fabric = user.spareUpdated
+  const spare = user.spareUpdated
   const data = user.spareUpdated
   let y = 0
   for(let x=0; x<data.length;x++){
@@ -1013,7 +1013,7 @@ app.post("/spare/create", async(req,res)=>{
       remain.push(t1[x]?.[1])
     }else{remain.push(t1[x]?.[1] - +tableData[x]?.[1])}
   }
-  res.render("subFabric.ejs",{remain,fabric,discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
+  res.render("subSpare.ejs",{remain,spare,discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
  })
 
  app.post("/spare/create1", async(req,res)=>{
@@ -1504,19 +1504,20 @@ app.post("/createJobWithYarn&Beam/create",async(req,res)=>{
 
  //================== Sizing PO =====================
 
- app.post("/SizingPo",async(req,res)=>{
+ app.post("/sizingPo",async(req,res)=>{
   const name = req.body.name
   console.log(name)
   const user = await User.findOne({name})
   const hsn = user.createHsnCode
+  const account = user.createAccount
   let no = 0
   if(user.SizingPo){
      no = +user.SizingPo.length + 1
     }
-  res.render("sizingPo.ejs",{name,popup:false,hsn,no})
+  res.render("sizingPo.ejs",{name,popup:false,hsn,no,account})
 })
 
-app.post("/SizingPo/create1", async(req,res)=>{
+app.post("/sizingPo/create1", async(req,res)=>{
   const {name} = req.body
   const data = req.body
   delete data.name
@@ -1526,6 +1527,113 @@ app.post("/SizingPo/create1", async(req,res)=>{
   const userUpdated = await User.findOneAndUpdate({name},{ $push: {SizingPoUpdate:data} },{ new: true })
  })
 
+
+  
+ //================== Sizing Purchase =====================
+
+ app.post("/sizing",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const data = user.SizingPo
+  let sizing = []
+  for(let x = 0;x<data.length;x++){
+    sizing.push(data[x].partyName)
+  } 
+
+  let uniqueSizing = sizing.filter((c, index) => {
+    return sizing.indexOf(c) === index;
+});
+
+  res.render("sizingPurchase.ejs",{name,popup:false,uniqueSizing})
+})
+
+app.post("/sizing/po",async(req,res)=>{
+  const {name, partyName} = req.body
+  const user = await User.findOne({name})
+  const sizing = user.SizingPo
+  let sizing1 = []
+  for(let x = 0;x<sizing.length;x++){
+    sizing1.push(sizing[x].partyName)
+  } 
+
+  let uniqueSizing = sizing1.filter((c, index) => {
+    return sizing1.indexOf(c) === index;
+});
+
+  // const user1 = await User.findOne({name},{createPurchaseOrder:{$elemMatch:{partyName,orderCompleted:"no"}}})
+  const data = user.SizingPo
+  const po = []
+  for(let x=0;x<data.length;x++){
+    if(data[x].partyName === partyName && data[x].orderCompleted === "no"){
+      po.push(data[x].poNumber)
+    }
+  }
+  console.log(partyName,po)
+  res.render("sizing.ejs",{name,partyName,po,popup:false,uniqueSizing})
+})
+
+app.post("/sizing/create", async(req,res)=>{
+  const {name,poNumber} = req.body
+  const user = await User.findOne({name})
+  const sizing = user.SizingPoUpdate
+  const data = user.SizingPoUpdate
+  let y = 0
+  for(let x=0; x<data.length;x++){
+    if(poNumber===data[x].poNumber){
+      y = x
+      console.log(poNumber,data[x].poNumber)
+    }
+  }
+  const main = await User.findOne({name},{SizingPo:{$elemMatch:{poNumber}}})
+  const t1 = main.SizingPo[0].tableData
+  const remain = []
+  
+  
+  let {tableData,otherCharges,qualityNo,warpYarn,remark,grandTotal,date,partyName,cgst,igst,sgst,discount,frieghtCharges} = data[y]
+  console.log("otherCharges",otherCharges)
+  
+  for(let x=0;x<t1.length;x++){
+    if(t1[x]?.[6] - +tableData[x]?.[6] == 0){
+      remain.push(t1[x]?.[6])
+    }else{remain.push(t1[x]?.[6] - +tableData[x]?.[6])}
+  }
+  res.render("subSizing.ejs",{qualityNo,warpYarn,remain,sizing,discount,cgst,sgst,igst,name,tableData,otherCharges,remark,grandTotal,date,partyName,poNumber,frieghtCharges})
+ })
+
+ app.post("/sizing/create1", async(req,res)=>{
+  const {name} = req.body
+  const data = req.body
+  delete data.name
+ const po = data.poNumber
+  const user = await User.findOneAndUpdate({name},{ $push: {sizing:data} },{ new: true })
+  const user1 = await User.findOneAndUpdate({name,"SizingPoUpdate.poNumber": po},{$set:{"SizingPoUpdate.$":data}})
+  const oldData = await User.findOne({name},{SizingPo:{$elemMatch:{poNumber:po}}})
+  const sizing = await User.findOne({name}) 
+  const a = sizing.sizing
+  let total = 0
+  for(let x=0;x<a.length;x++){
+    if(a[x].poNumber===po){
+      for(let y=0;y<a[x].tableData.length;y++){
+        const tableValue = a[x].tableData[y]?.[6]
+        total = total + +tableValue
+      }
+    }
+  }
+
+  let mainTotal = 0
+  for(let x=0;x<oldData.SizingPo[0].tableData.length;x++){
+    const tableValue = oldData.SizingPo[0].tableData[x]?.[6]
+    mainTotal = mainTotal + +tableValue
+  }
+
+
+  if(mainTotal === total){
+    console.log("delete")
+    const updateData = await User.findOneAndUpdate({name,"SizingPo.poNumber":po},{$set:{"SizingPo.$.orderCompleted":"yes"}})
+    const deleteData = await User.findOneAndUpdate({name,"SizingPoUpdate.poNumber": po},{$pull:{SizingPoUpdate:{poNumber:po}}})
+  }
+ })
 
  //================== server =====================
 

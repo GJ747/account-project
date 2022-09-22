@@ -268,8 +268,10 @@ const post =()=>{
 
     for(let x=0;x<valueO;x++){
         otherArray = [
-        document.getElementById(`${z++}o`).value,
+        document.getElementById(`${z}o`).previousElementSibling.value,
+        document.getElementById(`${z}o`).value,
         ]
+        z++
         otherCharges.push(otherArray)
     }
     const data = {

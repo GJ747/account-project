@@ -3,13 +3,13 @@
     <%- include("./sidebar.ejs") %> 
     <div class="p-2 flex-grow-1 bd-highlight">
         <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Sales Order Fabric</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Sizing Purchase</h5>
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
                     <input type="hidden" id="name" name="name" value="<%=name%>">
                     <div id="popup">
                         <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
-                        <form action="/fabricSales" method="post">
+                        <form action="/sizing" method="post">
                             <input type="hidden" name="name" value="<%=name%>">
                             <button id="btn" class="btn btn-primary" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
                         </form>
@@ -18,47 +18,61 @@
                     <input id="partyName" class="form-control" type="text" name="partyName" value="<%=partyName%>">
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
-                        <label>SO number</label>
+                        <label>PO number</label>
                         <input id="poNumber" class="form-control" type="text" name="poNumber" value="<%=poNumber%>">
                  </div>
+                 <div class="p-2 flex-fill bd-highlight">
+                    <label>Quality No</label>
+                    <input id="qualityNo" class="form-control" type="text" name="qualityNo" value="<%=qualityNo%>">
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>Warp Yarn</label>
+                    <input id="warpYarn" class="form-control" type="text" name="warpYarn" value="<%=warpYarn%>">
+                </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <label>Date</label>
                     <input id="date" class="form-control" type="date" name="date" value="<%=date%>">
                 </div>
             </div>
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Sales Order Details</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Sizing Order Details</h5>
                 
             
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm">Fabric</p>
-                        <p class="col-sm">Mtr Recived</p>
-                        <p class="col-sm">SO Remaining</p>
-                        <p class="col-sm ">Rate</p>
-                        <p class="col-sm">Basic Amount</p>
+                        <p class="col-sm">Lot No.</p>
+                        <p class="col-sm">Set No.</p>
+                        <p class="col-sm ">No. Of Beams</p>
+                        <p class="col-sm">Size length</p>
                         <p class="col-sm">HSN</p>
-                        <p class="col-sm ">GST Rate</p>
-                        <p class="col-sm">Tax Amt</p>
-                        <p class="col-sm">Total Amount</p>
+                        <p class="col-sm ">UOM</p>
+                        <p class="col-sm">Quantity</p>
+                        <p class="col-sm">PO Remaining</p>
+                        <p class="col-sm">Rate/Kg</p>
+                        <p class="col-sm">GST</p>
+                        <p class="col-sm">Tax</p>
+                        <p class="col-sm">Net Amount</p>
                         <hr>
                     </div>
                     <div class="m-0" style="text-align: center;">
                         <% let no = 0 %> 
                         <% for(let x=0;x<tableData.length;x++) {%> 
+                                    <% let a = 0 %> 
+                                    <% if(tableData[x]?.[6] === remain[x]) {%> 
+                                    <% a = 0 %> 
+                                    <% }else{ a = tableData[x]?.[6]} %> 
                         <div class="row">
                             <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[0]%>" value="<%=tableData[x]?.[0]%>">
-                            <% let a = 0 %> 
-                            <% if(tableData[x]?.[1] === remain[x]) {%> 
-                            <% a = 0 %> 
-                            <% }else{ a = tableData[x]?.[1]} %> 
-                            <input  oninput="edit(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=a%>">
-                            <input disabled type="text"  style="text-align: center;" class="col-sm" value="<%=remain[x]%>">
-                            <input disabled onchange="edit1(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[2]%>" value="<%=tableData[x]?.[2]%>">
+                            <input disabled onchange="edit1(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[1]%>" value="<%=tableData[x]?.[1]%>">
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[2]%>" value="<%=tableData[x]?.[2]%>">
                             <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[3]%>" value="<%=tableData[x]?.[3]%>">
-                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[4]%>" value="<%=tableData[x]?.[4]%>">
-                            <input disabled onchange="edit2(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[5]%>" value="<%=tableData[x]?.[5]%>">
-                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[6]%>" value="<%=tableData[x]?.[6]%>">
-                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[7]%>" value="<%=tableData[x]?.[7]%>"> 
+                            <input disabled onchange="edit2(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[4]%>" value="<%=tableData[x]?.[4]%>">
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[5]%>" value="<%=tableData[x]?.[5]%>">
+                            <input oninput="edit(this)" id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=a%>"  >
+                            <input disabled type="text"  style="text-align: center;" class="col-sm" value="<%=remain[x]%>">
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[7]%>" value="<%=tableData[x]?.[7]%>">
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[8]%>" value="<%=tableData[x]?.[8]%>"> 
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[9]%>" value="<%=tableData[x]?.[9]%>">
+                            <input disabled id="<%= no++ %>" style="text-align: center;" class="col-sm" type="text" name="<%=tableData[x]?.[10]%>" value="<%=tableData[x]?.[10]%>">
                             <hr>
                         </div>
                         <% } %> 
@@ -135,26 +149,23 @@ const edit=(s)=>{
     let max = document.getElementById(s.id).nextElementSibling.value
     let mtrI = s.id
     let rateI = +mtrI + 1  
-    let basicAmtI = +mtrI +2
-    let totalAmountI = +mtrI + 6
-    let taxI = +mtrI + 5
-    let gstI = +mtrI + 4
-    let beforeBasicAmt = document.getElementById(basicAmtI).value
+    let totalAmountI = +mtrI + 4
+    let taxI = +mtrI + 3
+    let gstI = +mtrI + 2
 
     let mtr = document.getElementById(mtrI) ;
     let rate = document.getElementById(rateI);
-    let basicAmt = document.getElementById(basicAmtI);
     let totalAmount = document.getElementById(totalAmountI);
     let tax = document.getElementById(taxI);
     let gst = document.getElementById(gstI);
-
     if(parseFloat(mtr.value) > parseFloat(max)){
+        console.log("greater")
         mtr.value = max
     }else{
 
-    basicAmt.value = (mtr.value*rate.value).toFixed(2)
-    tax.value = (basicAmt.value*(gst.value/100)).toFixed(2) 
-    console.log(mtr.value*rate.value + +(mtr.value*rate.value)*(gst.value/100))
+    let x = (mtr.value*rate.value).toFixed(2)
+    tax.value = (x*(gst.value/100)).toFixed(2) 
+    
     totalAmount.value = (mtr.value*rate.value + +(mtr.value*rate.value)*(gst.value/100)).toFixed(2)
     
     grandTotal()
@@ -206,8 +217,8 @@ const edit2=(s)=>{
 const grandTotal = ()=>{
     let total = 0
     let gst = 0
-    let g = 6
-    let y = 7
+    let g = 9
+    let y = 10
     let z = 0
     let cgst = document.getElementById("cgst").value
     let sgst = document.getElementById("sgst").value
@@ -217,10 +228,9 @@ const grandTotal = ()=>{
     for(let x=0;x<valueT;x++){
         total = total + +document.getElementById(`${y}`).value
 
-        y = y + 8
+        y = y + 11
     }
     total = total + +frieghtCharges.value - (total*(discount.value/100))
-    console.log("frieghtCharges",frieghtCharges.value)
 
     for(let x=0;x<valueO;x++){
         total = total + +document.getElementById(`${z}o`).value
@@ -228,16 +238,14 @@ const grandTotal = ()=>{
     }
     for(let x=0;x<valueT;x++){
         gst = gst + +document.getElementById(`${g}`).value
-        g = g + 8
+        g = g + 11
     }
 
     if(cgst == 0){
         document.getElementById("igst").value = gst
-        console.log("igst",gst)
     }else{
         document.getElementById("cgst").value = gst/2
         document.getElementById("sgst").value = gst/2
-        console.log("cgst sgst",cgst,sgst)
     }
     
     total = (total ).toFixed(2)
@@ -265,9 +273,13 @@ const post =()=>{
             document.getElementById(y++).value,
             document.getElementById(y++).value,
             document.getElementById(y++).value,
+            document.getElementById(y++).value,
+            document.getElementById(y++).value,
+            document.getElementById(y++).value,
         ]
         tableData.push(tableArray)
     }
+    console.log(tableData)
 
     for(let x=0;x<valueO;x++){
         otherArray = [
@@ -278,23 +290,27 @@ const post =()=>{
         otherCharges.push(otherArray)
     }
     const data = {
-        name: document.getElementById("name").value,
+        name : document.getElementById("name").value,
+        partyName: document.getElementById("partyName").value,
         tableData,
         otherCharges,
         remark: document.getElementById("remark").value,
         grandTotal : grandtotal.value,
         date: document.getElementById("date").value,
-        partyName: document.getElementById("partyName").value,
+        qualityNo: document.getElementById("qualityNo").value,
+        warpYarn: document.getElementById("warpYarn").value,
         poNumber: document.getElementById("poNumber").value,
         cgst : document.getElementById("cgst").value,
         sgst : document.getElementById("sgst").value,
         igst : document.getElementById("igst").value,
         discount : discount.value,
         frieghtCharges : frieghtCharges.value,
+        orderCompleted : "no"
     }
+   
     axios({
         method: 'post',
-        url: '/fabricSales/create1',
+        url: '/sizing/create1',
         data: data
     });
     popup.style.display = "block";

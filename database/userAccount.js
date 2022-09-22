@@ -556,6 +556,7 @@ const UserAccount = new mongoose.Schema({
     SizingPo:[{
         tableData: [],
         otherCharges: [],
+        partyName: String,
         remark: String,
         grandTotal: String,
         date: String,
@@ -572,6 +573,7 @@ const UserAccount = new mongoose.Schema({
     SizingPoUpdate:[{
         tableData: [],
         otherCharges: [],
+        partyName: String,
         remark: String,
         grandTotal: String,
         date: String,
@@ -585,6 +587,23 @@ const UserAccount = new mongoose.Schema({
         frieghtCharges : String,
         orderCompleted : String,
     }],
+    sizing:[{
+        tableData: [],
+        otherCharges: [],
+        partyName: String,
+        remark: String,
+        grandTotal: String,
+        date: String,
+        qualityNo: String,
+        poNumber: String,
+        warpYarn: String,
+        cgst : String,
+        sgst : String,
+        igst : String,
+        discount : String,
+        frieghtCharges : String,
+        orderCompleted : String,
+    }]
   });
 
  module.exports = mongoose.model('UserAccount', UserAccount);
