@@ -1,9 +1,9 @@
-<%- include("./header.ejs") %> 
+<%- include("../header.ejs") %> 
 <body>
-    <%- include("./sidebar.ejs") %> 
+    <%- include("../sidebar.ejs") %> 
     <div class="p-2 flex-grow-1 bd-highlight">
         <div class="container mt-3">
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Sales Order Fabric</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Process Challan Details</h5>
             <div class="d-flex bd-highlight" style="background-color: white;">
                 <div class="p-2 flex-fill bd-highlight">
                     <input type="hidden" id="name" name="name" value="<%=name%>">
@@ -20,67 +20,63 @@
                     </select>
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
-                    <label>SO number</label>
-                    <input id="poNumber" class="form-control" type="text" name="poNumber">
+                    <label>Quality No</label>
+                    <input id="qualityNo" class="form-control" type="text" name="qualityNo">
                 </div>
                 <div class="p-2 flex-fill bd-highlight">
                     <label>Date</label>
                     <input id="date" class="form-control" type="date" name="date">
                 </div>
             </div>
-        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Sales Order Details</h5>
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Purchase Order Details</h5>
                  
                     <input type="hidden" name="name" value="<%=name%>">  
                     <div class="d-flex bd-highlight" style="background-color: white;">
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Fabric</label>
-                            <input id="fabric" class="form-control" type="text" name="fabric">
+                            <label>Gray</label>
+                            <input id="gray" class="form-control" type="text" name="gray">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Mtr</label>
-                            <input id="mtr" onchange="basicAmount()" class="form-control" type="number" step="0.01" name="mtr">
+                            <label>Beam No</label>
+                            <input id="beamNo"  class="form-control" type="number"  name="beamNo">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Rate</label>
-                            <input id="rate" onchange="basicAmount()" class="form-control" type="number" step="0.01" name="rate">
+                            <label>Pieace No</label>
+                            <input id="pieaceNo"  class="form-control" type="number"  name="pieaceNo">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Basic Amount</label>
-                            <input id="basicAmount" class="form-control" type="number" step="0.01" name="basicAmount">
+                            <label>Finish</label>
+                            <input id="finish" class="form-control" type="text"  name="finish">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">
-                            <label>HSN Code</label>
-                            <select id="hsnCode" class="form-select" aria-label="Default select example" name='hsnCode' style="width:100px">
-                                <% for(let x = 0; x<hsn.length; x++){%> 
-                                <option value="<%= hsn[x].hsnCode %>"><%= hsn[x].hsnCode %></option>
-                               <% } %> 
-                            </select>
+                            <label>Build No</label>
+                            <input id="buildNo" class="form-control" type="text"  name="buildNo">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>GST %</label>
-                            <input id="gst" onchange="taxAmt()" class="form-control" type="number" step="0.01" name="gst">
+                            <label>Party Challan</label>
+                            <input id="partyChallan"  class="form-control" type="text"  name="partyChallan">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Tax Amt.</label>
-                            <input id="taxAmt" class="form-control" type="number" step="0.01" name="taxAmt">
+                            <label>Gray Dispatch Date</label>
+                            <input id="grayDispatchDate" class="form-control" type="date"  name="grayDispatchDate">
                         </div>
                         <div class="p-2 flex-fill bd-highlight">    
-                            <label>Total Amt.</label>
-                            <input id="totalAmt" class="form-control" type="number" step="0.01" name="totalAmt">
+                            <label>Recieved By</label>
+                            <input id="recievedBy" class="form-control" type="text"  name="recievedBy">
                         </div>
                     </div>
             
             <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
             <div style="border:solid 1px #613d94;background-color: white;height: 300px;overflow: scroll;">
                     <div class="row m-0" style="text-align: center; padding-top: 10px;font-weight: bold;">
-                        <p class="col-sm">Fabric</p>
-                        <p class="col-sm">Mtr</p>
-                        <p class="col-sm ">Rate</p>
-                        <p class="col-sm">Basic Amount</p>
-                        <p class="col-sm">HSN</p>
-                        <p class="col-sm ">GST Rate</p>
-                        <p class="col-sm">Tax Amt</p>
-                        <p class="col-sm">Total Amount</p>
+                        <p class="col-sm">Gray</p>
+                        <p class="col-sm">Beam No</p>
+                        <p class="col-sm">Piece No</p>
+                        <p class="col-sm ">Finish</p>
+                        <p class="col-sm">Build No</p>
+                        <p class="col-sm">Party Challan</p>
+                        <p class="col-sm ">Gray Dispatch Date</p>
+                        <p class="col-sm">Recieved By</p>
                         <p class="col-sm">Del</p>
                         <hr>
                     </div>
@@ -89,7 +85,7 @@
                     </div>
              </div>
 
-             <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
+             <!-- <div style="background-color:#613d94;height: 4px;width: 100%;"></div>
              <div class="row m-0" style="background-color: white;">
                 <div class="col-sm">
                     <label>Remark</label>
@@ -126,11 +122,11 @@
                     </div>
                     <div id="tableData1" class="m-0" style="text-align: center;border: solid 1px #613d94;">
                         
-                    </div>
+                    </div> -->
 
-                </div>
-            </div>
-                        <div class="d-flex justify-content-between p-2" style="background-color: #613d94;color: white;">
+                <!-- </div>
+            </div> -->
+                        <!-- <div class="d-flex justify-content-between p-2" style="background-color: #613d94;color: white;">
                             <label style="margin-top: 8px;">CGST</label>
                             <input id="cgst"  type="number" step="0.01" name="cgst">
                             <label style="margin-top: 8px;">SGST</label>
@@ -140,7 +136,7 @@
                             <label style="margin-top: 8px;">Grand Total</label>
                             <input id="grandTotal"  type="number" step="0.01" name="grandTotal">
                             <button onclick="post()" class="btn btn-primary">Save Data</button>
-                        </div>
+                        </div> -->
 
 
             
@@ -150,18 +146,20 @@
 </body>
 
 <script>
-document.getElementById("popup")
+document.getElementById("date").valueAsDate = new Date();
+const popup = document.getElementById("popup")
 popup.style.display = "none";
-const no = document.getElementById("no").value
-document.getElementById("poNumber").value = `SOF/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
+// const no = document.getElementById("no").value
+// document.getElementById("poNumber").value = `POF/${parseInt(new Date().getFullYear())-1}-${parseInt(new Date().getFullYear())-2000}/${no}`
 
-let basicAmt = document.getElementById("basicAmount");
-let mtr = document.getElementById("mtr") ;
-let rate = document.getElementById("rate");
-let tax = document.getElementById("taxAmt");
-let gst = document.getElementById("gst");
-let totalAmt = document.getElementById("totalAmt")
-let grandTotal = document.getElementById("grandTotal")
+let gray = document.getElementById("gray");
+let beamNo = document.getElementById("beamNo") ;
+let pieaceNo = document.getElementById("pieaceNo");
+let finish = document.getElementById("finish");
+let buildNo = document.getElementById("buildNo");
+let partyChallan = document.getElementById("partyChallan")
+let grayDispatchDate = document.getElementById("grayDispatchDate")
+let recievedBy= document.getElementById("recievedBy");
 let cgst = document.getElementById("cgst")
 let sgst = document.getElementById("sgst")
 let igst = document.getElementById("igst")
@@ -169,15 +167,16 @@ let frieghtCharges = document.getElementById("frieghtCharges")
 let discount = document.getElementById("discount")
 let partyName = document.getElementById("partyName").value
 
+partyChallan.value = Date.now()
 
-totalAmt.addEventListener("keydown",(event)=>{
+recievedBy.addEventListener("keydown",(event)=>{
     if(event.keyCode === 13){
         addData()
     }
     
 })
 
-document.getElementById("date").valueAsDate = new Date();
+
 
 const charges = []
 let = chargesData = []
@@ -198,14 +197,14 @@ const taxAmt =()=>{
     
 const addData =()=>{
     data = [
-             document.getElementById("fabric").value,
-             document.getElementById("mtr").value,
-             document.getElementById("rate").value,
-             document.getElementById("basicAmount").value,
-             document.getElementById("hsnCode").value,
-             document.getElementById("gst").value,
-             document.getElementById("taxAmt").value,
-             document.getElementById("totalAmt").value,
+             document.getElementById("gray").value,
+             document.getElementById("beamNo").value,
+             document.getElementById("pieaceNo").value,
+             document.getElementById("finish").value,
+             document.getElementById("buildNo").value,
+             document.getElementById("partyChallan").value,
+             document.getElementById("grayDispatchDate").value,
+             document.getElementById("recievedBy").value,
         ]
     po1.push(data)
     console.log(po1)
@@ -236,14 +235,14 @@ const createTable =()=>{
                 row.append(p)
                 
             }
-            document.getElementById("fabric").value = ""
-             document.getElementById("mtr").value = ""
-             document.getElementById("rate").value = ""
-             document.getElementById("basicAmount").value = ""
-             document.getElementById("hsnCode").value = ""
-             document.getElementById("gst").value = ""
-             document.getElementById("taxAmt").value = ""
-             document.getElementById("totalAmt").value = ""
+            document.getElementById("gray").value = ""
+             document.getElementById("beamNo").value = ""
+             document.getElementById("pieaceNo").value = ""
+             document.getElementById("finish").value = ""
+             document.getElementById("buildNo").value = ""
+             document.getElementById("partyChallan").value = ""
+             document.getElementById("grayDispatchDate").value = ""
+             document.getElementById("recievedBy").value = ""
 
 
             const i = document.createElement("i");
@@ -253,8 +252,7 @@ const createTable =()=>{
                 i.setAttribute("style","color:red")
                 row.append(i)
 
-             totalAmount()
-             console.log("total")
+            //  totalAmount()
     }
 
 const createTable1 =()=>{
@@ -279,7 +277,7 @@ const createTable1 =()=>{
 const del =(id)=>{
 const els = document.getElementById(id);
 const parent = els.parentNode;
-let index = $( "div" ).index( parent ) - 36
+let index = $( "div" ).index( parent ) - 40
 els.parentNode.remove();
 po1.splice(index,1)
 totalAmount()
@@ -309,7 +307,7 @@ const post =()=>{
         grandTotal : grandTotal.value,
         date: document.getElementById("date").value,
         partyName: document.getElementById("partyName").value,
-        poNumber: document.getElementById("poNumber").value,
+        poNumber: document.getElementById("qualityNo").value,
         cgst : document.getElementById("cgst").value,
         sgst : document.getElementById("sgst").value,
         igst : document.getElementById("igst").value,
@@ -317,12 +315,12 @@ const post =()=>{
         frieghtCharges : frieghtCharges.value,
         orderCompleted : "no"
     }
-    axios({
-        method: 'post',
-        url: '/createSalesOrderFabric/create1',
-        data: data
-    });
-    popup.style.display = "block";
+    // axios({
+    //     method: 'post',
+    //     url: '/createPurchaseOrder/create1',
+    //     data: data
+    // });
+    // popup.style.display = "block";
     
     
 }
@@ -353,4 +351,4 @@ console.log(taxData)
 
 </script>
 
-<%- include("./footer.ejs") %> 
+<%- include("../footer.ejs") %> 

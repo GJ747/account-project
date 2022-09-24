@@ -1456,7 +1456,7 @@ app.post("/yarnSales/create", async(req,res)=>{
   const {name} = req.body
   const user = await User.findOne({name})
   const data = user.createJobWithYarn
-  res.render("JobWithYarn.ejs",{data,name})
+  res.render("./job/JobWithYarn.ejs",{data,name})
  })
 
  app.post("/createJobWithYarn/create",async(req,res)=>{
@@ -1466,7 +1466,7 @@ app.post("/yarnSales/create", async(req,res)=>{
   const hsn = user.createHsnCode
   const yarn = user.createYarn
   const godown = user.createGodown
-  res.render("subJobWithYarn.ejs",{mill,hsn,yarn,godown,name,popup:false})
+  res.render("./job/subJobWithYarn.ejs",{mill,hsn,yarn,godown,name,popup:false})
  })
   
  app.post("/createJobWithYarn/create1",async(req,res)=>{
@@ -1479,7 +1479,7 @@ app.post("/yarnSales/create", async(req,res)=>{
   const hsn = user.createHsnCode
   const yarn = user.createYarn
   const godown = user.createGodown
-  res.render("subJobWithYarn.ejs",{mill,hsn,yarn,godown,name,popup:true})
+  res.render("./job/subJobWithYarn.ejs",{mill,hsn,yarn,godown,name,popup:true})
 })
 
 
@@ -1489,7 +1489,7 @@ app.post("/createJobWithYarn&Beam/create",async(req,res)=>{
   const {name} = req.body
   const user = await User.findOne({name})
   const flange = user.createFlange
-  res.render("subJobWithYarn&Beam.ejs",{flange,name,popup:false})
+  res.render("./job/subJobWithYarn&Beam.ejs",{flange,name,popup:false})
  })
 
  app.post("/createJobWithYarn&Beam/create1",async(req,res)=>{
@@ -1499,9 +1499,22 @@ app.post("/createJobWithYarn&Beam/create",async(req,res)=>{
   const user1 = await User.findOneAndUpdate({name},{ $push: {createJobWithYarnBeam:data} },{ new: true })
   const user = await User.findOne({name})
   const flange = user.createFlange
-  res.render("subJobWithYarn&Beam.ejs",{flange,name,popup:true})
+  res.render("./job/subJobWithYarn&Beam.ejs",{flange,name,popup:true})
  }) 
 
+ //================== Job SO =====================
+
+ app.post("/jobSo",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const account = user.createAccount
+  let no = 0
+  if(user.createPurchaseOrder){
+     no = +user.createPurchaseOrder.length + 1
+    }
+  res.render("./job/jobSo.ejs",{name,popup:false,account,no})
+})
  //================== Sizing PO =====================
 
  app.post("/sizingPo",async(req,res)=>{
@@ -1634,6 +1647,19 @@ app.post("/sizing/create", async(req,res)=>{
     const deleteData = await User.findOneAndUpdate({name,"SizingPoUpdate.poNumber": po},{$pull:{SizingPoUpdate:{poNumber:po}}})
   }
  })
+
+ //================== Process Challan =====================
+ app.post("/processChallan",async(req,res)=>{
+  const name = req.body.name
+  console.log(name)
+  const user = await User.findOne({name})
+  const account = user.createAccount
+  let no = 0
+  if(user.createPurchaseOrder){
+     no = +user.createPurchaseOrder.length + 1
+    }
+  res.render("./process/processChallan.ejs",{name,popup:false,account,no})
+})
 
  //================== server =====================
 

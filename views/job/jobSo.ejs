@@ -1,0 +1,205 @@
+<%- include("../header.ejs") %> 
+<body>
+    <%- include("../sidebar.ejs") %> 
+    <div class="p-2 flex-grow-1 bd-highlight">
+        <div class="container mt-3">
+        <h5 style="color: white;background-color:#613d94;padding: 5px;margin: 0px;" >Job SO</h5>
+            <div class="d-flex bd-highlight" style="background-color: white;">
+                <div class="p-2 flex-fill bd-highlight">
+                    <input type="hidden" id="name" name="name" value="<%=name%>">
+                    <div id="popup">
+                        <p style="text-align: center;margin-top: 10%;">Information Saved Successfully</p>
+                        <button id="btn" class="btn btn-primary" onclick="reload()" style="position: relative;left: 40%;margin-top: 8%;">Close</button>
+                    </div>
+                    <label>Party Name</label>
+                    <select  id="partyName" class="form-select" aria-label="Default select example" name='partyName' >
+                        <option >Select Party Name</option>
+                        <% for(let x = 0; x<account.length; x++){%> 
+                        <option id="<%= account[x].state %>" value="<%= account[x].accountName %>"><%= account[x].accountName %></option>
+                       <% } %> 
+                    </select>
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>Invoice No</label>
+                    <input id="invoiceNo" class="form-control" type="text" name="invoiceNo">
+                </div>
+                <div class="p-2 flex-fill bd-highlight">
+                    <label>Date</label>
+                    <input id="date" class="form-control" type="date" name="date">
+                </div>
+            </div>
+            <div style="margin: 0px;background-color: white;padding: 5px;" >
+                <div class="d-flex flex-row bd-highlight">
+                    <button id="btn1" onclick="hide1()"  style="background-color: #613d94;color: white;border: solid #613d94;">SO Details 1</button>
+                    <button id="btn2" onclick="hide2()" style="background-color: white;border: solid #613d94; margin-left: 5px;">SO Details 2</button>
+                </div> 
+                <div style="width: 100%;height: 10px;background-color: #613d94;"></div>
+            <form method="post" action="/createJobWithYarn&Beam/create1">
+            <div id="basic">
+                <div class="d-flex bd-highlight" style="background-color: white;">
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Case No.</label>
+                        <input id="caseNo" class="form-control" type="text" name="caseNo">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Presoription</label>
+                        <input id="presoription"  class="form-control" type="text"  name="presoription">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>SAC</label>
+                        <input id="sac"  class="form-control" type="text" name="sac">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>P/C</label>
+                        <input id="pc" class="form-control" type="text" name="pc">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <label>P/C Rate</label>
+                        <input id="pcRate" class="form-control" type="text" name="pcRate">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Piece No.</label>
+                        <input id="pieceNo" class="form-control" type="text" name="pieceNo">
+                    </div>
+                </div>
+                <div class="d-flex bd-highlight" style="background-color: white;">
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Discount</label>
+                        <input id="discount" class="form-control" type="text" name="discount">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Wieght</label>
+                        <input id="Wieght"  class="form-control" type="text"  name="Wieght">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Quantity</label>
+                        <input id="quantity"  class="form-control" type="text" name="quantity">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Rate</label>
+                        <input id="rate" class="form-control" type="text" name="rate">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <label>Total Amount</label>
+                        <input id="totalAmount" class="form-control" type="text" name="totalAmount">
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex bd-highlight" style="background-color: white;">
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Cartrage</label>
+                        <input id="cartrage" class="form-control" type="text" name="cartrage">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Monding</label>
+                        <input id="monding"  class="form-control" type="text"  name="monding">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Rolling</label>
+                        <input id="rolling"  class="form-control" type="text" name="rolling">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight" style="width: 230px;">    
+                        <label>Other Charges</label>
+                        <select id="otherCharges" class="form-select" aria-label="Default select example" name="otherCharges">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>  
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight" >
+                        <label>Charge Amount</label>
+                        <input id="chargeAmt" class="form-control" type="text" name="chargeAmt">
+                    </div>
+                </div>
+            </div>
+            <div id="weight">
+                <div class="d-flex bd-highlight" style="background-color: white;">
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Job Challan</label>
+                        <input id="jobChallan" class="form-control" type="text" name="jobChallan">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>GST</label>
+                        <input id="gst"  class="form-control" type="text"  name="gst">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Quantity No</label>
+                        <input id="quantityNo"  class="form-control" type="text" name="quantityNo">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight" style="width: 230px;">    
+                        <label>Set No</label>
+                        <input id="setNo"  class="form-control" type="text" name="setNo">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight" >
+                        <label>RO No.</label>
+                        <input id="roNo" class="form-control" type="text" name="roNo">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight" >
+                        <label>Loom No.</label>
+                        <input id="loomNo" class="form-control" type="text" name="loomNo">
+                    </div>
+                </div>
+                <div class="d-flex bd-highlight" style="background-color: white;">
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Flange No</label>
+                        <input id="flangeNo" class="form-control" type="text" name="flangeNo">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>piece No</label>
+                        <input id="pieceNo"  class="form-control" type="text"  name="pieceNo">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">    
+                        <label>Meter</label>
+                        <input id="meter"  class="form-control" type="text" name="meter">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight" style="width: 230px;">    
+                        <label>Weight</label>
+                        <input id="weight"  class="form-control" type="text" name="weight">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight" >
+                        <label>AVG wt/gm</label>
+                        <input id="avgWtGm" class="form-control" type="text" name="avgWtGm">
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight" >
+                        <label>SAC</label>
+                        <input id="sac" class="form-control" type="text" name="sac">
+                    </div>
+                </div>
+                <label >Remark</label>
+                <textarea class="form-control" id="remark" rows="3"></textarea>
+            </div>
+
+
+
+         </div>
+    </div>
+</body>
+<script>
+const popup = document.getElementById("popup")
+popup.style.display = "none";
+document.getElementById("date").valueAsDate = new Date();
+document.getElementById("weight").style.display = "none"
+    const hide1 =()=>{
+        const btn = document.getElementById("btn1")
+        btn.style.backgroundColor = "#613d94"
+        btn.style.color = "white"
+
+        const btn2 = document.getElementById("btn2")
+        btn2.style.backgroundColor = "white"
+        btn2.style.color = "black"
+        document.getElementById("basic").style.display = "block"
+        document.getElementById("weight").style.display = "none"
+    }
+    const hide2 =()=>{
+        const btn = document.getElementById("btn2")
+        btn.style.backgroundColor = "#613d94"
+        btn.style.color = "white"
+
+        const btn2 = document.getElementById("btn1")
+        btn2.style.backgroundColor = "white"
+        btn2.style.color = "black"
+        document.getElementById("basic").style.display = "none"
+        document.getElementById("weight").style.display = "block"
+    }
+</script>
+<%- include("../footer.ejs") %> 
